@@ -79,4 +79,19 @@ public class ScreenshotUtil {
             return null;
         }
     }
+    
+    /**
+     * Capture screenshot as byte array for Allure
+     * @param driver WebDriver instance
+     * @return byte array of screenshot
+     */
+    public static byte[] captureScreenshotAsBytes(WebDriver driver) {
+        try {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            return ts.getScreenshotAs(OutputType.BYTES);
+        } catch (Exception e) {
+            System.err.println("Failed to capture screenshot as bytes: " + e.getMessage());
+            return null;
+        }
+    }
 }
