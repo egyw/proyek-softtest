@@ -1,0 +1,52 @@
+# Compiled class files
+*.class
+target/
+*.jar
+*.war
+*.ear
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+# Maven
+log/
+target/
+
+# Test outputs
+test-output/
+screenshots/
+reports/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ChromeDriver logs
+chromedriver.log
+
+# Extent Reports
+ExtentReports/
+test-output/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Java
+hs_err_pid*
+replay_pid*
