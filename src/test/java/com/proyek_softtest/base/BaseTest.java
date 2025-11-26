@@ -18,9 +18,9 @@ public class BaseTest {
     
     @BeforeAll
     public static void globalSetup() {
-        System.out.println("╔════════════════════════════════════════════════════╗");
-        System.out.println("║   OpenProject Automation Test Suite - Starting    ║");
-        System.out.println("╚════════════════════════════════════════════════════╝\n");
+        System.out.println("╔═════════════════════════════════════════════╗");
+        System.out.println("║   OpenProject Automation Test - Starting    ║");
+        System.out.println("╚═════════════════════════════════════════════╝\n");
         
         // Initialize Report
         ReportManager.initReport();

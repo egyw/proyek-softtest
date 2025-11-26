@@ -18,10 +18,10 @@ public class HomePageTest extends BaseTest {
     
     @BeforeAll
     public static void setUpHomePage() {
-        // Panggil parent setup
-        globalSetup();
+        // BaseTest.globalSetup() sudah otomatis dipanggil karena inheritance
+        // Jadi TIDAK perlu panggil lagi
         
-        // Initialize HomePage object - HANYA SEKALI
+        // Initialize HomePage object - HANYA SEKALI setelah driver ready
         homePage = new HomePage(driver);
         System.out.println("✅ HomePage initialized\n");
     }
@@ -61,10 +61,7 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 3: Navigasi menu Work Packages di side menu overlay")
     public void test03_NavigateToWorkPackages() {
         logInfo("Testing navigation to Work Packages menu");
-        
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
+                
         homePage.clickWorkPackagesInSideMenuOverlay();
         logPass("Successfully navigated to Work Packages menu");
         
@@ -76,9 +73,6 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 4: Navigasi menu Gantt Charts di side menu overlay")
     public void test04_NavigateToGanttCharts() {
         logInfo("Testing navigation to Gantt Charts menu");
-        
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
         
         homePage.clickGanntChartsInSideMenuOverlay();
         logPass("Successfully navigated to Gantt Charts menu");
@@ -92,9 +86,6 @@ public class HomePageTest extends BaseTest {
     public void test05_NavigateToTeamPlanners() {
         logInfo("Testing navigation to Team Planners menu");
         
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
         homePage.clickTeamPlannersInSideMenuOverlay();
         logPass("Successfully navigated to Team Planners menu");
         
@@ -107,9 +98,6 @@ public class HomePageTest extends BaseTest {
     public void test06_NavigateToBoards() {
         logInfo("Testing navigation to Boards menu");
         
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
         homePage.clickBoardsInSideMenuOverlay();
         logPass("Successfully navigated to Boards menu");
         
@@ -121,10 +109,7 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 7: Navigasi menu Meetings di side menu overlay")
     public void test07_NavigateToMeetings() {
         logInfo("Testing navigation to Meetings menu");
-        
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
+
         homePage.clickMeetingsInSideMenuOverlay();
         logPass("Successfully navigated to Meetings menu");
         
@@ -136,10 +121,7 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 8: Navigasi menu News di side menu overlay")
     public void test08_NavigateToNews() {
         logInfo("Testing navigation to News menu");
-        
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
+
         homePage.clickNewsInSideMenuOverlay();
         logPass("Successfully navigated to News menu");
         
@@ -151,12 +133,12 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 9: Navigasi menu Time and Costs di side menu overlay")
     public void test09_NavigateToTimeAndCosts() {
         logInfo("Testing navigation to Time and Costs menu");
-        
-        homePage.openSideMenuOverlay();
-        logInfo("Side menu overlay opened");
-        
+
         homePage.clickTimeAndCostsInSideMenuOverlay();
         logPass("Successfully navigated to Time and Costs menu");
+        
+        homePage.closeSideMenuOverlay();
+        logInfo("Side menu overlay closed");
         
         assertTrue(true, "Test navigasi Time and Costs berhasil");
     }
