@@ -6,18 +6,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.proyek_softtest.utils.Delay;
 
-/**
- * Page Object Model untuk Home Page OpenProject
- * Website: https://safe.openproject.com/
- */
 public class HomePage {
     private WebDriver driver;
-    @SuppressWarnings("unused")
+    // @SuppressWarnings("unused")
     private WebDriverWait wait;
     
-    // ===========================================
-    // ======= ELEMENT" DI SIDEBAR OVERLAY =======
-    // ===========================================
+    
+    // ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+    // ║    ELEMENT - ELEMENT                                                                                                                         ║
+    // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    // ╔═══════════════════════════════════╗
+    // ║    ELEMENT" DI SIDEBAR OVERLAY    ║
+    // ╚═══════════════════════════════════╝
     private By openSideMenuOverlayButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--medium.op-app-header--primer-button");
     private By closeSideMenuOverlayButton = By.cssSelector(".close-button.Overlay-closeButton");
     private By homeButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/']");
@@ -30,11 +30,15 @@ public class HomePage {
     private By newsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/news']");
     private By timeAndCostsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/cost_reports']");
 
-    // ===================================
-    // ======= ELEMENT" DI SIDEBAR =======
-    // ===================================
+    // ╔═══════════════════════════╗
+    // ║    ELEMENT" DI SIDEBAR    ║
+    // ╚═══════════════════════════╝
     private By collapseSidebarButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--medium");
     private By uncollapseSidebarButton = By.cssSelector("Button.Button--iconOnly.Button--invisible.Button--small");
+    
+    // ╔═══════════════════════════════════════════╗
+    // ║    ELEMENT DI "Welcome to OpenProject"    ║
+    // ╚═══════════════════════════════════════════╝
 
     // Constructor
     public HomePage(WebDriver driver) {
@@ -42,9 +46,16 @@ public class HomePage {
         this.wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
     }                             
 
-    // ========================================
-    // ======= FUNCTION SIDEBAR OVERLAY =======
-    // ========================================
+    // ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+    // ║    FUNCTION - FUNCTION                                                                                                                       ║
+    // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    // ╔════════════════════════════════╗
+    // ║    FUNCTION SIDEBAR OVERLAY    ║
+    // ╚════════════════════════════════╝
+    public boolean isSideMenuOverlayOpen(){
+        return driver.findElement(closeSideMenuOverlayButton).isDisplayed();
+    }
+    
     public void openSideMenuOverlay() {
         driver.findElement(openSideMenuOverlayButton).click();
         Delay.waitFor(1500);
@@ -116,9 +127,9 @@ public class HomePage {
         Delay.waitFor(1500);
     }
 
-    // ================================
-    // ======= FUNCTION SIDEBAR =======
-    // ================================
+    // ╔════════════════════════╗
+    // ║    FUNCTION SIDEBAR    ║
+    // ╚════════════════════════╝
     public void collapseSidebar(){
         driver.findElement(collapseSidebarButton).click();
         Delay.waitFor(1500);
