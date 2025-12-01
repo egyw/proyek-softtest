@@ -1,52 +1,107 @@
+# ╔══════════════════════════════════════════╗
+# ║               JAVA & MAVEN               ║
+# ╚══════════════════════════════════════════╝
 # Compiled class files
 *.class
+
+# Maven target directory
 target/
+
+# Package Files
 *.jar
 *.war
 *.ear
 
-# Eclipse
-.classpath
-.project
-.settings/
+# Maven wrapper (optional - uncomment if not using wrapper)
+# .mvn/
+# mvnw
+# mvnw.cmd
 
-# IntelliJ IDEA
+# Java error logs
+hs_err_pid*
+replay_pid*
+
+# ╔══════════════════════════════════════════╗
+# ║           IDE - INTELLIJ IDEA            ║
+# ╚══════════════════════════════════════════╝
 .idea/
 *.iml
 *.iws
 *.ipr
 out/
 
-# VS Code
+# ╔══════════════════════════════════════════╗
+# ║              IDE - ECLIPSE               ║
+# ╚══════════════════════════════════════════╝
+.classpath
+.project
+.settings/
+
+# ╔══════════════════════════════════════════╗
+# ║              IDE - VS CODE               ║
+# ╚══════════════════════════════════════════╝
 .vscode/
 
-# Maven
-log/
-target/
-
-# Test outputs
-test-output/
-screenshots/
-reports/
-*.log
-
-# OS files
-.DS_Store
-Thumbs.db
-
+# ╔══════════════════════════════════════════╗
+# ║           SELENIUM & WEBDRIVER           ║
+# ╚══════════════════════════════════════════╝
 # ChromeDriver logs
 chromedriver.log
+geckodriver.log
+*.log
 
-# Extent Reports
-ExtentReports/
+# Screenshots from tests
+screenshots/
+
+# ╔══════════════════════════════════════════╗
+# ║             ALLURE REPORTS               ║
+# ╚══════════════════════════════════════════╝
+# Allure binary installation
+.allure/
+
+# Allure results (generated during test)
+allure-results/
+target/allure-results/
+
+# Allure reports (HTML output)
+target/site/allure-maven-plugin/
+
+# ╔══════════════════════════════════════════╗
+# ║         TEST REPORTS & OUTPUTS           ║
+# ╚══════════════════════════════════════════╝
+# TestNG/JUnit outputs
 test-output/
+reports/
 
-# Temporary files
+# Extent Reports (if using)
+ExtentReports/
+
+# Surefire reports
+target/surefire-reports/
+
+# ╔══════════════════════════════════════════╗
+# ║               OS SPECIFIC                ║
+# ╚══════════════════════════════════════════╝
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ╔══════════════════════════════════════════╗
+# ║            TEMPORARY FILES               ║
+# ╚══════════════════════════════════════════╝
 *.tmp
 *.bak
 *.swp
-*~
-
-# Java
-hs_err_pid*
-replay_pid*
+*.orig
+*~.nib
+*.log.*

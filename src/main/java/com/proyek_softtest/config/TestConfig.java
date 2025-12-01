@@ -4,83 +4,79 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Configuration manager untuk membaca properties file
- */
 public class TestConfig {
-    private static Properties properties;
+    private static volatile TestConfig instance;
+    private final Properties properties;
     private static final String CONFIG_FILE = "test-config.properties";
     
-    static {
+    private TestConfig() {
+        properties = new Properties();
         loadProperties();
     }
     
-    private static void loadProperties() {
-        properties = new Properties();
-        try (InputStream input = TestConfig.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+    private static TestConfig getInstance() {
+        if (instance == null) {
+            synchronized (TestConfig.class) {
+                if (instance == null) {
+                    instance = new TestConfig();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private void loadProperties() {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE)) {
             if (input == null) {
-                System.err.println("Unable to find " + CONFIG_FILE);
-                return;
+                throw new RuntimeException("Configuration file '" + CONFIG_FILE + "' not found in classpath");
             }
             properties.load(input);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load configuration file: " + CONFIG_FILE, e);
         }
     }
     
-    public static String getBaseUrl() {
-        return properties.getProperty("base.url", "https://safe.openproject.com/");
+    private static String getProperty(String key, String defaultValue) {
+        return getInstance().properties.getProperty(key, defaultValue);
     }
     
+    // ╔══════════════════════════════════════════╗
+    // ║         BASE CONFIGURATION               ║
+    // ╚══════════════════════════════════════════╝
+
+    public static String getBaseUrl() {
+        return getProperty("base.url", "https://safe.openproject.com/");
+    }
+    
+    // ╔══════════════════════════════════════════╗
+    // ║      BROWSER CONFIGURATION               ║
+    // ╚══════════════════════════════════════════╝
+
     public static String getBrowser() {
-        return properties.getProperty("browser", "chrome");
+        return getProperty("browser", "chrome");
     }
     
     public static boolean isHeadless() {
-        return Boolean.parseBoolean(properties.getProperty("headless", "false"));
+        return Boolean.parseBoolean(getProperty("headless", "false"));
     }
     
     public static boolean isMaximize() {
-        return Boolean.parseBoolean(properties.getProperty("maximize", "true"));
+        return Boolean.parseBoolean(getProperty("maximize", "true"));
     }
     
+    // ╔══════════════════════════════════════════╗
+    // ║       TIMEOUT CONFIGURATION              ║
+    // ╚══════════════════════════════════════════╝
+
     public static int getImplicitWait() {
-        return Integer.parseInt(properties.getProperty("implicit.wait", "10"));
+        return Integer.parseInt(getProperty("implicit.wait", "10"));
     }
-    
+
     public static int getExplicitWait() {
-        return Integer.parseInt(properties.getProperty("explicit.wait", "15"));
+        return Integer.parseInt(getProperty("explicit.wait", "15"));
     }
-    
+
     public static int getPageLoadTimeout() {
-        return Integer.parseInt(properties.getProperty("page.load.timeout", "30"));
-    }
-    
-    public static boolean isScreenshotOnFailure() {
-        return Boolean.parseBoolean(properties.getProperty("screenshot.on.failure", "true"));
-    }
-    
-    public static String getScreenshotFolder() {
-        return properties.getProperty("screenshot.folder", "test-output/screenshots");
-    }
-    
-    public static String getReportFolder() {
-        return properties.getProperty("report.folder", "test-output/reports");
-    }
-    
-    public static String getReportName() {
-        return properties.getProperty("report.name", "Test Execution Report");
-    }
-    
-    public static int getShortDelay() {
-        return Integer.parseInt(properties.getProperty("short.delay", "1000"));
-    }
-    
-    public static int getMediumDelay() {
-        return Integer.parseInt(properties.getProperty("medium.delay", "2000"));
-    }
-    
-    public static int getLongDelay() {
-        return Integer.parseInt(properties.getProperty("long.delay", "3000"));
+        return Integer.parseInt(getProperty("page.load.timeout", "30"));
     }
 }

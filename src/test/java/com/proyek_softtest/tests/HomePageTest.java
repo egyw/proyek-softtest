@@ -1,15 +1,12 @@
 package com.proyek_softtest.tests;
 
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.qameta.allure.*;
 import com.proyek_softtest.base.BaseTest;
 import com.proyek_softtest.pages.HomePage;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.Duration;
 
 @Epic("OpenProject Web Testing")
 @Feature("Homepage Navigation")
@@ -21,7 +18,6 @@ public class HomePageTest extends BaseTest {
     @BeforeAll
     public static void setUpHomePage() {
         homePage = new HomePage(driver);
-        System.out.println("HomePage initialized\n");
     }
     
     @Test
@@ -31,15 +27,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Side Menu Overlay Functionality")
     public void test01_OpenCloseSideMenuOverlay() {
-        logInfo("Opening side menu overlay");
         homePage.openSideMenuOverlay();
         assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-        logPass("Side menu overlay opened successfully");
         
-        logInfo("Closing side menu overlay");
         homePage.closeSideMenuOverlay();
         assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
-        logPass("Side menu overlay closed successfully");
     }
     
     @Test
@@ -49,16 +41,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Side Menu Overlay Preparation")
     public void test02_NavigateToHome() {
-        logInfo("Opening side menu overlay for navigation");
         homePage.openSideMenuOverlay();
         assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-        logPass("Side menu overlay opened successfully");
 
-        logInfo("Testing navigation to Home menu");
         homePage.clickHomeInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith("/"), "Should navigate to Home page");
-        logPass("Successfully navigated to Home menu");
+        assertTrue(homePage.getCurrentUrl().endsWith("/"), "Should navigate to Home page");
     }
 
     @Test
@@ -68,16 +55,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Menu Navigation")
     public void test03_NavigateToProjects() {
-        logInfo("Opening side menu overlay for navigation");
         homePage.openSideMenuOverlay();
         assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-        logPass("Side menu overlay opened successfully");
 
-        logInfo("Testing navigation to Projects menu");
         homePage.clickProjectsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/projects"), "Should navigate to Projects page");
-        logPass("Successfully navigated to Projects menu");
+        assertTrue(homePage.getCurrentUrl().contains("/projects"), "Should navigate to Projects page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -87,11 +75,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Menu Navigation")
     public void test04_NavigateToWorkPackages() {
-        logInfo("Testing navigation to Work Packages menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
         homePage.clickWorkPackagesInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/work_packages"), "Should navigate to Work Packages page");
-        logPass("Successfully navigated to Work Packages menu");
+        assertTrue(homePage.getCurrentUrl().contains("/work_packages"), "Should navigate to Work Packages page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -101,11 +95,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test05_NavigateToGanttCharts() {
-        logInfo("Testing navigation to Gantt Charts menu");    
-        homePage.clickGanntChartsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/gantt"), "Should navigate to Gantt Charts page");
-        logPass("Successfully navigated to Gantt Charts menu"); 
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
+        homePage.clickGanttChartsInSideMenuOverlay();
+        assertTrue(homePage.getCurrentUrl().contains("/gantt"), "Should navigate to Gantt Charts page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -115,11 +115,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test06_NavigateToTeamPlanners() {
-        logInfo("Testing navigation to Team Planners menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
         homePage.clickTeamPlannersInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/team_planners"), "Should navigate to Team Planners page");
-        logPass("Successfully navigated to Team Planners menu");        
+        assertTrue(homePage.getCurrentUrl().contains("/team_planners"), "Should navigate to Team Planners page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -129,11 +135,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test07_NavigateToBoards() {
-        logInfo("Testing navigation to Boards menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
         homePage.clickBoardsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/boards"), "Should navigate to Boards page");
-        logPass("Successfully navigated to Boards menu");
+        assertTrue(homePage.getCurrentUrl().contains("/boards"), "Should navigate to Boards page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -143,11 +155,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test08_NavigateToMeetings() {
-        logInfo("Testing navigation to Meetings menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
         homePage.clickMeetingsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/meetings"), "Should navigate to Meetings page");
-        logPass("Successfully navigated to Meetings menu");
+        assertTrue(homePage.getCurrentUrl().contains("/meetings"), "Should navigate to Meetings page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -157,11 +175,17 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Story("Menu Navigation")
     public void test09_NavigateToNews() {
-        logInfo("Testing navigation to News menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+
         homePage.clickNewsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/news"), "Should navigate to News page");
-        logPass("Successfully navigated to News menu");
+        assertTrue(homePage.getCurrentUrl().contains("/news"), "Should navigate to News page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
     @Test
@@ -171,15 +195,16 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test10_NavigateToTimeAndCosts() {
-        logInfo("Testing navigation to Time and Costs menu");
-        homePage.clickTimeAndCostsInSideMenuOverlay();
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/cost_reports"), "Should navigate to Time and Costs page");
-        logPass("Successfully navigated to Time and Costs menu");
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
         
-        logInfo("Closing sidemenu overlay after navigation tests");
+        homePage.clickTimeAndCostsInSideMenuOverlay();
+        assertTrue(homePage.getCurrentUrl().contains("/cost_reports"), "Should navigate to Time and Costs page");
+
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
+        
         homePage.closeSideMenuOverlay();
         assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
-        logPass("Side menu overlay closed successfully after navigation tests");
     }
 }

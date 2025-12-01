@@ -2,141 +2,127 @@ package com.proyek_softtest.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.proyek_softtest.utils.Delay;
+import com.proyek_softtest.base.BasePage;
 
-public class HomePage {
-    private WebDriver driver;
-    // @SuppressWarnings("unused")
-    private WebDriverWait wait;
+public class HomePage extends BasePage {
     
-    
-    // ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-    // ║    ELEMENT - ELEMENT                                                                                                                         ║
-    // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-    // ╔═══════════════════════════════════╗
-    // ║    ELEMENT" DI SIDEBAR OVERLAY    ║
-    // ╚═══════════════════════════════════╝
+    // Side Menu Overlay Elements
     private By openSideMenuOverlayButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--medium.op-app-header--primer-button");
     private By closeSideMenuOverlayButton = By.cssSelector(".close-button.Overlay-closeButton");
     private By homeButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/']");
     private By projectsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/projects']");
     private By workPackagesButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/work_packages']");
-    private By ganntChartsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/gantt']");
+    private By ganttChartsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/gantt']");
     private By teamPlannersButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/team_planners']");
     private By boardsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/boards']");
     private By meetingsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/meetings']");
     private By newsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/news']");
     private By timeAndCostsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/cost_reports']");
-
-    // ╔═══════════════════════════╗
-    // ║    ELEMENT" DI SIDEBAR    ║
-    // ╚═══════════════════════════╝
+    
+    // Sidebar Elements
     private By collapseSidebarButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--medium");
-    private By uncollapseSidebarButton = By.cssSelector("Button.Button--iconOnly.Button--invisible.Button--small");
-    
-    // ╔═══════════════════════════════════════════╗
-    // ║    ELEMENT DI "Welcome to OpenProject"    ║
-    // ╚═══════════════════════════════════════════╝
+    private By uncollapseSidebarButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--small");
 
-    // Constructor
     public HomePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
-    }                             
+        super(driver);
+    }
 
-    // ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-    // ║    FUNCTION - FUNCTION                                                                                                                       ║
-    // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-    // ╔════════════════════════════════╗
-    // ║    FUNCTION SIDEBAR OVERLAY    ║
-    // ╚════════════════════════════════╝
     public boolean isSideMenuOverlayOpen(){
-        return driver.findElement(closeSideMenuOverlayButton).isDisplayed();
+        try {
+            return driver.findElement(closeSideMenuOverlayButton).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
     
-    public void openSideMenuOverlay() {
-        driver.findElement(openSideMenuOverlayButton).click();
-        Delay.waitFor(1500);
+    public HomePage openSideMenuOverlay() {
+        wait.until(ExpectedConditions.elementToBeClickable(openSideMenuOverlayButton)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(closeSideMenuOverlayButton));
+        return this;
     }
 
-    public void closeSideMenuOverlay(){
+    public HomePage closeSideMenuOverlay(){
         driver.findElement(closeSideMenuOverlayButton).click();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        return this;
     }
 
-    public void clickHomeInSideMenuOverlay(){
+    public HomePage clickHomeInSideMenuOverlay(){
         driver.findElement(homeButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        return this;
     }
 
-    public void clickProjectsInSideMenuOverlay(){
+    public HomePage clickProjectsInSideMenuOverlay(){
         driver.findElement(projectsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/projects"));
+        return this;
     }
 
-    public void clickWorkPackagesInSideMenuOverlay(){
+    public HomePage clickWorkPackagesInSideMenuOverlay(){
         driver.findElement(workPackagesButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/work_packages"));
+        return this;
     }
 
-    public void clickGanntChartsInSideMenuOverlay(){
-        driver.findElement(ganntChartsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+    public HomePage clickGanttChartsInSideMenuOverlay(){
+        driver.findElement(ganttChartsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/gantt"));
+        return this;
     }
 
-    public void clickTeamPlannersInSideMenuOverlay(){
+    public HomePage clickTeamPlannersInSideMenuOverlay(){
         driver.findElement(teamPlannersButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/team_planners"));
+        return this;
     }
 
-    public void clickBoardsInSideMenuOverlay(){
+    public HomePage clickBoardsInSideMenuOverlay(){
         driver.findElement(boardsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/boards"));
+        return this;
     }
 
-    public void clickMeetingsInSideMenuOverlay(){
+    public HomePage clickMeetingsInSideMenuOverlay(){
         driver.findElement(meetingsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/meetings"));
+        return this;
     }
 
-    public void clickNewsInSideMenuOverlay(){
+    public HomePage clickNewsInSideMenuOverlay(){
         driver.findElement(newsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/news"));
+        return this;
     }
 
-    public void clickTimeAndCostsInSideMenuOverlay(){
+    public HomePage clickTimeAndCostsInSideMenuOverlay(){
         driver.findElement(timeAndCostsButtonInSideMenuOverlay).click();
-        Delay.waitFor(1500);
-        driver.navigate().back();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
+        wait.until(ExpectedConditions.urlContains("/cost_reports"));
+        return this;
     }
 
     // ╔════════════════════════╗
     // ║    FUNCTION SIDEBAR    ║
     // ╚════════════════════════╝
-    public void collapseSidebar(){
+    public HomePage collapseSidebar(){
         driver.findElement(collapseSidebarButton).click();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.elementToBeClickable(uncollapseSidebarButton));
+        return this;
     }
 
-    public void uncollapseSidebar(){
+    public HomePage uncollapseSidebar(){
         driver.findElement(uncollapseSidebarButton).click();
-        Delay.waitFor(1500);
+        wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton));
+        return this;
     }
 }
