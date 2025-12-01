@@ -20,6 +20,29 @@ public class HomePageTest extends BaseTest {
         homePage = new HomePage(driver);
     }
     
+    // ╔════════════════════════════════════════════════════════════╗
+    // ║                    HELPER METHODS                          ║
+    // ╚════════════════════════════════════════════════════════════╝
+    private void verifyMenuNavigation(Runnable clickAction, String expectedUrl, String menuName) {
+        homePage.openSideMenuOverlay();
+        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+        
+        clickAction.run();
+        assertTrue(homePage.getCurrentUrl().contains(expectedUrl), 
+            "Should navigate to " + menuName + " page");
+        
+        homePage.navigateBack();
+        assertTrue(homePage.isSideMenuOverlayOpen(), 
+            "Side menu overlay should be open after navigating back");
+        
+        homePage.closeSideMenuOverlay();
+        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+    }
+    
+    // ╔════════════════════════════════════════════════════════════╗
+    // ║                      TEST CASES                            ║
+    // ╚════════════════════════════════════════════════════════════╝
+    
     @Test
     @Order(1)
     @DisplayName("Test 1: Buka dan tutup side menu overlay")
@@ -55,17 +78,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Menu Navigation")
     public void test03_NavigateToProjects() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickProjectsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/projects"), "Should navigate to Projects page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickProjectsInSideMenuOverlay(),
+            "/projects",
+            "Projects"
+        );
     }
     
     @Test
@@ -75,17 +92,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Menu Navigation")
     public void test04_NavigateToWorkPackages() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickWorkPackagesInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/work_packages"), "Should navigate to Work Packages page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickWorkPackagesInSideMenuOverlay(),
+            "/work_packages",
+            "Work Packages"
+        );
     }
     
     @Test
@@ -95,17 +106,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test05_NavigateToGanttCharts() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickGanttChartsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/gantt"), "Should navigate to Gantt Charts page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickGanttChartsInSideMenuOverlay(),
+            "/gantt",
+            "Gantt Charts"
+        );
     }
     
     @Test
@@ -115,17 +120,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test06_NavigateToTeamPlanners() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickTeamPlannersInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/team_planners"), "Should navigate to Team Planners page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickTeamPlannersInSideMenuOverlay(),
+            "/team_planners",
+            "Team Planners"
+        );
     }
     
     @Test
@@ -135,17 +134,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test07_NavigateToBoards() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickBoardsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/boards"), "Should navigate to Boards page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickBoardsInSideMenuOverlay(),
+            "/boards",
+            "Boards"
+        );
     }
     
     @Test
@@ -155,17 +148,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test08_NavigateToMeetings() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickMeetingsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/meetings"), "Should navigate to Meetings page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickMeetingsInSideMenuOverlay(),
+            "/meetings",
+            "Meetings"
+        );
     }
     
     @Test
@@ -175,17 +162,11 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Story("Menu Navigation")
     public void test09_NavigateToNews() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
-        homePage.clickNewsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/news"), "Should navigate to News page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickNewsInSideMenuOverlay(),
+            "/news",
+            "News"
+        );
     }
     
     @Test
@@ -195,16 +176,10 @@ public class HomePageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Menu Navigation")
     public void test10_NavigateToTimeAndCosts() {
-        homePage.openSideMenuOverlay();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-        
-        homePage.clickTimeAndCostsInSideMenuOverlay();
-        assertTrue(homePage.getCurrentUrl().contains("/cost_reports"), "Should navigate to Time and Costs page");
-
-        homePage.navigateBack();
-        assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
-        
-        homePage.closeSideMenuOverlay();
-        assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
+        verifyMenuNavigation(
+            () -> homePage.clickTimeAndCostsInSideMenuOverlay(),
+            "/cost_reports",
+            "Time and Costs"
+        );
     }
 }
