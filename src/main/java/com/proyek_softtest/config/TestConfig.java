@@ -64,6 +64,10 @@ public class TestConfig {
         return Boolean.parseBoolean(getProperty("maximize", "true"));
     }
     
+    public static boolean useSecondaryMonitor() {
+        return Boolean.parseBoolean(getProperty("use.secondary.monitor", "false"));
+    }
+    
     // ╔══════════════════════════════════════════╗
     // ║       TIMEOUT CONFIGURATION              ║
     // ╚══════════════════════════════════════════╝

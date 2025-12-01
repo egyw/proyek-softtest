@@ -5,10 +5,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import com.proyek_softtest.config.TestConfig;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.time.Duration;
 
 /**
@@ -65,10 +70,6 @@ public class DriverManager {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         
-        if (TestConfig.isMaximize()) {
-            options.addArguments("--start-maximized");
-        }
-        
         return new ChromeDriver(options);
     }
     
@@ -94,8 +95,41 @@ public class DriverManager {
     }
     
     private static void configureWindow(WebDriver webDriver, String browser) {
-        if (!TestConfig.isHeadless() && TestConfig.isMaximize() && !browser.equals("chrome")) {
+        if (!TestConfig.isHeadless()) {
+            if (TestConfig.useSecondaryMonitor()) {
+                moveToSecondaryMonitor(webDriver);
+            } else if (TestConfig.isMaximize()) {
+                webDriver.manage().window().maximize();
+            }
+        }
+    }
+    
+    private static void moveToSecondaryMonitor(WebDriver webDriver) {
+        try {
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice[] screens = ge.getScreenDevices();
+            
+            System.out.println("=== MONITOR DETECTION ===");
+            System.out.println("Total monitors detected: " + screens.length);
+            
+            if (screens.length > 1) {
+                // Get second monitor bounds
+                Rectangle bounds = screens[1].getDefaultConfiguration().getBounds();
+                System.out.println("Secondary monitor bounds: " + bounds);
+                webDriver.manage().window().setPosition(new Point(bounds.x, bounds.y));
+                webDriver.manage().window().setSize(new Dimension(bounds.width, bounds.height));
+                System.out.println("Browser moved to SECONDARY monitor");
+                System.out.println("To disable: Set 'use.secondary.monitor=false' in test-config.properties");
+            } else {
+                // Fallback: Only one monitor detected, maximize on primary
+                webDriver.manage().window().maximize();
+                System.out.println("Only ONE monitor detected, using PRIMARY monitor");
+            }
+            System.out.println("=========================");
+        } catch (Exception e) {
+            // Fallback on error
             webDriver.manage().window().maximize();
+            System.err.println("Failed to move to secondary monitor: " + e.getMessage());
         }
     }
     

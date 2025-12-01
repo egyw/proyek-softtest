@@ -44,68 +44,68 @@ public class HomePage extends BasePage {
     }
 
     public HomePage closeSideMenuOverlay(){
-        driver.findElement(closeSideMenuOverlayButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(closeSideMenuOverlayButton)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         return this;
     }
 
     public HomePage clickHomeInSideMenuOverlay(){
-        driver.findElement(homeButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(homeButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         return this;
     }
 
     public HomePage clickProjectsInSideMenuOverlay(){
-        driver.findElement(projectsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(projectsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/projects"));
         return this;
     }
 
     public HomePage clickWorkPackagesInSideMenuOverlay(){
-        driver.findElement(workPackagesButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(workPackagesButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/work_packages"));
         return this;
     }
 
     public HomePage clickGanttChartsInSideMenuOverlay(){
-        driver.findElement(ganttChartsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(ganttChartsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/gantt"));
         return this;
     }
 
     public HomePage clickTeamPlannersInSideMenuOverlay(){
-        driver.findElement(teamPlannersButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(teamPlannersButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/team_planners"));
         return this;
     }
 
     public HomePage clickBoardsInSideMenuOverlay(){
-        driver.findElement(boardsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(boardsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/boards"));
         return this;
     }
 
     public HomePage clickMeetingsInSideMenuOverlay(){
-        driver.findElement(meetingsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/meetings"));
         return this;
     }
 
     public HomePage clickNewsInSideMenuOverlay(){
-        driver.findElement(newsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(newsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/news"));
         return this;
     }
 
     public HomePage clickTimeAndCostsInSideMenuOverlay(){
-        driver.findElement(timeAndCostsButtonInSideMenuOverlay).click();
+        wait.until(ExpectedConditions.elementToBeClickable(timeAndCostsButtonInSideMenuOverlay)).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(closeSideMenuOverlayButton));
         wait.until(ExpectedConditions.urlContains("/cost_reports"));
         return this;
@@ -115,13 +115,13 @@ public class HomePage extends BasePage {
     // ║    FUNCTION SIDEBAR    ║
     // ╚════════════════════════╝
     public HomePage collapseSidebar(){
-        driver.findElement(collapseSidebarButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton)).click();
         wait.until(ExpectedConditions.elementToBeClickable(uncollapseSidebarButton));
         return this;
     }
 
     public HomePage uncollapseSidebar(){
-        driver.findElement(uncollapseSidebarButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(uncollapseSidebarButton)).click();
         wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton));
         return this;
     }
