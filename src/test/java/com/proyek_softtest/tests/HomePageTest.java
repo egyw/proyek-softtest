@@ -23,7 +23,7 @@ public class HomePageTest extends BaseTest {
     // ╔════════════════════════════════════════════════════════════╗
     // ║                    HELPER METHODS                          ║
     // ╚════════════════════════════════════════════════════════════╝
-    private void verifyMenuNavigation(Runnable clickAction, String expectedUrl, String menuName) {
+    private void verifySidebarOverlayMenuNavigation(Runnable clickAction, String expectedUrl, String menuName) {
         homePage.openSideMenuOverlay();
         assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
         
@@ -39,6 +39,22 @@ public class HomePageTest extends BaseTest {
         assertFalse(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
     }
     
+    private void verifyProjectsSelectionNavigation(Runnable clickAction, String expectedUrl, String projectName) {
+        homePage.openProjectsSelection();
+        assertTrue(homePage.isProjectsSelectionOpen(), "Projects selection should be open");
+
+        clickAction.run();
+        assertTrue(homePage.getCurrentUrl().contains(expectedUrl), 
+            "Should navigate to " + projectName + " project page");
+        
+        homePage.navigateBack();
+        assertTrue(homePage.isProjectsSelectionOpen(), 
+            "Projects selection should be open after navigating back");
+        
+        homePage.closeProjectsSelection();
+        assertFalse(homePage.isProjectsSelectionOpen(), "Projects selection should be closed");
+    }
+
     // ╔════════════════════════════════════════════════════════════╗
     // ║                      TEST CASES                            ║
     // ╚════════════════════════════════════════════════════════════╝
@@ -62,7 +78,7 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 2: Navigasi menu Home di side menu overlay")
     @Description("Verify navigation to Home page through side menu")
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Side Menu Overlay Preparation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test02_NavigateToHome() {
         homePage.openSideMenuOverlay();
         assertTrue(homePage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
@@ -76,9 +92,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 3: Navigasi menu Projects di side menu overlay")
     @Description("Verify navigation to Projects page through side menu")
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test03_NavigateToProjects() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickProjectsInSideMenuOverlay(),
             "/projects",
             "Projects"
@@ -90,9 +106,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 4: Navigasi menu Work Packages di side menu overlay")
     @Description("Verify navigation to Work Packages page through side menu")
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test04_NavigateToWorkPackages() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickWorkPackagesInSideMenuOverlay(),
             "/work_packages",
             "Work Packages"
@@ -104,9 +120,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 5: Navigasi menu Gantt Charts di side menu overlay")
     @Description("Verify navigation to Gantt Charts page through side menu")
     @Severity(SeverityLevel.NORMAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test05_NavigateToGanttCharts() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickGanttChartsInSideMenuOverlay(),
             "/gantt",
             "Gantt Charts"
@@ -118,9 +134,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 6: Navigasi menu Team Planners di side menu overlay")
     @Description("Verify navigation to Team Planners page through side menu")
     @Severity(SeverityLevel.NORMAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test06_NavigateToTeamPlanners() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickTeamPlannersInSideMenuOverlay(),
             "/team_planners",
             "Team Planners"
@@ -132,9 +148,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 7: Navigasi menu Boards di side menu overlay")
     @Description("Verify navigation to Boards page through side menu")
     @Severity(SeverityLevel.NORMAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test07_NavigateToBoards() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickBoardsInSideMenuOverlay(),
             "/boards",
             "Boards"
@@ -146,9 +162,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 8: Navigasi menu Meetings di side menu overlay")
     @Description("Verify navigation to Meetings page through side menu")
     @Severity(SeverityLevel.NORMAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test08_NavigateToMeetings() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickMeetingsInSideMenuOverlay(),
             "/meetings",
             "Meetings"
@@ -160,9 +176,9 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 9: Navigasi menu News di side menu overlay")
     @Description("Verify navigation to News page through side menu")
     @Severity(SeverityLevel.MINOR)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test09_NavigateToNews() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickNewsInSideMenuOverlay(),
             "/news",
             "News"
@@ -174,12 +190,54 @@ public class HomePageTest extends BaseTest {
     @DisplayName("Test 10: Navigasi menu Time and Costs di side menu overlay")
     @Description("Verify navigation to Time and Costs page through side menu")
     @Severity(SeverityLevel.NORMAL)
-    @Story("Menu Navigation")
+    @Story("Sidebar Menu Overlay Navigation")
     public void test10_NavigateToTimeAndCosts() {
-        verifyMenuNavigation(
+        verifySidebarOverlayMenuNavigation(
             () -> homePage.clickTimeAndCostsInSideMenuOverlay(),
             "/cost_reports",
             "Time and Costs"
+        );
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("Test 11: Collapse dan uncollapse sidebar")
+    @Description("Verify that sidebar can be collapsed and uncollapsed")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Sidebar Functionality")
+    public void test11_CollapseUncollapseSidebar() {
+        homePage.collapseSidebar();
+        assertTrue(homePage.isSidebarCollapsed(), "Sidebar should be collapsed");
+        
+        homePage.uncollapseSidebar();
+        assertFalse(homePage.isSidebarCollapsed(), "Sidebar should be uncollapsed");
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("Buka dan Tutup Projects Selection di sidebar")
+    @Description("Verify that projects selection in sidebar can be opened and closed")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Projects Selection Functionality")
+    public void test12_OpenCloseProjectsSelection() {
+        homePage.openProjectsSelection();
+        assertTrue(homePage.isProjectsSelectionOpen(), "Projects selection should be open");
+
+        homePage.closeProjectsSelection();
+        assertFalse(homePage.isProjectsSelectionOpen(), "Projects selection should be closed");
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("Test 13: Navigasi Other Projects di projects selection")
+    @Description("Verify navigation to Other Projects through projects selection")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Projects Selection Navigation")
+    public void test13_NavigateToOtherProjects() {
+        verifyProjectsSelectionNavigation(
+            () -> homePage.clickOtherProjectsSelection(),
+            "/projects/other-projects",
+            "Other Projects"
         );
     }
 }

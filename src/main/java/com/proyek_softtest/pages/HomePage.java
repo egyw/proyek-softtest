@@ -22,8 +22,20 @@ public class HomePage extends BasePage {
     private By timeAndCostsButtonInSideMenuOverlay = By.xpath("//a[contains(@class,'ActionListContent--visual16') and @href='/cost_reports']");
     
     // Sidebar Elements
-    private By collapseSidebarButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--medium");
-    private By uncollapseSidebarButton = By.cssSelector(".Button.Button--iconOnly.Button--invisible.Button--small");
+    private By collapseSidebarButton = By.id("menu-toggle--collapse-button");
+    private By uncollapseSidebarButton = By.id("menu-toggle--expand-button"); 
+
+    // Sideebar - focused on Projects Selection Elements
+    private By projectsSelectionButton = By.id("projects-menu");
+    private By searchBarInProjectsSelection = By.cssSelector("input.spot-text-field--input[placeholder='Search projects...']");
+    private By otherProjectsSelectionButton = By.xpath("//a[@data-project-id='6' and contains(@href, '/projects/other-projects')]");
+    private By demoProjectButton = By.xpath("//a[@data-project-id='1' and contains(@href, '/projects/demo-project')]");
+    private By scrumProjectButton = By.xpath("//a[@data-project-id='2' and contains(@href, '/projects/your-scrum-project')]");
+    private By safeSolutionTrain1Button = By.xpath("//a[@data-project-id='5' and contains(@href, '/projects/safe-solution-train-1')]");
+    private By art1EngineeringButton = By.xpath("//a[@data-project-id='3' and contains(@href, '/projects/art-0-test-release-train')]");
+    private By blueTeamButton = By.xpath("//a[@data-project-id='8' and contains(@href, '/projects/blue-team')]");
+    private By redTeamButton = By.xpath("//a[@data-project-id='7' and contains(@href, '/projects/red-team')]");
+    private By art2DesignButton = By.xpath("//a[@data-project-id='4' and contains(@href, '/projects/art-2-design')]");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -114,6 +126,14 @@ public class HomePage extends BasePage {
     // ╔════════════════════════╗
     // ║    FUNCTION SIDEBAR    ║
     // ╚════════════════════════╝
+    public boolean isSidebarCollapsed(){
+        try {
+            return driver.findElement(uncollapseSidebarButton).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public HomePage collapseSidebar(){
         wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton)).click();
         wait.until(ExpectedConditions.elementToBeClickable(uncollapseSidebarButton));
@@ -123,6 +143,36 @@ public class HomePage extends BasePage {
     public HomePage uncollapseSidebar(){
         wait.until(ExpectedConditions.elementToBeClickable(uncollapseSidebarButton)).click();
         wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton));
+        return this;
+    }
+
+    // ╔══════════════════════════════════════════════╗
+    // ║    FUNCTION SIDEBAR - FOCUSED ON PROJECTS    ║
+    // ╚══════════════════════════════════════════════╝
+    public boolean isProjectsSelectionOpen(){
+        try {
+            return driver.findElement(searchBarInProjectsSelection).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public HomePage openProjectsSelection(){
+        wait.until(ExpectedConditions.elementToBeClickable(projectsSelectionButton)).click();
+        // wait.until(ExpectedConditions.visibilityOfElementLocated(searchBarInProjectsSelection));
+        return this;
+    }
+
+    public HomePage closeProjectsSelection(){
+        wait.until(ExpectedConditions.elementToBeClickable(projectsSelectionButton)).click();
+        // wait.until(ExpectedConditions.invisibilityOfElementLocated(searchBarInProjectsSelection));
+        return this;
+    }
+
+    public HomePage clickOtherProjectsSelection(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(searchBarInProjectsSelection));
+        wait.until(ExpectedConditions.elementToBeClickable(otherProjectsSelectionButton)).click();
+        wait.until(ExpectedConditions.urlContains("/projects/other-projects"));
         return this;
     }
 }
