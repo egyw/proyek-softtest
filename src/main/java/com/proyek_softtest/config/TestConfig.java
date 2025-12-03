@@ -83,4 +83,16 @@ public class TestConfig {
     public static int getPageLoadTimeout() {
         return Integer.parseInt(getProperty("page.load.timeout", "30"));
     }
+    
+    // ╔══════════════════════════════════════════╗
+    // ║       DELAY CONFIGURATION                ║
+    // ╚══════════════════════════════════════════╝
+
+    public static boolean isDelayEnabled() {
+        return Boolean.parseBoolean(getProperty("delay.enabled", "true"));
+    }
+    
+    public static long getDefaultDelayMs() {
+        return Long.parseLong(getProperty("delay.default.ms", "1000"));
+    }
 }

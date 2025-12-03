@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.proyek_softtest.utils.Delay;
+
 import java.time.Duration;
 
 public abstract class BasePage {
@@ -23,16 +25,19 @@ public abstract class BasePage {
     public void navigateBack() {
         driver.navigate().back();
         waitForPageLoad();
+        Delay.waitDefault();
     }
     
     public void navigateBackAndWaitForUrl(String expectedUrlPart) {
         driver.navigate().back();
         wait.until(ExpectedConditions.urlContains(expectedUrlPart));
+        Delay.waitDefault();
     }
     
     public void refreshPage() {
         driver.navigate().refresh();
         waitForPageLoad();
+        Delay.waitDefault();
     }
     
     public void waitForPageLoad() {
