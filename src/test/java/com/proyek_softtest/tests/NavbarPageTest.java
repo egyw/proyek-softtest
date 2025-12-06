@@ -53,17 +53,30 @@ public class NavbarPageTest extends BaseTest {
         
         navbarPage.waitForNumberOfWindowsToBe(2);
         
+        String newWindow = null;
         for (String windowHandle : driver.getWindowHandles()) {
             if (!windowHandle.equals(originalWindow)) {
-                driver.switchTo().window(windowHandle);
+                newWindow = windowHandle;
+                driver.switchTo().window(newWindow);
                 break;
             }
         }
         
+        navbarPage.waitForPageLoad();
+        
         assertTrue(navbarPage.getCurrentUrl().contains(expectedUrlPart), 
             "Should navigate to " + linkName + " page with URL containing: " + expectedUrlPart);
         
-        driver.close();
+        try {
+            driver.close();
+        } catch (Exception e) {
+            System.out.println("Warning: Failed to close window normally for Help Menu - " + linkName + ", forcing close");
+            try {
+                driver.switchTo().window(originalWindow);
+            } catch (Exception ex) {
+                // Ignore if already switched
+            }
+        }
         
         driver.switchTo().window(originalWindow);
     }
@@ -72,7 +85,7 @@ public class NavbarPageTest extends BaseTest {
     // ╔════════════════════════════════════════════════════════════╗
     // ║                         TESTS                              ║
     // ╚════════════════════════════════════════════════════════════╝
-    
+
     @Test
     @Order(1)
     @DisplayName("Test 1: Buka dan Tutup Side Menu Overlay")
