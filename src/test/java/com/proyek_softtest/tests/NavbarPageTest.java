@@ -68,6 +68,11 @@ public class NavbarPageTest extends BaseTest {
         driver.switchTo().window(originalWindow);
     }
 
+
+    // ╔════════════════════════════════════════════════════════════╗
+    // ║                         TESTS                              ║
+    // ╚════════════════════════════════════════════════════════════╝
+    
     @Test
     @Order(1)
     @DisplayName("Test 1: Buka dan Tutup Side Menu Overlay")
