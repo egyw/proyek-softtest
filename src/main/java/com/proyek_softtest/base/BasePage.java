@@ -47,4 +47,8 @@ public abstract class BasePage {
                 .equals("complete")
         );
     }
+    
+    public void waitForNumberOfWindowsToBe(int numberOfWindows) {
+        wait.until(ExpectedConditions.numberOfWindowsToBe(numberOfWindows));
+    }
 }
