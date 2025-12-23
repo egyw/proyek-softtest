@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.*;
 
 import com.proyek_softtest.base.BaseTest;
+import com.proyek_softtest.config.TestData;
 import com.proyek_softtest.pages.BasicSidebarPage;
 
 import io.qameta.allure.*;
@@ -39,6 +40,7 @@ public class BasicSidebarTest extends BaseTest {
 
         clickAction.run();
         assertTrue(basicSidebarPage.getCurrentUrl().contains(expectedUrl),"Should navigate to " + projectName + " project page");
+        captureScreenshotWithTitle("Navigate to " + projectName + " Project");
 
         basicSidebarPage.navigateBack();
         assertTrue(basicSidebarPage.isProjectsSelectionOpen(), "Projects selection should be open after navigating back");
@@ -51,6 +53,7 @@ public class BasicSidebarTest extends BaseTest {
     private void verifySidebarNavigation(Runnable clickAction, String expectedUrl, String menuName) {
         clickAction.run();
         assertTrue(basicSidebarPage.getCurrentUrl().contains(expectedUrl), "Should navigate to " + menuName + " page");
+        captureScreenshotWithTitle("Navigate to " + menuName + " Page");
 
         basicSidebarPage.navigateBack();
         assertTrue(basicSidebarPage.getCurrentUrl().contains("/"), "Should be back at home page after navigating back");
@@ -68,6 +71,7 @@ public class BasicSidebarTest extends BaseTest {
             }
         }
         assertTrue(urlMatched, "Should navigate to " + menuName + " page (one of: " + String.join(", ", expectedUrls) + ")");
+        captureScreenshotWithTitle("Navigate to " + menuName + " Page");
         
         basicSidebarPage.navigateBack();
         assertTrue(basicSidebarPage.getCurrentUrl().contains("/"), "Should be back at home page after navigating back");
@@ -86,9 +90,11 @@ public class BasicSidebarTest extends BaseTest {
     public void test1_CollapseUncollapseSidebar() {
         basicSidebarPage.collapseSidebar();
         assertTrue(basicSidebarPage.isSidebarCollapsed(), "Sidebar should be collapsed");
+        captureScreenshotWithTitle("Sidebar Collapsed");
 
         basicSidebarPage.uncollapseSidebar();
         assertFalse(basicSidebarPage.isSidebarCollapsed(), "Sidebar should be uncollapsed");
+        captureScreenshotWithTitle("Sidebar Uncollapsed");
     }
 
     @Test
@@ -100,9 +106,11 @@ public class BasicSidebarTest extends BaseTest {
     public void test2_OpenCloseProjectsSelection() {
         basicSidebarPage.openProjectsSelection();
         assertTrue(basicSidebarPage.isProjectsSelectionOpen(), "Projects selection should be open");
+        captureScreenshotWithTitle("Projects Selection Open");
 
         basicSidebarPage.closeProjectsSelection();
         assertTrue(basicSidebarPage.isProjectsSelectionClosed(), "Projects selection should be closed");
+        captureScreenshotWithTitle("Projects Selection Closed");
     }
 
     @Test
@@ -116,22 +124,31 @@ public class BasicSidebarTest extends BaseTest {
         assertTrue(basicSidebarPage.isProjectsSelectionOpen(), "Projects selection should be open");
         
         // test invalid search
-        basicSidebarPage.searchInProjectsSelection("abc");
-        assertTrue(basicSidebarPage.isNoResultsMessageDisplayed(), "No results message should be displayed for 'abc'");
-            
+        String invalidKeyword = TestData.getSidebarInvalidSearchKeyword();
+        basicSidebarPage.searchInProjectsSelection(invalidKeyword);
+        assertTrue(basicSidebarPage.isNoResultsMessageDisplayed(), "No results message should be displayed for '" + invalidKeyword + "'");
+        captureScreenshotWithTitle("No Results for Invalid Search: " + invalidKeyword);
+
         // test whole words
-        basicSidebarPage.searchInProjectsSelection("scrum project");
-        assertTrue(basicSidebarPage.isSearchResultContains("Scrum") || basicSidebarPage.isSearchResultContains("scrum"), "Search results should contain 'Scrum' when searching 'scrum project'");
-        
+        String fullnameKeyword = TestData.getSidebarValidSearchFullname();
+        String expectedResult = TestData.getSidebarExpectedSearchResult();
+        basicSidebarPage.searchInProjectsSelection(fullnameKeyword);
+        assertTrue(basicSidebarPage.isSearchResultContains(expectedResult) || basicSidebarPage.isSearchResultContains(expectedResult.toLowerCase()), 
+                "Search results should contain '" + expectedResult + "' when searching '" + fullnameKeyword + "'");
+        captureScreenshotWithTitle("Search Results for Fullname: " + fullnameKeyword);
+
         // test partial words
-        basicSidebarPage.searchInProjectsSelection("rum");
-        assertTrue(basicSidebarPage.isSearchResultContains("Scrum") || basicSidebarPage.isSearchResultContains("scrum"),
-                "Search results should contain 'Scrum' when searching 'rum'");
-        
+        String partialKeyword = TestData.getSidebarValidSearchPartial();
+        basicSidebarPage.searchInProjectsSelection(partialKeyword);
+        assertTrue(basicSidebarPage.isSearchResultContains(expectedResult) || basicSidebarPage.isSearchResultContains(expectedResult.toLowerCase()),
+                "Search results should contain '" + expectedResult + "' when searching '" + partialKeyword + "'");
+        captureScreenshotWithTitle("Search Results for Partial: " + partialKeyword);
+
         basicSidebarPage.clickScrumProjectSelection();
         assertTrue(basicSidebarPage.getCurrentUrl().contains("/projects/your-scrum-project"),
                 "Should navigate to Scrum Project page");
-        
+        captureScreenshotWithTitle("Navigate to Scrum Project");
+
         basicSidebarPage.navigateBack();
         assertTrue(basicSidebarPage.isProjectsSelectionOpen(), "Projects selection should be open after navigating back");
         
@@ -273,6 +290,7 @@ public class BasicSidebarTest extends BaseTest {
     public void test13_NavigateToHomeInSidebar() {
         basicSidebarPage.clickHomeInSidebar();
         assertTrue(basicSidebarPage.getCurrentUrl().equals("https://safe.openproject.com/"), "Should navigate to home page (refresh)");
+        captureScreenshotWithTitle("Navigate to Home Page");
     }
 
     @Test

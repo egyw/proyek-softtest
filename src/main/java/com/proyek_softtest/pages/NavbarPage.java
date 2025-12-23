@@ -63,12 +63,14 @@ public class NavbarPage extends BasePage {
     // sign in elements
     private By signInButton = By.xpath("//span[@class='Button-label' and text()='Sign in']");
     private By signInSidePanel = By.cssSelector("dialog.Overlay.Overlay--placement-right[aria-modal='true'][open]");
-    private By closeSignInSidePanelButton = By.cssSelector("button.close-button.Overlay-closeButton[aria-label='Close']"); 
+    private By closeSignInSidePanelButton = By.cssSelector("dialog.Overlay.Overlay--placement-right[open] button.close-button.Overlay-closeButton[aria-label='Close']");
     private By usernameInputField = By.id("username-pulldown");
     private By passwordInputField = By.id("password-pulldown");
     private By signInSubmitButton = By.id("login-pulldown");
     private By signInWithGoogleButton = By.cssSelector("a.auth-provider.auth-provider-google[href='/auth/google']");
-    
+    private By loginForm = By.cssSelector("form.user-login--form");
+    private By forgotPasswordLink = By.linkText("Forgot your password?");
+
     public NavbarPage(WebDriver driver) {
         super(driver);
     }
@@ -529,6 +531,71 @@ public class NavbarPage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         }
         
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               SIGN IN ACTIONS                          ║
+    // ╚════════════════════════════════════════════════════════╝
+    
+    public NavbarPage clickSignInButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(signInSidePanel));
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isSignInSidePanelDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(signInSidePanel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public NavbarPage closeSignInSidePanel() {
+        wait.until(ExpectedConditions.elementToBeClickable(closeSignInSidePanelButton)).click();
+        // wait.until(ExpectedConditions.invisibilityOfElementLocated(signInSidePanel));
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NavbarPage enterUsername(String username) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInputField)).sendKeys(username);
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NavbarPage enterPassword(String password) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInputField)).sendKeys(password);
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NavbarPage clickSignInSubmitButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(signInSubmitButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NavbarPage clickSignInWithGoogle() {
+        wait.until(ExpectedConditions.elementToBeClickable(signInWithGoogleButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isLoginFormDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(loginForm)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public NavbarPage clickForgotPasswordLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordLink)).click();
+        wait.until(ExpectedConditions.urlContains("/account/lost_password"));
         Delay.waitDefault();
         return this;
     }

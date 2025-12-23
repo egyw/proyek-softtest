@@ -51,7 +51,8 @@ public class HomePageTest extends BaseTest {
         
         assertTrue(homePage.getCurrentUrl().contains(expectedUrlPart), 
             "Should navigate to " + linkName + " page with URL containing: " + expectedUrlPart);
-        
+        captureScreenshotWithTitle("Navigate to " + linkName + " Page");
+
         try {
             driver.close();
         } catch (Exception e) {
@@ -80,6 +81,7 @@ public class HomePageTest extends BaseTest {
         homePage.clickSafeOpenProjectLink();
         assertTrue(homePage.getCurrentUrl().contains("safe.openproject.com"), 
             "Should stay on safe.openproject.com");
+        captureScreenshotWithTitle("Safe OpenProject Link Navigation");
     }
 
     // Dynamic approach - tests all links regardless of count
@@ -212,6 +214,10 @@ public class HomePageTest extends BaseTest {
     @Story("Welcome Panel Navigation")
     public void test03_ChangeWelcomeTextForAdminLink() {
         homePage.clickChangeWelcomeTextForAdminLink();
+        assertTrue(homePage.getCurrentUrl().contains("/login"), 
+            "Should navigate to login page since not logged in as admin");
+
+        captureScreenshotWithTitle("Navigate to Login Page for Admin");
         homePage.navigateBack();
     }
 
@@ -225,6 +231,7 @@ public class HomePageTest extends BaseTest {
         homePage.clickBlueTeamLink();
         assertTrue(homePage.getCurrentUrl().contains("/projects/blue-team"), 
             "Should navigate to Blue Team project page");
+        captureScreenshotWithTitle("Navigate to Blue Team Project");
         homePage.navigateBack();
     }
 
@@ -238,6 +245,7 @@ public class HomePageTest extends BaseTest {
         homePage.clickRedTeamLink();
         assertTrue(homePage.getCurrentUrl().contains("/projects/red-team"), 
             "Should navigate to Red Team project page");
+        captureScreenshotWithTitle("Navigate to Red Team Project");
         homePage.navigateBack();
     }
 
@@ -251,6 +259,7 @@ public class HomePageTest extends BaseTest {
         homePage.clickOtherProjectsLink();
         assertTrue(homePage.getCurrentUrl().contains("/projects/other-projects"), 
             "Should navigate to Other Projects page");
+        captureScreenshotWithTitle("Navigate to Other Projects");
         homePage.navigateBack();
     }
 
@@ -264,6 +273,7 @@ public class HomePageTest extends BaseTest {
         homePage.clickViewAllProjectsButton();
         assertTrue(homePage.getCurrentUrl().contains("/projects"), 
             "Should navigate to all projects page");
+        captureScreenshotWithTitle("Navigate to All Projects Page");
         homePage.navigateBack();
     }
 

@@ -41,6 +41,19 @@ public class BaseTest {
         }
     }
     
+    /**
+     * Helper method to capture and attach screenshot to Allure report with custom title.
+     * Use this for manual screenshots during test execution.
+     * 
+     * @param title The title/name for the screenshot in Allure report
+     */
+    protected void captureScreenshotWithTitle(String title) {
+        byte[] screenshot = ScreenshotUtil.captureScreenshotAsBytes(driver);
+        if (screenshot.length > 0) {
+            Allure.addAttachment(title, "image/png", new ByteArrayInputStream(screenshot), ".png");
+        }
+    }
+    
     @AfterAll
     public static void globalTearDown() {
         DriverManager.quitDriver();

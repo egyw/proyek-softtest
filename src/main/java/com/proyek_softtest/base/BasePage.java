@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.proyek_softtest.config.TestConfig;
 import com.proyek_softtest.utils.Delay;
 
 import java.time.Duration;
@@ -15,7 +16,7 @@ public abstract class BasePage {
     
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TestConfig.getExplicitWait()));
     }
     
     public String getCurrentUrl() {

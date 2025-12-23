@@ -1,6 +1,7 @@
 package com.proyek_softtest.tests;
 
 import com.proyek_softtest.base.BaseTest;
+import com.proyek_softtest.config.TestData;
 import com.proyek_softtest.pages.NavbarPage;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
@@ -35,7 +36,8 @@ public class NavbarPageTest extends BaseTest {
         
         clickAction.run();
         assertTrue(navbarPage.getCurrentUrl().contains(expectedUrl), "Should navigate to " + menuName + " page");
-        
+        captureScreenshotWithTitle("Navigate to " + menuName + " Page");
+
         navbarPage.navigateBack();
         assertTrue(navbarPage.isSideMenuOverlayOpen(), "Side menu overlay should be open after navigating back");
         
@@ -66,6 +68,8 @@ public class NavbarPageTest extends BaseTest {
         
         assertTrue(navbarPage.getCurrentUrl().contains(expectedUrlPart), 
             "Should navigate to " + linkName + " page with URL containing: " + expectedUrlPart);
+
+        captureScreenshotWithTitle("Navigate to " + linkName + " Page");
         
         try {
             driver.close();
@@ -95,6 +99,7 @@ public class NavbarPageTest extends BaseTest {
     public void test1_OpenCloseSideMenuOverlay() {
         navbarPage.openSideMenuOverlay();
         assertTrue(navbarPage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
+        captureScreenshotWithTitle("Open Side Menu Overlay");
 
         navbarPage.closeSideMenuOverlay();
         assertFalse(navbarPage.isSideMenuOverlayOpen(), "Side menu overlay should be closed");
@@ -109,9 +114,10 @@ public class NavbarPageTest extends BaseTest {
     public void test2_NavigateToHome() {
         navbarPage.openSideMenuOverlay();
         assertTrue(navbarPage.isSideMenuOverlayOpen(), "Side menu overlay should be open");
-
+        
         navbarPage.clickHomeInSideMenuOverlay();
         assertTrue(navbarPage.getCurrentUrl().endsWith("/"), "Should navigate to home page (refresh)");
+        captureScreenshotWithTitle("Navigate to Home Page");
     }
 
     @Test
@@ -235,6 +241,7 @@ public class NavbarPageTest extends BaseTest {
     public void test11_ClickOpenProjectLogo() {
         navbarPage.clickOpenProjectLogo();
         assertTrue(navbarPage.getCurrentUrl().equals("https://safe.openproject.com/"), "Should navigate to home page when clicking logo");
+        captureScreenshotWithTitle("Navigate to Home Page via Logo");
     }
 
     @Test
@@ -244,11 +251,14 @@ public class NavbarPageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Navbar Search")
     public void test12_SearchNoResults() {
-        navbarPage.typeInSearchBar("abc");
+        String searchQuery = TestData.getNavbarNoResultsSearch();
+        navbarPage.typeInSearchBar(searchQuery);
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
-        
+        captureScreenshotWithTitle("Search Dropdown with Query '" + searchQuery + "'");
+
         navbarPage.clickInAllProjects();
-        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=abc"), "Should navigate to search results page with query 'abc'");
+        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=" + searchQuery), "Should navigate to search results page with query '" + searchQuery + "'");
+        captureScreenshotWithTitle("Search Results Page with Query '" + searchQuery + "'");
     }
 
     @Test
@@ -258,18 +268,22 @@ public class NavbarPageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Navbar Search")
     public void test13_SearchById() {
-        navbarPage.typeInSearchBar("70");
+        String searchId = TestData.getNavbarIdSearch();
+        navbarPage.typeInSearchBar(searchId);
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
-        
+        captureScreenshotWithTitle("Search Dropdown with Query '" + searchId + "'");
+
         navbarPage.clickInAllProjects();
-        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=70"), "Should navigate to search results page with query '70'");
-        
+        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=" + searchId), "Should navigate to search results page with query '" + searchId + "'");
+        captureScreenshotWithTitle("Search Results Page with Query '" + searchId + "'");
+
         navbarPage.navigateBack();
         navbarPage.clickSearchBar();
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed after navigate back");
         
         navbarPage.clickSearchResultByWorkPackageId("70");
         assertTrue(navbarPage.getCurrentUrl().contains("/work_packages/70"), "Should navigate to work package 70");
+        captureScreenshotWithTitle("Navigate to Work Package 70");
     }
 
     @Test
@@ -279,18 +293,24 @@ public class NavbarPageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Search")
     public void test14_SearchByCategory() {
-        navbarPage.typeInSearchBar("art-2 design");
+        String categorySearch = TestData.getNavbarCategorySearch();
+        String expectedProject = TestData.getNavbarCategoryProject();
+        
+        navbarPage.typeInSearchBar(categorySearch);
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
-        
+        captureScreenshotWithTitle("Search Dropdown with Query '" + categorySearch + "'");
+
         navbarPage.clickInAllProjects();
-        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=art-2"),   "Should navigate to search results page with query 'art-2 design'");
-        
+        assertTrue(navbarPage.getCurrentUrl().contains("/search?q=art-2"),   "Should navigate to search results page with query '" + categorySearch + "'");
+        captureScreenshotWithTitle("Search Results Page with Query '" + categorySearch + "'");
+
         navbarPage.navigateBack();
         navbarPage.clickSearchBar();
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed after navigate back");
         
-        navbarPage.clickSearchResultByProject("ART-2 Design");
+        navbarPage.clickSearchResultByProject(expectedProject);
         assertTrue(navbarPage.getCurrentUrl().contains("/work_packages/"), "Should navigate to a work package");
+        captureScreenshotWithTitle("Navigate to Work Package from Category Search");
     }
 
     @Test
@@ -300,19 +320,25 @@ public class NavbarPageTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Search")
     public void test15_SearchByTitle() {
-        navbarPage.typeInSearchBar("SSL certificate");
-        assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
+        String titleSearch = TestData.getNavbarTitleSearch();
+        String expectedSubject = TestData.getNavbarTitleSubject();
         
+        navbarPage.typeInSearchBar(titleSearch);
+        assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
+        captureScreenshotWithTitle("Search Dropdown with Query '" + titleSearch + "'");
+
         navbarPage.clickInAllProjects();
         assertTrue(navbarPage.getCurrentUrl().contains("/search?q=SSL+certificate"), 
-            "Should navigate to search results page with query 'SSL certificate'");
-        
+            "Should navigate to search results page with query '" + titleSearch + "'");
+        captureScreenshotWithTitle("Search Results Page with Query '" + titleSearch + "'");
+
         navbarPage.navigateBack();
         navbarPage.clickSearchBar();
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed after navigate back");
         
-        navbarPage.clickSearchResultBySubject("SSL certificate");
+        navbarPage.clickSearchResultBySubject(expectedSubject);
         assertTrue(navbarPage.getCurrentUrl().contains("/work_packages/"), "Should navigate to a work package");
+        captureScreenshotWithTitle("Navigate to Work Package from Title Search");
     }
 
     @Test
@@ -324,7 +350,8 @@ public class NavbarPageTest extends BaseTest {
     public void test16_ClickHelpButton() {
         navbarPage.clickHelpButton();
         assertTrue(navbarPage.isHelpMenuDisplayed(), "Help menu should be displayed after clicking help button");
-        
+        captureScreenshotWithTitle("Help Menu Displayed");
+
         navbarPage.clickHelpButton();
         assertFalse(navbarPage.isHelpMenuDisplayed(), "Help menu should be closed after clicking help button again");
     }
@@ -342,6 +369,7 @@ public class NavbarPageTest extends BaseTest {
         
         navbarPage.clickGettingStartedLink();
         assertTrue(navbarPage.isGettingStartedPopUpVideoDisplayed(), "Getting started popup video should be displayed");
+        captureScreenshotWithTitle("Getting Started Popup Displayed");
         
         navbarPage.closeGettingStartedPopUpWithButton1();
         
@@ -351,6 +379,7 @@ public class NavbarPageTest extends BaseTest {
         
         navbarPage.clickGettingStartedLink();
         assertTrue(navbarPage.isGettingStartedPopUpVideoDisplayed(), "Getting started popup video should be displayed again");
+        captureScreenshotWithTitle("Getting Started Popup Displayed Again");
         
         navbarPage.closeGettingStartedPopUpWithButton2();
     }
@@ -591,5 +620,98 @@ public class NavbarPageTest extends BaseTest {
             "docs/api",
             "API Documentation"
         );
+    }
+
+    // ╔════════════════════════════════════════════════════════════╗
+    // ║                    SIGN IN TESTS                           ║
+    // ╚════════════════════════════════════════════════════════════╝
+
+    @Test
+    @Order(35)
+    @DisplayName("Test 35: Open and Close Sign In Side Panel")
+    @Description("verify sign in side panel can be opened and closed")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Sign In Side Panel")
+    public void testOpenAndCloseSignInSidePanel() {
+        // Click sign in button
+        navbarPage.clickSignInButton();
+        
+        // Assert sign in side panel is displayed
+        assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed after clicking sign in button");
+        captureScreenshotWithTitle("Sign In Side Panel Displayed");
+
+        // Close sign in side panel
+        navbarPage.closeSignInSidePanel();
+    }
+
+    @Test
+    @Order(36)
+    @DisplayName("Test 36: Sign In with Google Redirect")
+    @Description("verify clicking sign in with Google button redirects to Google OAuth page")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sign In with Google")
+    public void testSignInWithGoogleRedirect() {
+        // Click sign in button to open side panel
+        navbarPage.clickSignInButton();
+        assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
+        
+        // Click sign in with Google button
+        navbarPage.clickSignInWithGoogle();
+        
+        // Assert redirects to Google OAuth page
+        assertTrue(navbarPage.getCurrentUrl().contains("accounts.google.com") || 
+                   navbarPage.getCurrentUrl().contains("oauth"), 
+                   "Should redirect to Google OAuth page");
+        captureScreenshotWithTitle("Google OAuth Redirect");
+
+        // Navigate back to original page
+        navbarPage.navigateBack();
+
+        // Close sign in side panel
+        navbarPage.closeSignInSidePanel();
+    }
+
+    @Test
+    @Order(37)
+    @DisplayName("Test 37: Sign In with Invalid Credentials")
+    @Description("verify signing in with invalid credentials shows login form")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Sign In with Credentials")
+    public void testSignInWithInvalidCredentials() {
+        // Click sign in button to open side panel
+        navbarPage.clickSignInButton();
+        assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
+        
+        // Enter invalid credentials from test data
+        navbarPage.enterUsername(TestData.getInvalidUsername());
+        navbarPage.enterPassword(TestData.getInvalidPassword());
+        captureScreenshotWithTitle("Invalid Credentials Entered");
+
+        // Click sign in submit button
+        navbarPage.clickSignInSubmitButton();
+        
+        // Assert login form is displayed (login failed)
+        assertTrue(navbarPage.isLoginFormDisplayed(), "Login form should be displayed after failed login attempt");
+        captureScreenshotWithTitle("Login Form Displayed After Failed Attempt");
+    }
+
+    @Test
+    @Order(38)
+    @DisplayName("Test 38: Navigate to Forgot Password Page")
+    @Description("verify clicking forgot password link navigates to lost password page")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Forgot Password")
+    public void testNavigateToForgotPassword() {
+        // Click sign in button to open side panel
+        navbarPage.clickSignInButton();
+        assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
+        
+        // Click forgot password link
+        navbarPage.clickForgotPasswordLink();
+        
+        // Assert navigates to lost password page
+        assertTrue(navbarPage.getCurrentUrl().contains("/account/lost_password"), 
+                   "Should navigate to lost password page");
+        captureScreenshotWithTitle("Lost Password Page Displayed");
     }
 }
