@@ -80,12 +80,17 @@ public class TeamPlannersPage extends BasePage {
     
     public TeamPlannersPage clickNameRow() {
         wait.until(ExpectedConditions.elementToBeClickable(nameRow)).click();
+        wait.until(ExpectedConditions.urlContains("/projects"));
+        wait.until(ExpectedConditions.urlContains("/team_planners"));
+        // Wait for URL to stabilize (query params are added after initial navigation)
+        wait.until(ExpectedConditions.urlContains("cview="));
         Delay.waitDefault();
         return this;
     }
     
     public TeamPlannersPage clickProjectRow() {
         wait.until(ExpectedConditions.elementToBeClickable(projectRow)).click();
+        wait.until(ExpectedConditions.urlContains("/projects"));
         Delay.waitDefault();
         return this;
     }

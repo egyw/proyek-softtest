@@ -40,6 +40,18 @@ public class BasicSidebarPage extends BasePage {
     private By newsButton = By.cssSelector("a.news-menu-item.op-menu--item-action[href='https://safe.openproject.com/news']");
     private By timeAndCostsButton = By.cssSelector("a.cost-reports-global-menu-item.op-menu--item-action[href='https://safe.openproject.com/cost_reports']");
 
+    // Sidebar Navigation toggler
+    private By projectsSidebarTogglerOpen = By.cssSelector("button[data-test-selector='main-menu-toggler--projects']");
+    private By projectsSidebarTogglerClose = By.cssSelector("a[data-test-selector='main-menu--arrow-left-to-project']");
+    private By workPackagesSidebarTogglerOpen = By.cssSelector("button[data-test-selector='main-menu-toggler--work_packages']");
+    private By workPackagesSidebarTogglerClose = By.cssSelector("a[data-tour-selector='main-menu--arrow-left_work_packages']");
+    private By ganttChartsSidebarTogglerOpen = By.cssSelector("button[data-test-selector='main-menu-toggler--gantt']");
+    private By ganttChartsSidebarTogglerClose = By.cssSelector("a[data-tour-selector='main-menu--arrow-left_gantt']");
+    private By meetingsSidebarTogglerOpen = By.cssSelector("button[data-test-selector='main-menu-toggler--meetings']");
+    private By meetingsSidebarTogglerClose = By.cssSelector("a[data-tour-selector='main-menu--arrow-left_meetings']");
+    private By timeAndCostsSidebarTogglerOpen = By.cssSelector("button[data-test-selector='main-menu-toggler--cost_reports_global']");
+    private By timeAndCostsSidebarTogglerClose = By.cssSelector("a[data-tour-selector='main-menu--arrow-left_cost_reports_global']");
+
     public BasicSidebarPage(WebDriver driver) {
         super(driver);
     }
@@ -258,6 +270,100 @@ public class BasicSidebarPage extends BasePage {
     public BasicSidebarPage clickTimeAndCostsInSidebar() {
         wait.until(ExpectedConditions.elementToBeClickable(timeAndCostsButton)).click();
         wait.until(ExpectedConditions.urlContains("/cost_reports"));
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔═══════════════════════════════════════════════════╗
+    // ║    SIDEBAR NAVIGATION TOGGLER METHODS             ║
+    // ╚═══════════════════════════════════════════════════╝
+    
+    public boolean isProjectsTogglerOpened() {
+        try {
+            return driver.findElement(projectsSidebarTogglerClose).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public BasicSidebarPage clickProjectsToggler() {
+        if (isProjectsTogglerOpened()) {
+            wait.until(ExpectedConditions.elementToBeClickable(projectsSidebarTogglerClose)).click();
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(projectsSidebarTogglerOpen)).click();
+        }
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isWorkPackagesTogglerOpened() {
+        try {
+            return driver.findElement(workPackagesSidebarTogglerClose).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public BasicSidebarPage clickWorkPackagesToggler() {
+        if (isWorkPackagesTogglerOpened()) {
+            wait.until(ExpectedConditions.elementToBeClickable(workPackagesSidebarTogglerClose)).click();
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(workPackagesSidebarTogglerOpen)).click();
+        }
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isGanttChartsTogglerOpened() {
+        try {
+            return driver.findElement(ganttChartsSidebarTogglerClose).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public BasicSidebarPage clickGanttChartsToggler() {
+        if (isGanttChartsTogglerOpened()) {
+            wait.until(ExpectedConditions.elementToBeClickable(ganttChartsSidebarTogglerClose)).click();
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(ganttChartsSidebarTogglerOpen)).click();
+        }
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isMeetingsTogglerOpened() {
+        try {
+            return driver.findElement(meetingsSidebarTogglerClose).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public BasicSidebarPage clickMeetingsToggler() {
+        if (isMeetingsTogglerOpened()) {
+            wait.until(ExpectedConditions.elementToBeClickable(meetingsSidebarTogglerClose)).click();
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(meetingsSidebarTogglerOpen)).click();
+        }
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isTimeAndCostsTogglerOpened() {
+        try {
+            return driver.findElement(timeAndCostsSidebarTogglerClose).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public BasicSidebarPage clickTimeAndCostsToggler() {
+        if (isTimeAndCostsTogglerOpened()) {
+            wait.until(ExpectedConditions.elementToBeClickable(timeAndCostsSidebarTogglerClose)).click();
+        } else {
+            wait.until(ExpectedConditions.elementToBeClickable(timeAndCostsSidebarTogglerOpen)).click();
+        }
         Delay.waitDefault();
         return this;
     }

@@ -418,4 +418,94 @@ public class BasicSidebarTest extends BaseTest {
             "Time and Costs"
         );
     }
+
+    @Test
+    @Order(23)
+    @DisplayName("Test 23: Toggle Projects Sidebar")
+    @Description("Verify Projects sidebar can be opened and closed using toggler")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sidebar Navigation Toggler")
+    public void test23_ToggleProjectsSidebar() {        
+        // Open toggler
+        basicSidebarPage.clickProjectsToggler();
+        assertTrue(basicSidebarPage.isProjectsTogglerOpened(), "Projects toggler should be opened (close button visible)");
+        captureScreenshotWithTitle("Projects Toggler Opened");
+
+        // Close toggler
+        basicSidebarPage.clickProjectsToggler();
+        assertFalse(basicSidebarPage.isProjectsTogglerOpened(), "Projects toggler should be closed (open button visible)");
+        captureScreenshotWithTitle("Projects Toggler Closed");
+    }
+
+    @Test
+    @Order(24)
+    @DisplayName("Test 24: Toggle Work Packages Sidebar")
+    @Description("Verify Work Packages sidebar can be opened and closed using toggler")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sidebar Navigation Toggler")
+    public void test24_ToggleWorkPackagesSidebar() {        
+        // Open toggler
+        basicSidebarPage.clickWorkPackagesToggler();
+        assertTrue(basicSidebarPage.isWorkPackagesTogglerOpened(), "Work Packages toggler should be opened (close button visible)");
+        captureScreenshotWithTitle("Work Packages Toggler Opened");
+
+        // Close toggler
+        basicSidebarPage.clickWorkPackagesToggler();
+        assertFalse(basicSidebarPage.isWorkPackagesTogglerOpened(), "Work Packages toggler should be closed (open button visible)");
+        captureScreenshotWithTitle("Work Packages Toggler Closed");
+    }
+
+    @Test
+    @Order(25)
+    @DisplayName("Test 25: Toggle Gantt Charts Sidebar")
+    @Description("Verify Gantt Charts sidebar can be opened and closed using toggler")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sidebar Navigation Toggler")
+    public void test25_ToggleGanttChartsSidebar() {        
+        // Open toggler
+        basicSidebarPage.clickGanttChartsToggler();
+        assertTrue(basicSidebarPage.isGanttChartsTogglerOpened(), "Gantt Charts toggler should be opened (close button visible)");
+        captureScreenshotWithTitle("Gantt Charts Toggler Opened");
+
+        // Close toggler
+        basicSidebarPage.clickGanttChartsToggler();
+        assertFalse(basicSidebarPage.isGanttChartsTogglerOpened(), "Gantt Charts toggler should be closed (open button visible)");
+        captureScreenshotWithTitle("Gantt Charts Toggler Closed");
+    }
+
+    @Test
+    @Order(26)
+    @DisplayName("Test 26: Toggle Meetings Sidebar")
+    @Description("Verify Meetings sidebar can be opened and closed using toggler")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sidebar Navigation Toggler")
+    public void test26_ToggleMeetingsSidebar() {        
+        // Open toggler
+        basicSidebarPage.clickMeetingsToggler();
+        assertTrue(basicSidebarPage.isMeetingsTogglerOpened(), "Meetings toggler should be opened (close button visible)");
+        captureScreenshotWithTitle("Meetings Toggler Opened");
+
+        // Close toggler
+        basicSidebarPage.clickMeetingsToggler();
+        assertFalse(basicSidebarPage.isMeetingsTogglerOpened(), "Meetings toggler should be closed (open button visible)");
+        captureScreenshotWithTitle("Meetings Toggler Closed");
+    }
+
+    @Test
+    @Order(27)
+    @DisplayName("Test 27: Toggle Time and Costs Sidebar")
+    @Description("Verify Time and Costs sidebar can be opened and closed using toggler")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Sidebar Navigation Toggler")
+    public void test27_ToggleTimeAndCostsSidebar() {        
+        // Open toggler
+        basicSidebarPage.clickTimeAndCostsToggler();
+        assertTrue(basicSidebarPage.isTimeAndCostsTogglerOpened(), "Time and Costs toggler should be opened (close button visible)");
+        captureScreenshotWithTitle("Time and Costs Toggler Opened");
+
+        // Close toggler
+        basicSidebarPage.clickTimeAndCostsToggler();
+        assertFalse(basicSidebarPage.isTimeAndCostsTogglerOpened(), "Time and Costs toggler should be closed (open button visible)");
+        captureScreenshotWithTitle("Time and Costs Toggler Closed");
+    }
 }

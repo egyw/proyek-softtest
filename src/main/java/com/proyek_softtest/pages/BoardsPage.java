@@ -80,12 +80,15 @@ public class BoardsPage extends BasePage {
     
     public BoardsPage clickNameRow() {
         wait.until(ExpectedConditions.elementToBeClickable(nameRow)).click();
+        wait.until(ExpectedConditions.urlContains("/projects"));
+        wait.until(ExpectedConditions.urlContains("/boards"));
         Delay.waitDefault();
         return this;
     }
     
     public BoardsPage clickProjectRow() {
         wait.until(ExpectedConditions.elementToBeClickable(projectRow)).click();
+        wait.until(ExpectedConditions.urlContains("/projects"));
         Delay.waitDefault();
         return this;
     }

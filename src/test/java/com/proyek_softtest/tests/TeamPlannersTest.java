@@ -130,8 +130,8 @@ public class TeamPlannersTest extends BaseTest {
                    "URL should contain /projects and /team_planners");
         captureScreenshotWithTitle("Click Name Row Link");
 
-        // Navigate back
-        teamPlannersPage.navigateBack();
+        // Navigate back to team planners page (need to go back to clean state)
+        driver.get("https://safe.openproject.com/team_planners");
         assertTrue(teamPlannersPage.getCurrentUrl().contains("/team_planners"), 
                    "Should be back at team planners page");
         
