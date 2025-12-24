@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Navbar Page")
 @Feature("Navbar Functionality")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class NavbarPageTest extends BaseTest {
+public class NavbarTest extends BaseTest {
 
     private NavbarPage navbarPage;
 

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("News Page")
 @Feature("News Page Functionality")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class NewsPageTest extends BaseTest {
+public class NewsTest extends BaseTest {
 
     private NewsPage newsPage;
 

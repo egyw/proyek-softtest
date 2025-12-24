@@ -1,7 +1,7 @@
 package com.proyek_softtest.tests;
 
 import com.proyek_softtest.base.BaseTest;
-import com.proyek_softtest.pages.TeamPlanners;
+import com.proyek_softtest.pages.TeamPlannersPage;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TeamPlannersTest extends BaseTest {
 
-    private TeamPlanners teamPlannersPage;
+    private TeamPlannersPage teamPlannersPage;
 
     @BeforeAll
     public static void setupClass() {
@@ -23,7 +23,7 @@ public class TeamPlannersTest extends BaseTest {
     @Override
     public void setupTestContext() {
         super.setupTestContext();
-        teamPlannersPage = new TeamPlanners(driver);
+        teamPlannersPage = new TeamPlannersPage(driver);
         
         // Navigate to team planners page before each test
         driver.get("https://safe.openproject.com/team_planners");

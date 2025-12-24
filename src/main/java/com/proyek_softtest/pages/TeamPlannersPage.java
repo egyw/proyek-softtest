@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.proyek_softtest.base.BasePage;
 import com.proyek_softtest.utils.Delay;
 
-public class TeamPlanners extends BasePage {
+public class TeamPlannersPage extends BasePage {
     
     private By homeBreadCrumbLink = By.linkText("safe.openproject.com"); 
     private By show50PerPageButton = By.cssSelector("a[aria-label='Show 50 per page']");
@@ -24,7 +24,7 @@ public class TeamPlanners extends BasePage {
     private By nameRow = By.xpath("(//td[@class='name']/a)[1]");
     private By projectRow = By.xpath("(//td[@class='project_name']/a)[1]");
     
-    public TeamPlanners(WebDriver driver) {
+    public TeamPlannersPage(WebDriver driver) {
         super(driver);
     }
     
@@ -32,59 +32,59 @@ public class TeamPlanners extends BasePage {
     // ║               TEAM PLANNERS ACTIONS                    ║
     // ╚════════════════════════════════════════════════════════╝
     
-    public TeamPlanners clickHomeBreadCrumbLink() {
+    public TeamPlannersPage clickHomeBreadCrumbLink() {
         wait.until(ExpectedConditions.elementToBeClickable(homeBreadCrumbLink)).click();
         wait.until(ExpectedConditions.urlToBe("https://safe.openproject.com/"));
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickShow50PerPage() {
+    public TeamPlannersPage clickShow50PerPage() {
         wait.until(ExpectedConditions.elementToBeClickable(show50PerPageButton)).click();
         wait.until(ExpectedConditions.urlContains("per_page=50"));
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickShow100PerPage() {
+    public TeamPlannersPage clickShow100PerPage() {
         wait.until(ExpectedConditions.elementToBeClickable(show100PerPageButton)).click();
         wait.until(ExpectedConditions.urlContains("per_page=100"));
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickShow200PerPage() {
+    public TeamPlannersPage clickShow200PerPage() {
         wait.until(ExpectedConditions.elementToBeClickable(show200PerPageButton)).click();
         wait.until(ExpectedConditions.urlContains("per_page=200"));
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickColumnName() {
+    public TeamPlannersPage clickColumnName() {
         wait.until(ExpectedConditions.elementToBeClickable(columnName)).click();
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickColumnProject() {
+    public TeamPlannersPage clickColumnProject() {
         wait.until(ExpectedConditions.elementToBeClickable(columnProject)).click();
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickColumnCreatedOn() {
+    public TeamPlannersPage clickColumnCreatedOn() {
         wait.until(ExpectedConditions.elementToBeClickable(columnCreatedOn)).click();
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickNameRow() {
+    public TeamPlannersPage clickNameRow() {
         wait.until(ExpectedConditions.elementToBeClickable(nameRow)).click();
         Delay.waitDefault();
         return this;
     }
     
-    public TeamPlanners clickProjectRow() {
+    public TeamPlannersPage clickProjectRow() {
         wait.until(ExpectedConditions.elementToBeClickable(projectRow)).click();
         Delay.waitDefault();
         return this;

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Home Page")
 @Feature("Home Page Functionality")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class HomePageTest extends BaseTest {
+public class HomeTest extends BaseTest {
     
     private HomePage homePage;
     
