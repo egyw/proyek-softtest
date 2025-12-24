@@ -29,7 +29,7 @@ public class NewsPageTest extends BaseTest {
         driver.get("https://safe.openproject.com/news");
     }
     // ╔════════════════════════════════════════════════════════════╗
-    // ║ TEST CASES                                                 ║
+    // ║ TEST CASES ║
     // ╚════════════════════════════════════════════════════════════╝
 
     @Test
@@ -236,6 +236,51 @@ public class NewsPageTest extends BaseTest {
         assertEquals("https://safe.openproject.com/news?page=1&per_page=50", newsPage.getCurrentUrl(),
                 "Should navigate to page with 50 items per page");
         captureScreenshotWithTitle("Pagination 50 Clicked");
+        newsPage.navigateBack();
+        assertTrue(newsPage.getCurrentUrl().contains("/news"), "Should be back at news page");
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("Test 13: Click the second Demo project link")
+    @Description("Verify clicking the second Demo project link works correctly")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Demo Project Link Navigation")
+    public void test13_ClickDemoProjectLinkSecond() {
+        newsPage.clickDemoProjectLinkSecond();
+        assertEquals("https://safe.openproject.com/projects/demo-project", newsPage.getCurrentUrl(),
+                "Should navigate to demo project page");
+        captureScreenshotWithTitle("Second Demo Project Link Clicked");
+        newsPage.navigateBack();
+        assertTrue(newsPage.getCurrentUrl().contains("/news"), "Should be back at news page");
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("Test 14: Click the third Demo project link")
+    @Description("Verify clicking the third Demo project link works correctly")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Demo Project Link Navigation")
+    public void test14_ClickDemoProjectLinkThird() {
+        newsPage.clickDemoPorjectLinkThird();
+        assertEquals("https://safe.openproject.com/projects/demo-project", newsPage.getCurrentUrl(),
+                "Should navigate to demo project page");
+        captureScreenshotWithTitle("Third Demo Project Link Clicked");
+        newsPage.navigateBack();
+        assertTrue(newsPage.getCurrentUrl().contains("/news"), "Should be back at news page");
+    }
+
+    @Test
+    @Order(15)
+    @DisplayName("Test 15: Click the second Demo admin link")
+    @Description("Verify clicking the second Demo admin link works correctly")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Demo Admin Link Navigation")
+    public void test15_ClickDemoAdminLinkSecond() {
+        newsPage.clickDemoAdminLinkSecond();
+        assertEquals("https://safe.openproject.com/users/10", newsPage.getCurrentUrl(),
+                "Should navigate to demo admin page");
+        captureScreenshotWithTitle("Second Demo Admin Link Clicked");
         newsPage.navigateBack();
         assertTrue(newsPage.getCurrentUrl().contains("/news"), "Should be back at news page");
     }

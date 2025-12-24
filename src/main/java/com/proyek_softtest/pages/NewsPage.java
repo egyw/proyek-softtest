@@ -113,4 +113,28 @@ public class NewsPage extends BasePage {
         return this;
     }
 
+    public NewsPage clickDemoProjectLinkSecond() {
+        By demoProjectLinkSecond = By.xpath("(//a[text()='Demo project'])[2]");
+        wait.until(ExpectedConditions.elementToBeClickable(demoProjectLinkSecond)).click();
+        wait.until(ExpectedConditions.urlToBe("https://safe.openproject.com/projects/demo-project"));
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NewsPage clickDemoPorjectLinkThird() {
+        By demoProjectLinkThird = By.xpath("(//a[text()='Demo project'])[3]");
+        wait.until(ExpectedConditions.elementToBeClickable(demoProjectLinkThird)).click();
+        wait.until(ExpectedConditions.urlToBe("https://safe.openproject.com/projects/demo-project"));
+        Delay.waitDefault();
+        return this;
+    }
+
+    public NewsPage clickDemoAdminLinkSecond() {
+        By demoAdminLinkSecond = By.xpath("(//a[text()='Demo admin'])[2]");
+        wait.until(ExpectedConditions.elementToBeClickable(demoAdminLinkSecond)).click();
+        wait.until(ExpectedConditions.urlToBe("https://safe.openproject.com/users/10"));
+        Delay.waitDefault();
+        return this;
+    }
+
 }
