@@ -58,37 +58,11 @@ public class TeamPlannersTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Change Items Per Page")
-    @Description("Verify changing items per page to 100, 200, and 50")
-    @Severity(SeverityLevel.NORMAL)
-    @Story("Team Planners Pagination")
-    public void test2_ChangeItemsPerPage() {
-        // Click 100 per page
-        teamPlannersPage.clickShow100PerPage();
-        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=100"), 
-                   "URL should contain per_page=100");
-        captureScreenshotWithTitle("Show 100 Per Page");
-
-        // Click 200 per page
-        teamPlannersPage.clickShow200PerPage();
-        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=200"), 
-                   "URL should contain per_page=200");
-        captureScreenshotWithTitle("Show 200 Per Page");
-        
-        // Click 50 per page
-        teamPlannersPage.clickShow50PerPage();
-        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=50"), 
-                   "URL should contain per_page=50");
-        captureScreenshotWithTitle("Show 50 Per Page");
-    }
-
-    @Test
-    @Order(3)
-    @DisplayName("Test 3: Sort Table Columns")
+    @DisplayName("Test 2: Sort Table Columns")
     @Description("Verify sorting by Name, Project, and Created on columns (ascending and descending)")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Team Planners Sorting")
-    public void test3_SortTableColumns() {
+    public void test2_SortTableColumns() {
         // Test Name column - first click (descending)
         teamPlannersPage.clickColumnName();
         String currentUrl = teamPlannersPage.getCurrentUrl();
@@ -143,12 +117,12 @@ public class TeamPlannersTest extends BaseTest {
     }
 
     @Test
-    @Order(4)
-    @DisplayName("Test 4: Click Name and Project Row Links")
+    @Order(3)
+    @DisplayName("Test 3: Click Name and Project Row Links")
     @Description("Verify clicking first row name and project links navigate correctly")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Team Planners Row Links")
-    public void test4_ClickNameAndProjectRowLinks() {
+    public void test3_ClickNameAndProjectRowLinks() {
         // Test Name row link
         teamPlannersPage.clickNameRow();
         String currentUrl = teamPlannersPage.getCurrentUrl();
@@ -166,5 +140,31 @@ public class TeamPlannersTest extends BaseTest {
         assertTrue(teamPlannersPage.getCurrentUrl().contains("/projects"), 
                    "URL should contain /projects");
         captureScreenshotWithTitle("Click Project Row Link");
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("Test 4: Change Items Per Page")
+    @Description("Verify changing items per page to 100, 200, and 50")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Team Planners Pagination")
+    public void test4_ChangeItemsPerPage() {
+        // Click 100 per page
+        teamPlannersPage.clickShow100PerPage();
+        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=100"), 
+                   "URL should contain per_page=100");
+        captureScreenshotWithTitle("Show 100 Per Page");
+
+        // Click 200 per page
+        teamPlannersPage.clickShow200PerPage();
+        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=200"), 
+                   "URL should contain per_page=200");
+        captureScreenshotWithTitle("Show 200 Per Page");
+        
+        // Click 50 per page
+        teamPlannersPage.clickShow50PerPage();
+        assertTrue(teamPlannersPage.getCurrentUrl().contains("per_page=50"), 
+                   "URL should contain per_page=50");
+        captureScreenshotWithTitle("Show 50 Per Page");
     }
 }
