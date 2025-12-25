@@ -475,4 +475,148 @@ public class ProjectsTest extends BaseTest {
         projectsPage.clickCloseExportButton();
         captureScreenshotWithTitle("Export Dialog Closed After PDF Download");
     }
+
+    @Test
+    @Order(18)
+    @DisplayName("Test 18: Open and Close Configure View Dialog")
+    @Description("Verify configure view dialog can be opened and closed successfully")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Projects Configure View")
+    public void test18_OpenAndCloseConfigureViewDialog() {
+        // Open more menu
+        projectsPage.clickMoreMenuButton();
+        
+        // Click Configure View button
+        projectsPage.clickConfigureView();
+
+        // Assert configure view dialog header is displayed
+        assertTrue(projectsPage.isConfigureViewDialogHeaderDisplayed(), 
+                   "Configure view dialog header should be displayed");
+        captureScreenshotWithTitle("Configure View Dialog Opened");
+        
+        // Click close button
+        projectsPage.clickConfigureViewDialogCloseButton();
+        captureScreenshotWithTitle("Configure View Dialog Closed");
+    }
+
+    @Test
+    @Order(19)
+    @DisplayName("Test 19: Select First Combobox Item and Cancel")
+    @Description("Verify selecting first combobox item and canceling works correctly")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Projects Configure View")
+    public void test19_SelectFirstComboboxItemAndCancel() {
+        // Open more menu
+        projectsPage.clickMoreMenuButton();
+        
+        // Click Configure View button
+        projectsPage.clickConfigureView();
+        captureScreenshotWithTitle("Configure View Dialog Opened for Combobox Test");
+        
+        // Click combobox to open dropdown
+        projectsPage.clickConfigureViewCombobox();
+        captureScreenshotWithTitle("Combobox Dropdown Opened");
+        
+        // Assert dropdown options are visible
+        assertTrue(projectsPage.isComboboxDropdownVisible(), 
+                   "Combobox dropdown should be visible after clicking combobox");
+        
+        // Get first option text before selecting
+        var options = projectsPage.getComboboxOptions();
+        String firstOptionText = options.get(0).getText().trim();
+        System.out.println("Selecting first option: " + firstOptionText);
+        
+        // Select first item (index 0)
+        projectsPage.selectComboboxOptionByIndex(0);
+        captureScreenshotWithTitle("First Combobox Item Selected");
+        
+        // Assert that the selected item appears in the selected columns list
+        assertTrue(projectsPage.isColumnSelected(firstOptionText), 
+                   "Selected column '" + firstOptionText + "' should appear in the columns list");
+        
+        // Get all selected columns and print them
+        var selectedColumns = projectsPage.getSelectedColumnNames();
+        System.out.println("Current selected columns: " + selectedColumns);
+        
+        // Open combobox again to check if selected item is removed from dropdown
+        projectsPage.clickConfigureViewCombobox();
+        captureScreenshotWithTitle("Combobox Reopened After Selection");
+        
+        // Assert that the selected item is no longer in the dropdown options
+        assertFalse(projectsPage.isOptionAvailableInDropdown(firstOptionText), 
+                    "Selected column '" + firstOptionText + "' should not appear in dropdown options anymore");
+        
+        System.out.println("Verified: Selected item '" + firstOptionText + "' is removed from dropdown options");
+        
+        // Click Cancel button
+        projectsPage.clickCancelButtonInConfigureView();
+        captureScreenshotWithTitle("Configure View Dialog Canceled");
+    }
+
+    @Test
+    @Order(20)
+    @DisplayName("Test 20: Select All Combobox Items and Apply")
+    @Description("Verify selecting each combobox item one by one and applying works correctly")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Projects Configure View")
+    public void test20_SelectAllComboboxItemsAndApply() {
+        // Open more menu
+        projectsPage.clickMoreMenuButton();
+        
+        // Click Configure View button
+        projectsPage.clickConfigureView();
+        captureScreenshotWithTitle("Configure View Dialog Opened for All Items Test");
+        
+        // Click combobox to open dropdown
+        projectsPage.clickConfigureViewCombobox();
+        captureScreenshotWithTitle("Combobox Dropdown Opened");
+        
+        // DEBUG: Print all options details
+        projectsPage.printComboboxOptionsDebug();
+        
+        // Loop sampai tidak ada options lagi (bukan fixed count)
+        int selectedCount = 0;
+        int maxAttempts = 20; // Safety limit untuk avoid infinite loop
+        
+        while (selectedCount < maxAttempts) {
+            // Get current available options
+            var options = projectsPage.getComboboxOptions();
+            
+            // Jika tidak ada options lagi, break
+            if (options.isEmpty()) {
+                System.out.println("No more options available");
+                break;
+            }
+            
+            // Ambil option pertama (index 0)
+            String optionText = options.get(0).getText().trim();
+            selectedCount++;
+            System.out.println("Selecting option " + selectedCount + ": " + optionText);
+            
+            // Click the option (selalu index 0)
+            projectsPage.selectComboboxOptionByIndex(0);
+            captureScreenshotWithTitle("Selected Option " + selectedCount + ": " + optionText);
+            
+            // Buka combobox lagi untuk pilih berikutnya
+            projectsPage.clickConfigureViewCombobox();
+            Delay.waitFor(100); // Extra wait untuk virtual scrolling update
+        }
+        
+        System.out.println("Total options selected: " + selectedCount);
+        
+        // Setelah semua item dipilih, buka combobox lagi untuk verify tidak ada item tersisa
+        projectsPage.clickConfigureViewCombobox();
+        captureScreenshotWithTitle("Combobox After All Items Selected");
+        
+        // Assert "No items found" message is displayed
+        assertTrue(projectsPage.isNoItemsFoundDisplayed(), 
+                   "No items found message should be displayed after all items are selected");
+        
+        System.out.println("Verified: All items selected, no more options available in dropdown");
+        
+        // Click Apply button
+        projectsPage.clickApplyButtonInConfigureView();
+        captureScreenshotWithTitle("Configure View Applied After Selecting All Items");
+        Delay.waitFor(10000);
+    }
 }

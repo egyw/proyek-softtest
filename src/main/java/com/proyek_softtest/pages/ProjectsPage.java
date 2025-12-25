@@ -1,5 +1,7 @@
 package com.proyek_softtest.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,6 +47,20 @@ public class ProjectsPage extends BasePage {
     private By exportCompletedHeader = By.xpath("//h2[normalize-space()='Export completed']");
     private By downloadLink = By.linkText("click here");
     private By closeExportButton = By.cssSelector("button[data-close-dialog-id='job-status-modal-dialog']");
+
+    // extra for configure view function
+    private By configureViewDialogHeader = By.id("op-project-list-configure-dialog-title");
+    private By configureViewDialogCloseButton = By.cssSelector("button[data-close-dialog-id='op-project-list-configure-dialog'].close-button");
+    private By configureViewCombobox = By.cssSelector("ng-select.op-draggable-autocomplete--input");
+    private By comboboxInput = By.cssSelector("ng-select.op-draggable-autocomplete--input input[role='combobox']");
+    private By comboboxDropdownPanel = By.cssSelector(".ng-dropdown-panel");
+    private By comboboxOptions = By.cssSelector(".ng-dropdown-panel .ng-option");
+    private By comboboxNoItemsFound = By.cssSelector(".ng-dropdown-panel .ng-option-disabled");
+    private By selectedColumnsContainer = By.cssSelector(".op-draggable-autocomplete--selected");
+    private By selectedColumnItems = By.cssSelector(".op-draggable-autocomplete--item");
+    private By selectedColumnItemTexts = By.cssSelector(".op-draggable-autocomplete--item-text");
+    private By cancelButtonInConfigureView = By.xpath("//button[@data-close-dialog-id='op-project-list-configure-dialog']//span[normalize-space()='Cancel']");
+    private By applyButtonInConfigureView = By.cssSelector("button[data-test-selector='op-project-list-configure-dialog-submit']");
 
     private By projectSearchbar = By.id("name_and_identifier");
     private By filtersButtonOpen =By.cssSelector("button[data-filter--filters-form-target='filterFormToggle'][aria-pressed='true']");
@@ -292,6 +308,166 @@ public class ProjectsPage extends BasePage {
 
     public ProjectsPage clickCloseExportButton() {
         wait.until(ExpectedConditions.elementToBeClickable(closeExportButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║           CONFIGURE VIEW ACTIONS                       ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public ProjectsPage clickConfigureView() {
+        // Filter yang visible
+        wait.until(driver -> {
+            return driver.findElements(configureView).stream()
+                .anyMatch(el -> el.isDisplayed());
+        });
+        
+        WebElement visibleElement = driver.findElements(configureView).stream()
+            .filter(el -> el.isDisplayed())
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Configure View button not visible"));
+        
+        visibleElement.click();
+        
+        // Wait untuk configure view dialog muncul
+        wait.until(ExpectedConditions.visibilityOfElementLocated(configureViewDialogHeader));
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isConfigureViewDialogHeaderDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(configureViewDialogHeader)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public ProjectsPage clickConfigureViewDialogCloseButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(configureViewDialogCloseButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public ProjectsPage clickConfigureViewCombobox() {
+        WebElement combobox = wait.until(ExpectedConditions.elementToBeClickable(comboboxInput));
+        combobox.click();
+        
+        // Wait untuk dropdown muncul
+        wait.until(ExpectedConditions.visibilityOfElementLocated(comboboxOptions));
+        Delay.waitFor(500);
+        return this;
+    }
+
+    public boolean isComboboxDropdownVisible() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(comboboxDropdownPanel)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public List<WebElement> getComboboxOptions() {
+        // Wait untuk options muncul
+        wait.until(ExpectedConditions.presenceOfElementLocated(comboboxOptions));
+        
+        // Get all ng-option elements
+        List<WebElement> allOptions = driver.findElements(comboboxOptions);
+        
+        // Filter hanya yang visible dan tidak disabled
+        return allOptions.stream()
+            .filter(opt -> {
+                try {
+                    // Exclude yang disabled (ng-option-disabled)
+                    String classAttr = opt.getAttribute("class");
+                    if (classAttr != null && classAttr.contains("ng-option-disabled")) {
+                        return false;
+                    }
+                    // Hanya yang visible
+                    return opt.isDisplayed();
+                } catch (Exception e) {
+                    return false;
+                }
+            })
+            .toList();
+    }
+
+    public List<String> getSelectedColumnNames() {
+        List<WebElement> columnTexts = driver.findElements(selectedColumnItemTexts);
+        return columnTexts.stream()
+            .map(el -> el.getText().trim())
+            .toList();
+    }
+
+    public boolean isColumnSelected(String columnName) {
+        List<String> selectedColumns = getSelectedColumnNames();
+        return selectedColumns.contains(columnName);
+    }
+
+    public boolean isOptionAvailableInDropdown(String optionText) {
+        try {
+            List<WebElement> options = getComboboxOptions();
+            return options.stream()
+                .anyMatch(opt -> opt.getText().trim().equals(optionText));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void printComboboxOptionsDebug() {
+        List<WebElement> allOptions = driver.findElements(comboboxOptions);
+        System.out.println("\n=== DEBUG: All ng-option elements ===");
+        for (int i = 0; i < allOptions.size(); i++) {
+            WebElement opt = allOptions.get(i);
+            String text = opt.getText().trim();
+            String className = opt.getAttribute("class");
+            boolean isDisplayed = opt.isDisplayed();
+            System.out.println("[" + i + "] Text: '" + text + "' | Class: " + className + " | Displayed: " + isDisplayed);
+        }
+        System.out.println("=== END DEBUG ===");
+    }
+
+    public boolean isNoItemsFoundDisplayed() {
+        try {
+            WebElement noItems = wait.until(ExpectedConditions.visibilityOfElementLocated(comboboxNoItemsFound));
+            return noItems.isDisplayed() && noItems.getText().trim().equals("No items found");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public ProjectsPage selectComboboxOptionByIndex(int index) {
+        List<WebElement> options = getComboboxOptions();
+        if (index >= 0 && index < options.size()) {
+            options.get(index).click();
+            Delay.waitFor(100);
+        } else {
+            throw new IndexOutOfBoundsException("Combobox option index out of bounds: " + index);
+        }
+        return this;
+    }
+
+    public ProjectsPage selectComboboxOptionByText(String text) {
+        List<WebElement> options = getComboboxOptions();
+        WebElement option = options.stream()
+            .filter(opt -> opt.getText().trim().equals(text))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Combobox option not found: " + text));
+        
+        option.click();
+        Delay.waitFor(100);
+        return this;
+    }
+
+    public ProjectsPage clickCancelButtonInConfigureView() {
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButtonInConfigureView)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public ProjectsPage clickApplyButtonInConfigureView() {
+        wait.until(ExpectedConditions.elementToBeClickable(applyButtonInConfigureView)).click();
         Delay.waitDefault();
         return this;
     }
