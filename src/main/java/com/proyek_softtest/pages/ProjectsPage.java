@@ -52,12 +52,12 @@ public class ProjectsPage extends BasePage {
     // extra for configure view function
     private By configureViewDialogHeader = By.id("op-project-list-configure-dialog-title");
     private By configureViewDialogCloseButton = By.cssSelector("button[data-close-dialog-id='op-project-list-configure-dialog'].close-button");
-    private By configureViewCombobox = By.cssSelector("ng-select.op-draggable-autocomplete--input");
+    // private By configureViewCombobox = By.cssSelector("ng-select.op-draggable-autocomplete--input");
     private By comboboxInput = By.cssSelector("ng-select.op-draggable-autocomplete--input input[role='combobox']");
     private By comboboxDropdownPanel = By.cssSelector(".ng-dropdown-panel");
     private By comboboxOptions = By.cssSelector(".ng-dropdown-panel .ng-option");
     private By comboboxNoItemsFound = By.cssSelector(".ng-dropdown-panel .ng-option-disabled");
-    private By selectedColumnsContainer = By.cssSelector(".op-draggable-autocomplete--selected");
+    // private By selectedColumnsContainer = By.cssSelector(".op-draggable-autocomplete--selected");
     private By selectedColumnItems = By.cssSelector(".op-draggable-autocomplete--item");
     private By selectedColumnItemTexts = By.cssSelector(".op-draggable-autocomplete--item-text");
     private By cancelButtonInConfigureView = By.xpath("//button[@data-close-dialog-id='op-project-list-configure-dialog']//span[normalize-space()='Cancel']");
