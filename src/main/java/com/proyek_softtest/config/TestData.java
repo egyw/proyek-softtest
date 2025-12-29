@@ -117,4 +117,32 @@ public class TestData {
     public static String getNavbarTitleSubject() {
         return getProperty("search.navbar.title.subject", "SSL certificate");
     }
+
+    // ╔══════════════════════════════════════════╗
+    // ║    PROJECTS PAGE SEARCHBAR DATA          ║
+    // ╚══════════════════════════════════════════╝
+    
+    public static String getProjectsNoResultsSearch() {
+        return getProperty("search.projects.no.results", "abc");
+    }
+    
+    public static String getProjectsValidSearchName() {
+        return getProperty("search.projects.valid.name", "art-1 engineering");
+    }
+    
+    public static String getProjectsExpectedLinkText() {
+        return getProperty("search.projects.expected.link.text", "ART-1 Engineering");
+    }
+    
+    public static String getProjectsExpectedLinkHref() {
+        return getProperty("search.projects.expected.link.href", "/projects/art-0-test-release-train");
+    }
+
+    // ╔══════════════════════════════════════════╗
+    // ║    TABLE HEADER FILTER BY DATA           ║
+    // ╚══════════════════════════════════════════╝
+    
+    public static String getTableHeaderFilterByProject() {
+        return getProperty("table.header.filterby.project", "SAFe - Solution Train 1");
+    }
 }
