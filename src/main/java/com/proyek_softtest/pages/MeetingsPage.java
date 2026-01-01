@@ -1,148 +1,127 @@
 package com.proyek_softtest.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import com.proyek_softtest.base.BasePage;
 import com.proyek_softtest.utils.Delay;
 import java.util.List;
 
 public class MeetingsPage extends BasePage {
 
-    // 1. Tombol Toolbar Filter
-    private By filtersToggleButton = By.xpath("//button[@title='Filter' or contains(., 'Filter')]");
+    // Locator Utama (Berdasarkan Inspect Element Terbaru)
+    private By filtersToggleButton = By.xpath("//button[contains(., 'Filters')]");
+    private By addFilterSelect = By.id("add_filter_select");
+    private By applyButton = By.cssSelector("input[type='submit'][value='Apply']");
     
-    // 2. Label 'Invited user'
-    private By invitedUserLabel = By.xpath("//label[contains(text(), 'Invited user')]");
+    // Tab Navigation
+    private By pastTab = By.xpath("//a[@title='Past meetings']");
+    private By upcomingTab = By.xpath("//a[@title='Upcoming meetings']");
 
-    // 3. Dropdown Operator (STRATEGI BARU: Common Ancestor / Row Wrapper)
-    // Penjelasan: Cari elemen pembungkus (ancestor) yang punya class 'filter' DAN memiliki label 'Invited user'.
-    // Lalu ambil ng-select PERTAMA di dalamnya. Ini pasti Operator.
-    private By invitedUserOperatorDropdown = By.xpath("(//*[contains(@class, 'filter')][.//label[contains(text(), 'Invited user')]]//ng-select)[1]");
+    // SIDEBAR: Sesuai Inspect Element (op-submenu--item-action)
+    // Kita gunakan data-test-selector atau kombinasi class + text agar tidak tertukar dengan All Meetings
+    private By recurringMeetingsLink = By.xpath("//a[contains(@class, 'op-submenu--item-action') and contains(., 'Recurring meetings')]");
 
-    // 4. Panel Opsi Dropdown (Muncul setelah diklik)
-    private By dropdownPanel = By.className("ng-dropdown-panel");
-    
-    // 5. Opsi "is empty"
-    private By optionIsEmpty = By.xpath("//div[contains(@class, 'ng-option')][contains(., 'is empty')]");
+    // Toggle "Part of a meeting series" (Berdasarkan Screenshot 2)
+    private By toggleWrapper = By.cssSelector("opce-spot-switch[data-name='v-type']");
+    private By toggleFakeSpan = By.cssSelector("opce-spot-switch[data-name='v-type'] .spot-switch--fake");
 
-    // 6. Dropdown Add Filter (Please select)
-    private By addFilterDropdown = By.xpath("//ng-select[contains(., 'Please select')]");
-    
-    // 7. Tombol Apply
-    private By applyButton = By.cssSelector("button[class*='button--save'], button[class*='button--highlight']");
+    // Filter Logic
+    private By invitedUserOperator = By.xpath("//li[@data-filter-name='invited_user_id']//select[@id='operator']");
 
     public MeetingsPage(WebDriver driver) {
         super(driver);
     }
 
-    // --- ACTIONS ---
-
-    public MeetingsPage openFiltersPanel() {
-        if (isElementVisible(invitedUserLabel)) {
-            System.out.println("DEBUG: Panel SUDAH terbuka.");
-            return this;
-        }
-
-        System.out.println("DEBUG: Mengklik tombol Filter...");
-        try {
+    public void openFiltersPanel() {
+        if (!isElementDisplayed(addFilterSelect)) {
             WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(filtersToggleButton));
-            btn.click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(invitedUserLabel));
-        } catch (Exception e) {
-            WebElement btn = driver.findElement(filtersToggleButton);
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+            jsClick(btn);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(addFilterSelect));
         }
-        Delay.waitDefault(); 
-        return this;
     }
 
-    public MeetingsPage changeInvitedUserOperatorToIsEmpty() {
+    public void selectFilterIfNotFound(String filterName, String filterDataName) {
         openFiltersPanel();
-        System.out.println("DEBUG: Mencari Dropdown Operator (Dropdown Pertama di baris 'Invited user')...");
-        
-        try {
-            // 1. Temukan Dropdown Operator
-            WebElement dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(invitedUserOperatorDropdown));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
-            
-            // 2. Klik Dropdown
-            // Kita gunakan JS Click untuk memastikan elemen terklik meskipun ada overlay
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dropdown);
-            System.out.println("DEBUG: Dropdown Operator diklik. Menunggu panel opsi...");
-            
-            // 3. Tunggu Panel Muncul & Klik 'is empty'
-            // Tunggu panel muncul
-            wait.until(ExpectedConditions.visibilityOfElementLocated(dropdownPanel));
-            
-            // Cari dan klik opsi
-            WebElement option = wait.until(ExpectedConditions.elementToBeClickable(optionIsEmpty));
-            option.click();
-            
-            System.out.println("DEBUG: Berhasil KLIK opsi 'is empty'.");
-            
-        } catch (Exception e) {
-            System.out.println("ERROR: Gagal memilih operator. " + e.getMessage());
-            // Fallback: Coba klik elemen berdasarkan teks "is (OR)" jika locator di atas gagal
-            try {
-                System.out.println("DEBUG: Mencoba locator fallback...");
-                WebElement fallback = driver.findElement(By.xpath("//ng-select[contains(., 'is (OR)')]"));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", fallback);
-                wait.until(ExpectedConditions.elementToBeClickable(optionIsEmpty)).click();
-            } catch (Exception ex) {
-                System.out.println("ERROR: Fallback juga gagal.");
-                throw ex;
-            }
+        By activeFilterLocator = By.xpath("//li[@data-filter-name='" + filterDataName + "']");
+        if (!isElementDisplayed(activeFilterLocator)) {
+            WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(addFilterSelect));
+            new Select(dropdown).selectByVisibleText(filterName);
+            Delay.waitDefault();
         }
-        
-        Delay.waitDefault();
-        return this;
     }
 
-    public MeetingsPage addProjectFilter() {
-        System.out.println("DEBUG: Menambah Filter Project...");
+    public void setInvitedUserToIsNotEmpty() {
         try {
-            // 1. Temukan Dropdown Add Filter
-            WebElement dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(addFilterDropdown));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
-            
-            // 2. Klik Dropdown
-            dropdown.click(); 
-            Delay.waitDefault();
-
-            // 3. Pilih "Project" via Keyboard
-            Actions actions = new Actions(driver);
-            actions.sendKeys("Project");
-            Delay.waitDefault();
-            actions.sendKeys(Keys.ENTER).perform();
-            
-            System.out.println("DEBUG: Filter 'Project' ditambahkan.");
-
+            WebElement selectEl = wait.until(ExpectedConditions.visibilityOfElementLocated(invitedUserOperator));
+            new Select(selectEl).selectByVisibleText("is not empty");
         } catch (Exception e) {
-            System.out.println("ERROR: Gagal menambah filter Project. " + e.getMessage());
-            throw e;
+            jsClick(driver.findElement(By.xpath("//li[@data-filter-name='invited_user_id']//option[text()='is not empty']")));
         }
-        Delay.waitDefault();
-        return this;
     }
 
-    public MeetingsPage clickApply() {
+    public void clickApply() {
         System.out.println("DEBUG: Klik Apply...");
-        try {
-            WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(applyButton));
-            btn.click();
-        } catch (Exception e) {
-            WebElement btn = driver.findElement(By.xpath("//button[contains(text(), 'Apply')]"));
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-        }
-        return this;
+        WebElement btn = wait.until(ExpectedConditions.presenceOfElementLocated(applyButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", btn);
+        Delay.waitDefault();
+        jsClick(btn);
+        Delay.waitDefault();
     }
-    
-    private boolean isElementVisible(By locator) {
+
+    public void clickPast() {
+        System.out.println("DEBUG: Klik tab Past...");
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(pastTab));
+        jsClick(el);
+        // Menunggu URL berubah (upcoming=false)
+        wait.until(ExpectedConditions.urlContains("upcoming=false"));
+        Delay.waitDefault();
+    }
+
+    public void goToRecurringMeetings() {
+        System.out.println("DEBUG: Navigasi ke Recurring Meetings...");
+        try {
+            // Karena elemen berada di dalam <turbo-frame>, pastikan kita menunggu visibilitasnya
+            // Menggunakan locator yang sudah diperbaiki (op-submenu--item-action)
+            WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(recurringMeetingsLink));
+            jsClick(link);
+            
+            // Verifikasi bahwa URL sudah mengandung /recurring
+            wait.until(ExpectedConditions.urlContains("/recurring"));
+            System.out.println("DEBUG: Berhasil masuk ke halaman Recurring.");
+        } catch (Exception e) {
+            System.err.println("ERROR: Gagal klik sidebar. Mencoba klik berdasarkan data-test-selector...");
+            // Fallback menggunakan data-test-selector dari inspect element
+            WebElement fallback = driver.findElement(By.cssSelector("a[data-test-selector='op-submenu--item-action']"));
+            jsClick(fallback);
+        }
+    }
+
+    public void turnOffMeetingSeriesToggle() {
+        System.out.println("DEBUG: Mengecek status toggle 'Part of a meeting series'...");
+        try {
+            WebElement wrapper = wait.until(ExpectedConditions.presenceOfElementLocated(toggleWrapper));
+            
+            // Berdasarkan screenshot inspect, atribut 'checked' ada pada opce-spot-switch
+            String isChecked = wrapper.getAttribute("checked");
+            
+            if ("true".equals(isChecked)) {
+                System.out.println("DEBUG: Status ON. Mematikan (OFF)...");
+                jsClick(driver.findElement(toggleFakeSpan));
+            } else {
+                System.out.println("DEBUG: Status sudah OFF.");
+            }
+        } catch (Exception e) {
+            System.err.println("DEBUG: Toggle tidak ditemukan.");
+        }
+        Delay.waitDefault();
+    }
+
+    private void jsClick(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
+    private boolean isElementDisplayed(By locator) {
         try {
             List<WebElement> elements = driver.findElements(locator);
             return !elements.isEmpty() && elements.get(0).isDisplayed();

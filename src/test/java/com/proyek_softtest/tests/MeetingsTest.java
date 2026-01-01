@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Meetings Page")
-@Feature("Filter Test")
 public class MeetingsTest extends BaseTest {
 
     private BasicSidebarPage sidebarPage;
@@ -24,21 +23,29 @@ public class MeetingsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Test: Manual Flow - Select 'is empty' & Add Project Filter")
-    public void testFillFilterAndAddProject() {
-        // Step 1: Ubah operator menjadi 'is empty' dengan klik dropdown operator yang benar
-        meetingsPage.changeInvitedUserOperatorToIsEmpty();
-        
-        // Step 2: Tambah filter Project
-        meetingsPage.addProjectFilter();
-        
-        // Step 3: Apply
+    @DisplayName("Test: Full Workflow (Filter -> Past -> Recurring -> Disable Toggle)")
+    public void testFullMeetingWorkflow() {
+        // 1. All Meetings: Set Filter Invited User & Apply
+        meetingsPage.selectFilterIfNotFound("Invited user", "invited_user_id");
+        meetingsPage.setInvitedUserToIsNotEmpty();
+        meetingsPage.clickApply();
+
+        // 2. All Meetings: Klik Tab Past
+        meetingsPage.clickPast();
+
+        // 3. Navigasi ke Recurring Meetings
+        meetingsPage.goToRecurringMeetings();
+        assertTrue(driver.getCurrentUrl().contains("recurring"), "Gagal navigasi ke halaman Recurring.");
+
+        // 4. Halaman Recurring: Klik Tab Past
+        meetingsPage.clickPast();
+
+        // 5. Halaman Recurring: Matikan toggle 'Part of a meeting series'
+        meetingsPage.turnOffMeetingSeriesToggle();
+
+        // 6. Terakhir: Klik tombol Apply
         meetingsPage.clickApply();
         
-        // Validasi
-        String currentUrl = driver.getCurrentUrl();
-        System.out.println("DEBUG: URL Final -> " + currentUrl);
-        assertTrue(currentUrl.contains("filters") || currentUrl.contains("operators"), 
-                   "URL tidak berubah, filter gagal.");
+        System.out.println("SUCCESS: Skenario Filter All -> Past -> Recurring -> Toggle OFF -> Apply Selesai.");
     }
 }
