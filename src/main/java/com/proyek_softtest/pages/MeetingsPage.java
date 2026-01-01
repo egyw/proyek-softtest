@@ -1,132 +1,253 @@
 package com.proyek_softtest.pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
+
 import com.proyek_softtest.base.BasePage;
 import com.proyek_softtest.utils.Delay;
-import java.util.List;
 
 public class MeetingsPage extends BasePage {
+    // sidebar
+    private By meetingsSidebarButton = By.cssSelector("a.main-menu--parent-node.ellipsis[href*='meetings']");
+    private By recurringMeetingsType = By.cssSelector("a[data-test-selector='op-submenu--item-action'] span.op-submenu--item-title");
+    private By allMeetingsType = By.xpath("//span[normalize-space()='All meetings']");
+    private By meetingsSeriesDropdown = By.xpath("//button[normalize-space()='Meeting series' or contains(normalize-space(),'Meeting series')]");
+    private By sprintReviewButtonInsideDropdown = By.xpath("//a[contains(@class,'op-submenu--item-action')]//span[normalize-space()='Sprint Review']");
 
-    // Locator Utama (Berdasarkan Inspect Element Terbaru)
-    private By filtersToggleButton = By.xpath("//button[contains(., 'Filters')]");
-    private By addFilterSelect = By.id("add_filter_select");
-    private By applyButton = By.cssSelector("input[type='submit'][value='Apply']");
+    // main content
+    private By meetingsBreadCrumbLink = By.linkText("Meetings");
+    private By homeBreadCrumbLink = By.linkText("safe.openproject.com");
+    private By upComingFilterButton = By.xpath("//a[.//span[@class='Button-label' and normalize-space()='Upcoming']]");
+    private By pastFilterButton = By.xpath("//a[.//span[@class='Button-label' and normalize-space()='Past']]");
+    private By filtersButton = By.xpath("//button[.//span[normalize-space()='Filters']]");
     
-    // Tab Navigation
-    private By pastTab = By.xpath("//a[@title='Past meetings']");
-    private By upcomingTab = By.xpath("//a[@title='Upcoming meetings']");
+    // element extra untuk filters
+    private By applyFiltersButton = By.xpath("//input[@type='submit' and @value='Apply']");
+    private By addFilterDropdown = By.id("add_filter_select");
+    private By meetingSeriesSwitch = By.cssSelector("opce-spot-switch[data-name='\"v-type\"'] input[type='checkbox']");
+    private By projectNgSelect = By.cssSelector("ng-select#project_id_value input[role='combobox']");
+    private By projectDropdownOptions = By.cssSelector("ng-dropdown-panel .ng-option");
+    private By removeFilterButton = By.xpath("//a[@class='filter_rem' and @data-filter--filters-form-filter-name-param='invited_user_id']");
+    private By closeFormButton = By.cssSelector("a.advanced-filters--close[title='Close form']");
 
-    // SIDEBAR: Sesuai Inspect Element (op-submenu--item-action)
-    // Kita gunakan data-test-selector atau kombinasi class + text agar tidak tertukar dengan All Meetings
-    private By recurringMeetingsLink = By.xpath("//a[contains(@class, 'op-submenu--item-action') and contains(., 'Recurring meetings')]");
-
-    // Toggle "Part of a meeting series" (Berdasarkan Screenshot 2)
-    private By toggleWrapper = By.cssSelector("opce-spot-switch[data-name='v-type']");
-    private By toggleFakeSpan = By.cssSelector("opce-spot-switch[data-name='v-type'] .spot-switch--fake");
-
-    // Filter Logic
-    private By invitedUserOperator = By.xpath("//li[@data-filter-name='invited_user_id']//select[@id='operator']");
+    // table items
+    private By tableTitleLink = By.cssSelector("a.Link.text-bold[href*='/meetings/']");
+    private By tableProjectLink = By.cssSelector("a[href^='/projects/']:not(.Link)");
+    private By tableDateTimeLink = By.cssSelector("a.Link[href*='/recurring_meetings/']");
+    private By actionsMenuButton = By.cssSelector("button[data-test-selector='more-button']");
+    private By viewMeetingSeriesLink = By.xpath("//span[contains(@class,'ActionListItem-label') and contains(text(),'View meeting series')]/ancestor::a");
+    private By downloadICalendarLink = By.xpath("//span[contains(@class,'ActionListItem-label') and contains(text(),'Download iCalendar event')]/ancestor::a");
 
     public MeetingsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void openFiltersPanel() {
-        if (!isElementDisplayed(addFilterSelect)) {
-            WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(filtersToggleButton));
-            jsClick(btn);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(addFilterSelect));
-        }
-    }
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               SIDEBAR ACTIONS                          ║
+    // ╚════════════════════════════════════════════════════════╝
 
-    public void selectFilterIfNotFound(String filterName, String filterDataName) {
-        openFiltersPanel();
-        By activeFilterLocator = By.xpath("//li[@data-filter-name='" + filterDataName + "']");
-        if (!isElementDisplayed(activeFilterLocator)) {
-            WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(addFilterSelect));
-            new Select(dropdown).selectByVisibleText(filterName);
-            Delay.waitDefault();
-        }
-    }
-
-    public void setInvitedUserToIsNotEmpty() {
-        try {
-            WebElement selectEl = wait.until(ExpectedConditions.visibilityOfElementLocated(invitedUserOperator));
-            new Select(selectEl).selectByVisibleText("is not empty");
-        } catch (Exception e) {
-            jsClick(driver.findElement(By.xpath("//li[@data-filter-name='invited_user_id']//option[text()='is not empty']")));
-        }
-    }
-
-    public void clickApply() {
-        System.out.println("DEBUG: Klik Apply...");
-        WebElement btn = wait.until(ExpectedConditions.presenceOfElementLocated(applyButton));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", btn);
+    public MeetingsPage clickMeetingsSidebarButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsSidebarButton)).click();
         Delay.waitDefault();
-        jsClick(btn);
+        return this;
+    }
+
+    public MeetingsPage clickRecurringMeetingsType() {
+        wait.until(ExpectedConditions.elementToBeClickable(recurringMeetingsType)).click();
         Delay.waitDefault();
+        return this;
     }
 
-    public void clickPast() {
-        System.out.println("DEBUG: Klik tab Past...");
-        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(pastTab));
-        jsClick(el);
-        // Menunggu URL berubah (upcoming=false)
-        wait.until(ExpectedConditions.urlContains("upcoming=false"));
+    public MeetingsPage clickAllMeetingsType() {
+        wait.until(ExpectedConditions.elementToBeClickable(allMeetingsType)).click();
         Delay.waitDefault();
+        return this;
     }
 
-    public void goToRecurringMeetings() {
-        System.out.println("DEBUG: Navigasi ke Recurring Meetings...");
-        try {
-            // Karena elemen berada di dalam <turbo-frame>, pastikan kita menunggu visibilitasnya
-            // Menggunakan locator yang sudah diperbaiki (op-submenu--item-action)
-            WebElement link = wait.until(ExpectedConditions.visibilityOfElementLocated(recurringMeetingsLink));
-            jsClick(link);
-            
-            // Verifikasi bahwa URL sudah mengandung /recurring
-            wait.until(ExpectedConditions.urlContains("/recurring"));
-            System.out.println("DEBUG: Berhasil masuk ke halaman Recurring.");
-        } catch (Exception e) {
-            System.err.println("ERROR: Gagal klik sidebar. Mencoba klik berdasarkan data-test-selector...");
-            // Fallback menggunakan data-test-selector dari inspect element
-            WebElement fallback = driver.findElement(By.cssSelector("a[data-test-selector='op-submenu--item-action']"));
-            jsClick(fallback);
-        }
-    }
-
-    public void turnOffMeetingSeriesToggle() {
-        System.out.println("DEBUG: Mengecek status toggle 'Part of a meeting series'...");
-        try {
-            WebElement wrapper = wait.until(ExpectedConditions.presenceOfElementLocated(toggleWrapper));
-            
-            // Berdasarkan screenshot inspect, atribut 'checked' ada pada opce-spot-switch
-            String isChecked = wrapper.getAttribute("checked");
-            
-            if ("true".equals(isChecked)) {
-                System.out.println("DEBUG: Status ON. Mematikan (OFF)...");
-                jsClick(driver.findElement(toggleFakeSpan));
-            } else {
-                System.out.println("DEBUG: Status sudah OFF.");
-            }
-        } catch (Exception e) {
-            System.err.println("DEBUG: Toggle tidak ditemukan.");
-        }
+    public MeetingsPage clickMeetingsSeriesDropdown() {
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsSeriesDropdown)).click();
         Delay.waitDefault();
+        return this;
     }
 
-    private void jsClick(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-    }
-
-    private boolean isElementDisplayed(By locator) {
+    public boolean isSprintReviewButtonVisible() {
         try {
-            List<WebElement> elements = driver.findElements(locator);
-            return !elements.isEmpty() && elements.get(0).isDisplayed();
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(sprintReviewButtonInsideDropdown)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               BREADCRUMB ACTIONS                       ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public MeetingsPage clickHomeBreadCrumbLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(homeBreadCrumbLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickMeetingsBreadCrumbLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsBreadCrumbLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               FILTER ACTIONS                           ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public MeetingsPage clickPastFilterButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(pastFilterButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickUpcomingFilterButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(upComingFilterButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickFiltersButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(filtersButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isApplyFiltersButtonVisible() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(applyFiltersButton)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public MeetingsPage clickApplyFiltersButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(applyFiltersButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickCloseFormButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(closeFormButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage selectFilterByValue(String value) {
+        org.openqa.selenium.WebElement select = wait.until(ExpectedConditions.elementToBeClickable(addFilterDropdown));
+        select.click();
+        Delay.waitFor(200);
+        org.openqa.selenium.support.ui.Select dropdown = new org.openqa.selenium.support.ui.Select(select);
+        dropdown.selectByValue(value);
+        Delay.waitDefault();
+        return this;
+    }
+
+    public int selectAllAvailableFilters() {
+        int selectedCount = 0;
+        String[] filterValues = {"attended_user_id", "author_id", "invited_user_id", "type", "project_id"};
+        
+        for (String value : filterValues) {
+            try {
+                org.openqa.selenium.WebElement select = wait.until(ExpectedConditions.elementToBeClickable(addFilterDropdown));
+                org.openqa.selenium.WebElement option = select.findElement(By.cssSelector("option[value='" + value + "']"));
+                String disabledAttr = option.getAttribute("disabled");
+                
+                if (disabledAttr == null || disabledAttr.isEmpty()) {
+                    select.click();
+                    Delay.waitFor(200);
+                    org.openqa.selenium.support.ui.Select dropdown = new org.openqa.selenium.support.ui.Select(select);
+                    dropdown.selectByValue(value);
+                    selectedCount++;
+                    System.out.println("Selected filter: " + value);
+                    Delay.waitFor(300);
+                }
+            } catch (Exception e) {
+                System.out.println("Could not select filter: " + value + " - " + e.getMessage());
+            }
+        }
+        return selectedCount;
+    }
+
+
+    public MeetingsPage clickMeetingSeriesSwitch() {
+        org.openqa.selenium.WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(meetingSeriesSwitch));
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Delay.waitFor(200);
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickProjectNgSelect() {
+        wait.until(ExpectedConditions.elementToBeClickable(projectNgSelect)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage selectProjectFromDropdown(String projectName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(projectDropdownOptions));
+        Delay.waitFor(300);
+        
+        java.util.List<org.openqa.selenium.WebElement> options = driver.findElements(projectDropdownOptions);
+        for (org.openqa.selenium.WebElement option : options) {
+            if (option.getText().trim().contains(projectName)) {
+                option.click();
+                Delay.waitDefault();
+                return this;
+            }
+        }
+        throw new RuntimeException("Project not found in dropdown: " + projectName);
+    }
+
+    public MeetingsPage clickRemoveFirstFilter() {
+        org.openqa.selenium.WebElement link = wait.until(ExpectedConditions.elementToBeClickable(removeFilterButton));
+        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               TABLE ACTIONS                            ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public MeetingsPage clickFirstTableTitleLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(tableTitleLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickFirstTableProjectLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(tableProjectLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickFirstTableDateTimeLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(tableDateTimeLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickFirstActionsMenuButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(actionsMenuButton)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickViewMeetingSeriesLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(viewMeetingSeriesLink)).click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public MeetingsPage clickDownloadICalendarLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(downloadICalendarLink)).click();
+        Delay.waitDefault();
+        return this;
     }
 }
