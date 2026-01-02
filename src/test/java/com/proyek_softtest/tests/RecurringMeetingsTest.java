@@ -108,4 +108,215 @@ public class RecurringMeetingsTest extends BaseTest {
         assertFalse(upcomingUrl.contains("direction=past"),
                     "URL should not contain direction=past. Current URL: " + upcomingUrl);
     }
+
+    // ╔════════════════════════════════════════════════════════════════╗
+    // ║                   AGENDA BOX TESTS                             ║
+    // ╚════════════════════════════════════════════════════════════════╝
+
+    @Test
+    @Order(4)
+    @DisplayName("Test 4: Click Date/Time Link in Agenda Box")
+    @Description("Verify clicking date/time link navigates to meeting detail page")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Agenda Box Actions")
+    public void test4_ClickDateTimeLink() {
+        recurringMeetingsPage.clickColumnDateAndTimeLink();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Meeting Detail Page");
+        
+        // Assert URL is meeting detail page
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.equals("https://safe.openproject.com/projects/art-0-test-release-train/meetings/25"),
+                   "URL should be meeting detail page. Current URL: " + currentUrl);
+        
+        // Navigate back
+        driver.navigate().back();
+        Delay.waitFor(500);
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("Test 5: Toggle Row More Menu Button")
+    @Description("Verify opening and closing row-level more menu button")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Agenda Box Actions")
+    public void test5_ToggleRowMoreMenuButton() {
+        // First click - open menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        captureScreenshotWithTitle("Row More Menu Opened");
+        
+        // Assert Download iCalendar is visible when menu is open
+        assertTrue(recurringMeetingsPage.isRowDownloadICalendarLinkVisible(),
+                   "Row download iCalendar link should be visible when menu is open");
+        
+        // Second click - close menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        captureScreenshotWithTitle("Row More Menu Closed");
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("Test 6: Click Row Download iCalendar")
+    @Description("Verify clicking download iCalendar from row-level more menu")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Agenda Box Actions")
+    public void test6_ClickRowDownloadICalendar() {
+        // Open row menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        
+        // Click download iCalendar
+        recurringMeetingsPage.clickRowDownloadICalendarLink();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Row Download iCalendar Clicked");
+        
+        // Assert URL unchanged (still on same page)
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("/recurring_meetings/"),
+                   "URL should still contain /recurring_meetings/. Current URL: " + currentUrl);
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("Test 7: Click Edit Template Button")
+    @Description("Verify clicking Edit Template navigates to template edit page")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Template Actions")
+    public void test7_ClickEditTemplateButton() {
+        recurringMeetingsPage.clickEditTemplateButton();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Edit Template Page");
+        
+        // Assert URL is template edit page
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.equals("https://safe.openproject.com/projects/art-0-test-release-train/meetings/3"),
+                   "URL should be template edit page. Current URL: " + currentUrl);
+        
+        // Navigate back
+        driver.navigate().back();
+        Delay.waitFor(500);
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("Test 8: Click Show More Link")
+    @Description("Verify clicking Show More link loads more meetings")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Pagination Actions")
+    public void test8_ClickShowMoreLink() {
+        recurringMeetingsPage.clickShowMoreLink();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Show More Loaded");
+        
+        // Assert URL contains limit parameter
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("limit="),
+                   "URL should contain limit= parameter. Current URL: " + currentUrl);
+    }
+
+    // ╔════════════════════════════════════════════════════════════════╗
+    // ║                   PAST TAB TESTS                               ║
+    // ╚════════════════════════════════════════════════════════════════╝
+
+    @Test
+    @Order(9)
+    @DisplayName("Test 9: Past Tab - Click First Item in Table")
+    @Description("Verify clicking first item in past table navigates to meeting detail")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Past Tab Actions")
+    public void test9_PastTabClickFirstItem() {
+        // Click past tab first
+        recurringMeetingsPage.clickPastTab();
+        Delay.waitFor(1000);
+        
+        // Click first item in table
+        recurringMeetingsPage.clickFirstItemInPastTable();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Past Meeting Detail Page");
+        
+        // Assert URL contains meetings
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("/meetings/"),
+                   "URL should contain /meetings/. Current URL: " + currentUrl);
+        
+        // Navigate back
+        driver.navigate().back();
+        Delay.waitFor(500);
+    }
+
+    @Test
+    @Order(10)
+    @DisplayName("Test 10: Past Tab - Toggle Row Action Button")
+    @Description("Verify opening and closing row action button in past tab")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Past Tab Actions")
+    public void test10_PastTabToggleRowActionButton() {
+        // Click past tab first
+        recurringMeetingsPage.clickPastTab();
+        Delay.waitFor(1000);
+        
+        // Open row action menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        captureScreenshotWithTitle("Past Row More Menu Opened");
+        
+        // Assert Download iCalendar is visible
+        assertTrue(recurringMeetingsPage.isRowDownloadICalendarLinkVisible(),
+                   "Row download iCalendar link should be visible when menu is open");
+        
+        // Close row action menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        captureScreenshotWithTitle("Past Row More Menu Closed");
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("Test 11: Past Tab - Click Row Download iCalendar")
+    @Description("Verify clicking download iCalendar from row action in past tab")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Past Tab Actions")
+    public void test11_PastTabClickRowDownloadICalendar() {
+        // Click past tab first
+        recurringMeetingsPage.clickPastTab();
+        Delay.waitFor(1000);
+        
+        // Open row action menu
+        recurringMeetingsPage.clickRowMoreMenuButton();
+        Delay.waitFor(500);
+        
+        // Click download iCalendar
+        recurringMeetingsPage.clickRowDownloadICalendarLink();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Past Download iCalendar Clicked");
+        
+        // Assert URL unchanged
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("/recurring_meetings/"),
+                   "URL should still contain /recurring_meetings/. Current URL: " + currentUrl);
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("Test 12: Past Tab - Click Show More Link")
+    @Description("Verify clicking Show More link in past tab")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Past Tab Actions")
+    public void test12_PastTabClickShowMoreLink() {
+        // Click past tab first
+        recurringMeetingsPage.clickPastTab();
+        Delay.waitFor(1000);
+        
+        // Click show more link
+        recurringMeetingsPage.clickShowMoreLink();
+        Delay.waitFor(1000);
+        captureScreenshotWithTitle("Past Show More Loaded");
+        
+        // Assert URL contains limit parameter
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("limit="),
+                   "URL should contain limit= parameter. Current URL: " + currentUrl);
+    }
 }

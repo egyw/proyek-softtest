@@ -20,6 +20,18 @@ public class RecurringMeetingsPage extends BasePage {
     // agenda opened box
     private By columnDateAndTimeLink = By.xpath("//a[normalize-space()='01/03/2026 10:00 AM']");
     
+    // Row-level more menu button (different from header more menu)
+    private By rowMoreMenuButton = By.cssSelector("button[data-test-selector='more-button']");
+    private By rowDownloadICalendarLink = By.cssSelector("a[href*='/download_ics?occurrence_id']");
+    
+    private By editTemplateButton = By.xpath("//a[.//span[normalize-space()='Edit template']]");
+    
+    private By showMoreLink = By.xpath("//span[normalize-space()='Show more']");
+    
+
+    // UNTUK PAST
+    private By firstItemInTable = By.xpath("//a[normalize-space()='12/20/2025 10:00 AM']");
+    
     public RecurringMeetingsPage(WebDriver driver) {
         super(driver);
     }
@@ -94,6 +106,107 @@ public class RecurringMeetingsPage extends BasePage {
                 .filter(el -> el.isDisplayed())
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Past tab not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               AGENDA BOX ACTIONS                       ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public RecurringMeetingsPage clickColumnDateAndTimeLink() {
+        wait.until(driver -> {
+            return driver.findElements(columnDateAndTimeLink).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(columnDateAndTimeLink).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Date/Time link not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public RecurringMeetingsPage clickRowMoreMenuButton() {
+        wait.until(driver -> {
+            return driver.findElements(rowMoreMenuButton).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(rowMoreMenuButton).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Row more menu button not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public boolean isRowDownloadICalendarLinkVisible() {
+        try {
+            return driver.findElements(rowDownloadICalendarLink).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public RecurringMeetingsPage clickRowDownloadICalendarLink() {
+        wait.until(driver -> {
+            return driver.findElements(rowDownloadICalendarLink).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(rowDownloadICalendarLink).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Row download iCalendar link not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public RecurringMeetingsPage clickEditTemplateButton() {
+        wait.until(driver -> {
+            return driver.findElements(editTemplateButton).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(editTemplateButton).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Edit Template button not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    public RecurringMeetingsPage clickShowMoreLink() {
+        wait.until(driver -> {
+            return driver.findElements(showMoreLink).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(showMoreLink).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Show More link not visible"));
+        visibleElement.click();
+        Delay.waitDefault();
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║               PAST TAB ACTIONS                         ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    public RecurringMeetingsPage clickFirstItemInPastTable() {
+        wait.until(driver -> {
+            return driver.findElements(firstItemInTable).stream()
+                    .anyMatch(el -> el.isDisplayed());
+        });
+        org.openqa.selenium.WebElement visibleElement = driver.findElements(firstItemInTable).stream()
+                .filter(el -> el.isDisplayed())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("First item in past table not visible"));
         visibleElement.click();
         Delay.waitDefault();
         return this;
