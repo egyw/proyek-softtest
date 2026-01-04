@@ -25,7 +25,6 @@ public class NewsTest extends BaseTest {
         super.setupTestContext();
         newsPage = new NewsPage(driver);
 
-        // Navigate to news page before each test
         driver.get("https://safe.openproject.com/news");
     }
     // ╔════════════════════════════════════════════════════════════╗
@@ -34,24 +33,19 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Click Home Breadcrumb Link and Navigate Back")
+    @DisplayName("NW_T-001: Click Home Breadcrumb Link and Navigate Back")
     @Description("Verify clicking home breadcrumb link navigates to home page and can navigate back")
     @Severity(SeverityLevel.NORMAL)
     @Story("News Page Navigation")
     public void test1_ClickHomeBreadcrumbLinkAndNavigateBack() {
-        // Click home breadcrumb link
         newsPage.clickHomeBreadCrumbLink();
-        // Assert navigates to home page
         assertEquals("https://safe.openproject.com/", newsPage.getCurrentUrl(),
                 "Should navigate to home page");
 
-        // Manual screenshot after first assertion
         captureScreenshotWithTitle("Navigate to Home");
 
-        // Navigate back
         newsPage.navigateBack();
 
-        // Assert back to news page
         assertTrue(newsPage.getCurrentUrl().contains("/news"),
                 "Should be back at news page");
 
@@ -59,7 +53,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Click Link Demo Project and Navigate to Demo Project Page")
+    @DisplayName("NW_T-002: Click Link Demo Project and Navigate to Demo Project Page")
     @Description("Verify clicking Link Demo Project and navigates to demo project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Demo Project Link Navigation")
@@ -77,7 +71,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Click Link Test Syntax Highlighting and Navigate to Test Syntax Highlighting Page")
+    @DisplayName("NW_T-003: Click Link Test Syntax Highlighting and Navigate to Test Syntax Highlighting Page")
     @Description("Verify clicking Link Test Syntax Highlighting and navigates to test syntax highlighting page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Test Syntax Highlighting Link Navigation")
@@ -94,7 +88,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Click Link Demo Admin and Navigate to Demo Admin Page")
+    @DisplayName("NW_T-004: Click Link Demo Admin and Navigate to Demo Admin Page")
     @Description("Verify clicking Link Demo Admin and navigates to demo admin page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Demo Admin Link Navigation")
@@ -111,7 +105,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Click the second Demo project link")
+    @DisplayName("NW_T-005: Click the second Demo project link")
     @Description("Verify clicking the second Demo project link works correctly")
     @Severity(SeverityLevel.MINOR)
     @Story("Demo Project Link Navigation")
@@ -126,7 +120,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Click Link Actualites and Navigate to Actualites Page")
+    @DisplayName("NW_T-006: Click Link Actualites and Navigate to Actualites Page")
     @Description("Verify clicking Link Actualites and navigates to actualites page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Actualites Link Navigation")
@@ -145,7 +139,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: Click the second Demo admin link")
+    @DisplayName("NW_T-007: Click the second Demo admin link")
     @Description("Verify clicking the second Demo admin link works correctly")
     @Severity(SeverityLevel.MINOR)
     @Story("Demo Admin Link Navigation")
@@ -160,7 +154,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: Click Link Scrum Project and Navigate to Scrum Project Page")
+    @DisplayName("NW_T-008: Click Link Scrum Project and Navigate to Scrum Project Page")
     @Description("Verify clicking Link Scrum Project and navigates to scrum project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Scrum Project Link Navigation")
@@ -175,7 +169,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: Click Link Welcome to your Scrum demo project and Navigate to welcome to your scrum demo project page")
+    @DisplayName("NW_T-009: Click Link Welcome to your Scrum demo project and Navigate to welcome to your scrum demo project page")
     @Description("Verify clicking Link Welcome to your Scrum demo project and navigates to welcome to your scrum demo project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Welcome to your Scrum demo project Link Navigation")
@@ -191,7 +185,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: Click the third Demo project link")
+    @DisplayName("NW_T-010: Click the third Demo project link")
     @Description("Verify clicking the third Demo project link works correctly")
     @Severity(SeverityLevel.MINOR)
     @Story("Demo Project Link Navigation")
@@ -206,7 +200,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: Click link welcome to your demo project and navigate to welcome to your demo project page")
+    @DisplayName("NW_T-011: Click link welcome to your demo project and navigate to welcome to your demo project page")
     @Description("Verify clicking link welcome to your demo project and navigates to welcome to your demo project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Welcome to your demo project Link Navigation")
@@ -222,7 +216,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(12)
-    @DisplayName("Test 12: Click pagination 100")
+    @DisplayName("NW_T-012: Click pagination 100")
     @Description("Verify clicking pagination 100 works correctly")
     @Severity(SeverityLevel.TRIVIAL)
     @Story("Pagination Functionality")
@@ -235,7 +229,7 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(13)
-    @DisplayName("Test 13: Click pagination 200")
+    @DisplayName("NW_T-013: Click pagination 200")
     @Description("Verify clicking pagination 200 works correctly")
     @Severity(SeverityLevel.TRIVIAL)
     @Story("Pagination Functionality")
@@ -248,12 +242,11 @@ public class NewsTest extends BaseTest {
 
     @Test
     @Order(14)
-    @DisplayName("Test 14: Click pagination 50")
+    @DisplayName("NW_T-014: Click pagination 50")
     @Description("Verify clicking pagination 50 works correctly")
     @Severity(SeverityLevel.TRIVIAL)
     @Story("Pagination Functionality")
     public void test14_ClickPagination50() {
-        // newsPage.clickPagination100();
         newsPage.clickPagination50();
         assertEquals("https://safe.openproject.com/news?page=1&per_page=50", newsPage.getCurrentUrl(),
                 "Should navigate to page with 50 items per page");

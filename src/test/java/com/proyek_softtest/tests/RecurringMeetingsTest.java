@@ -35,7 +35,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Toggle More Menu Button")
+    @DisplayName("RM_T-001: Toggle More Menu Button")
     @Description("Verify opening and closing more menu button, assert Download iCalendar visible when open")
     @Severity(SeverityLevel.NORMAL)
     @Story("More Menu Actions")
@@ -57,7 +57,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Click Download iCalendar Event")
+    @DisplayName("RM_T-002: Click Download iCalendar Event")
     @Description("Verify clicking Download iCalendar event link")
     @Severity(SeverityLevel.NORMAL)
     @Story("More Menu Actions")
@@ -83,7 +83,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Switch Between Past and Upcoming Tabs")
+    @DisplayName("RM_T-003: Switch Between Past and Upcoming Tabs")
     @Description("Verify switching between Past and Upcoming tabs")
     @Severity(SeverityLevel.NORMAL)
     @Story("Tab Navigation")
@@ -115,7 +115,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Click Date/Time Link in Agenda Box")
+    @DisplayName("RM_T-004: Click Date/Time Link in Agenda Box")
     @Description("Verify clicking date/time link navigates to meeting detail page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Agenda Box Actions")
@@ -136,7 +136,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Toggle Row More Menu Button")
+    @DisplayName("RM_T-005: Toggle Row More Menu Button")
     @Description("Verify opening and closing row-level more menu button")
     @Severity(SeverityLevel.NORMAL)
     @Story("Agenda Box Actions")
@@ -158,7 +158,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Click Row Download iCalendar")
+    @DisplayName("RM_T-006: Click Row Download iCalendar")
     @Description("Verify clicking download iCalendar from row-level more menu")
     @Severity(SeverityLevel.NORMAL)
     @Story("Agenda Box Actions")
@@ -180,7 +180,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: Click Edit Template Button")
+    @DisplayName("RM_T-007: Click Edit Template Button")
     @Description("Verify clicking Edit Template navigates to template edit page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Template Actions")
@@ -201,7 +201,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: Click Show More Link")
+    @DisplayName("RM_T-008: Click Show More Link")
     @Description("Verify clicking Show More link loads more meetings")
     @Severity(SeverityLevel.NORMAL)
     @Story("Pagination Actions")
@@ -222,7 +222,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: Past Tab - Click First Item in Table")
+    @DisplayName("RM_T-009: Past Tab - Click First Item in Table")
     @Description("Verify clicking first item in past table navigates to meeting detail")
     @Severity(SeverityLevel.NORMAL)
     @Story("Past Tab Actions")
@@ -248,7 +248,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: Past Tab - Toggle Row Action Button")
+    @DisplayName("RM_T-010: Past Tab - Toggle Row Action Button")
     @Description("Verify opening and closing row action button in past tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Past Tab Actions")
@@ -274,7 +274,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: Past Tab - Click Row Download iCalendar")
+    @DisplayName("RM_T-011: Past Tab - Click Row Download iCalendar")
     @Description("Verify clicking download iCalendar from row action in past tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Past Tab Actions")
@@ -300,7 +300,7 @@ public class RecurringMeetingsTest extends BaseTest {
 
     @Test
     @Order(12)
-    @DisplayName("Test 12: Past Tab - Click Show More Link")
+    @DisplayName("RM_T-012: Past Tab - Click Show More Link")
     @Description("Verify clicking Show More link in past tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Past Tab Actions")

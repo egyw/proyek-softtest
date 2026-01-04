@@ -35,7 +35,7 @@ public class TeamPlannersTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Click Home Breadcrumb Link and Navigate Back")
+    @DisplayName("TP_T-001: Click Home Breadcrumb Link and Navigate Back")
     @Description("Verify clicking home breadcrumb link navigates to home page and can navigate back")
     @Severity(SeverityLevel.NORMAL)
     @Story("Team Planners Navigation")
@@ -58,7 +58,7 @@ public class TeamPlannersTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Sort Table Columns")
+    @DisplayName("TP_T-002: Sort Table Columns")
     @Description("Verify sorting by Name, Project, and Created on columns (ascending and descending)")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Team Planners Sorting")
@@ -118,7 +118,7 @@ public class TeamPlannersTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Click Name and Project Row Links")
+    @DisplayName("TP_T-003: Click Name and Project Row Links")
     @Description("Verify clicking first row name and project links navigate correctly")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Team Planners Row Links")
@@ -144,7 +144,7 @@ public class TeamPlannersTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Change Items Per Page")
+    @DisplayName("TP_T-004: Change Items Per Page")
     @Description("Verify changing items per page to 100, 200, and 50")
     @Severity(SeverityLevel.NORMAL)
     @Story("Team Planners Pagination")

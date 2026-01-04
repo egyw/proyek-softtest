@@ -92,7 +92,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Buka dan Tutup Side Menu Overlay")
+    @DisplayName("NB_T-001: Buka dan Tutup Side Menu Overlay")
     @Description("Verify that side menu overlay can be opened and closed")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Side Menu Overlay Toggle")
@@ -107,7 +107,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Navigasi Home di side menu overlay")
+    @DisplayName("NB_T-002: Navigasi Home di side menu overlay")
     @Description("Verify navigation to Home through side menu overlay (refresh)")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -122,7 +122,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Navigasi Projects di side menu overlay")
+    @DisplayName("NB_T-003: Navigasi Projects di side menu overlay")
     @Description("Verify navigation to Projects through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -136,7 +136,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Navigasi Work Packages di side menu overlay")
+    @DisplayName("NB_T-004: Navigasi Work Packages di side menu overlay")
     @Description("Verify navigation to Work Packages through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -150,7 +150,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Navigasi Gantt Charts di side menu overlay")
+    @DisplayName("NB_T-005: Navigasi Gantt Charts di side menu overlay")
     @Description("Verify navigation to Gantt Charts through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -164,7 +164,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Navigasi Team Planners di side menu overlay")
+    @DisplayName("NB_T-006: Navigasi Team Planners di side menu overlay")
     @Description("Verify navigation to Team Planners through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -178,7 +178,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: Navigasi Boards di side menu overlay")
+    @DisplayName("NB_T-007: Navigasi Boards di side menu overlay")
     @Description("Verify navigation to Boards through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -192,7 +192,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: Navigasi Meetings di side menu overlay")
+    @DisplayName("NB_T-008: Navigasi Meetings di side menu overlay")
     @Description("Verify navigation to Meetings through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -206,7 +206,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: Navigasi News di side menu overlay")
+    @DisplayName("NB_T-009: Navigasi News di side menu overlay")
     @Description("Verify navigation to News through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -220,7 +220,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: Navigasi Time and Costs di side menu overlay")
+    @DisplayName("NB_T-010: Navigasi Time and Costs di side menu overlay")
     @Description("Verify navigation to Time and Costs through side menu overlay")
     @Severity(SeverityLevel.NORMAL)
     @Story("Side Menu Overlay Navigation")
@@ -234,7 +234,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: Klik OpenProject Logo")
+    @DisplayName("NB_T-011: Klik OpenProject Logo")
     @Description("Verify clicking OpenProject logo navigates to home page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Navigation")
@@ -246,7 +246,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(12)
-    @DisplayName("Test 12: Search dengan query 'abc'")
+    @DisplayName("NB_T-012: Search dengan query 'abc'")
     @Description("Verify searching with 'abc' and clicking 'In all projects'")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Navbar Search")
@@ -263,7 +263,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(13)
-    @DisplayName("Test 13: Search berdasarkan ID 70")
+    @DisplayName("NB_T-013: Search berdasarkan ID 70")
     @Description("Verify searching work package by ID 70")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Navbar Search")
@@ -288,7 +288,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(14)
-    @DisplayName("Test 14: Search berdasarkan kategori 'art-2 design'")
+    @DisplayName("NB_T-014: Search berdasarkan kategori 'art-2 design'")
     @Description("Verify searching by category 'art-2 design'")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Search")
@@ -315,7 +315,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(15)
-    @DisplayName("Test 15: Search berdasarkan judul 'SSL certificate'")
+    @DisplayName("NB_T-015: Search berdasarkan judul 'SSL certificate'")
     @Description("Verify searching by title 'SSL certificate'")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Search")
@@ -343,7 +343,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(16)
-    @DisplayName("Test 16: Klik Help Button untuk membuka dan menutup help menu")
+    @DisplayName("NB_T-016: Klik Help Button untuk membuka dan menutup help menu")
     @Description("Verify clicking Help button to open and close help menu")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -358,12 +358,11 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(17)
-    @DisplayName("Test 17: Klik Getting Started Link dan tutup dengan tombol X")
+    @DisplayName("NB_T-017: Klik Getting Started Link dan tutup dengan tombol X")
     @Description("Verify clicking Getting Started link opens popup and close with button 1 (X button)")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
     public void test17_ClickGettingStartedLinkAndCloseWithButton1() {
-        // Test pertama - buka dan tutup dengan button 1
         navbarPage.clickHelpButton();
         assertTrue(navbarPage.isHelpMenuDisplayed(), "Help menu should be displayed");
         
@@ -373,7 +372,6 @@ public class NavbarTest extends BaseTest {
         
         navbarPage.closeGettingStartedPopUpWithButton1();
         
-        // Test kedua - buka lagi dan tutup dengan button 2
         navbarPage.clickHelpButton();
         assertTrue(navbarPage.isHelpMenuDisplayed(), "Help menu should be displayed again");
         
@@ -386,7 +384,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(18)
-    @DisplayName("Test 18: Help Menu - Upgrade to Enterprise Edition Link")
+    @DisplayName("NB_T-018: Help Menu - Upgrade to Enterprise Edition Link")
     @Description("Verify clicking Upgrade to Enterprise Edition link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -400,7 +398,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(19)
-    @DisplayName("Test 19: Help Menu - User Guides Link")
+    @DisplayName("NB_T-019: Help Menu - User Guides Link")
     @Description("Verify clicking User Guides link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -414,7 +412,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(20)
-    @DisplayName("Test 20: Help Menu - Videos Link")
+    @DisplayName("NB_T-020: Help Menu - Videos Link")
     @Description("Verify clicking Videos link opens YouTube page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -428,7 +426,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(21)
-    @DisplayName("Test 21: Help Menu - Shortcuts Link")
+    @DisplayName("NB_T-021: Help Menu - Shortcuts Link")
     @Description("Verify clicking Shortcuts link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -442,7 +440,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(22)
-    @DisplayName("Test 22: Help Menu - Community Forum Link")
+    @DisplayName("NB_T-022: Help Menu - Community Forum Link")
     @Description("Verify clicking Community Forum link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -456,7 +454,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(23)
-    @DisplayName("Test 23: Help Menu - Enterprise Support Link")
+    @DisplayName("NB_T-023: Help Menu - Enterprise Support Link")
     @Description("Verify clicking Enterprise Support link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -470,7 +468,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(24)
-    @DisplayName("Test 24: Help Menu - Data Privacy and Security Policy Link")
+    @DisplayName("NB_T-024: Help Menu - Data Privacy and Security Policy Link")
     @Description("Verify clicking Data Privacy and Security Policy link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -484,7 +482,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(25)
-    @DisplayName("Test 25: Help Menu - Digital Accessibility Link")
+    @DisplayName("NB_T-025: Help Menu - Digital Accessibility Link")
     @Description("Verify clicking Digital Accessibility link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -498,7 +496,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(26)
-    @DisplayName("Test 26: Help Menu - OpenProject Website Link")
+    @DisplayName("NB_T-026: Help Menu - OpenProject Website Link")
     @Description("Verify clicking OpenProject Website link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -512,7 +510,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(27)
-    @DisplayName("Test 27: Help Menu - Security Alerts Link")
+    @DisplayName("NB_T-027: Help Menu - Security Alerts Link")
     @Description("Verify clicking Security Alerts link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -526,7 +524,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(28)
-    @DisplayName("Test 28: Help Menu - Newsletter Link")
+    @DisplayName("NB_T-028: Help Menu - Newsletter Link")
     @Description("Verify clicking Newsletter link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -540,7 +538,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(29)
-    @DisplayName("Test 29: Help Menu - OpenProject Blog Link")
+    @DisplayName("NB_T-029: Help Menu - OpenProject Blog Link")
     @Description("Verify clicking OpenProject Blog link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -554,7 +552,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(30)
-    @DisplayName("Test 30: Help Menu - Release Notes Link")
+    @DisplayName("NB_T-030: Help Menu - Release Notes Link")
     @Description("Verify clicking Release Notes link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -568,7 +566,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(31)
-    @DisplayName("Test 31: Help Menu - Report a Bug Link")
+    @DisplayName("NB_T-031: Help Menu - Report a Bug Link")
     @Description("Verify clicking Report a Bug link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -582,7 +580,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(32)
-    @DisplayName("Test 32: Help Menu - Development Roadmap Link")
+    @DisplayName("NB_T-032: Help Menu - Development Roadmap Link")
     @Description("Verify clicking Development Roadmap link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -596,7 +594,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(33)
-    @DisplayName("Test 33: Help Menu - Add and Edit Translations Link")
+    @DisplayName("NB_T-033: Help Menu - Add and Edit Translations Link")
     @Description("Verify clicking Add and Edit Translations link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -610,7 +608,7 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(34)
-    @DisplayName("Test 34: Help Menu - API Documentation Link")
+    @DisplayName("NB_T-034: Help Menu - API Documentation Link")
     @Description("Verify clicking API Documentation link opens correct page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Navbar Help Menu")
@@ -628,88 +626,73 @@ public class NavbarTest extends BaseTest {
 
     @Test
     @Order(35)
-    @DisplayName("Test 35: Open and Close Sign In Side Panel")
+    @DisplayName("NB_T-035: Open and Close Sign In Side Panel")
     @Description("verify sign in side panel can be opened and closed")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Sign In Side Panel")
     public void testOpenAndCloseSignInSidePanel() {
-        // Click sign in button
         navbarPage.clickSignInButton();
         
-        // Assert sign in side panel is displayed
         assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed after clicking sign in button");
         captureScreenshotWithTitle("Sign In Side Panel Displayed");
 
-        // Close sign in side panel
         navbarPage.closeSignInSidePanel();
     }
 
     @Test
     @Order(36)
-    @DisplayName("Test 36: Sign In with Google Redirect")
+    @DisplayName("NB_T-036: Sign In with Google Redirect")
     @Description("verify clicking sign in with Google button redirects to Google OAuth page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sign In with Google")
     public void testSignInWithGoogleRedirect() {
-        // Click sign in button to open side panel
         navbarPage.clickSignInButton();
         assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
         
-        // Click sign in with Google button
         navbarPage.clickSignInWithGoogle();
         
-        // Assert redirects to Google OAuth page
         assertTrue(navbarPage.getCurrentUrl().contains("accounts.google.com") || 
                    navbarPage.getCurrentUrl().contains("oauth"), 
                    "Should redirect to Google OAuth page");
         captureScreenshotWithTitle("Google OAuth Redirect");
 
-        // Navigate back to original page
         navbarPage.navigateBack();
 
-        // Close sign in side panel
         navbarPage.closeSignInSidePanel();
     }
 
     @Test
     @Order(37)
-    @DisplayName("Test 37: Sign In with Invalid Credentials")
+    @DisplayName("NB_T-037: Sign In with Invalid Credentials")
     @Description("verify signing in with invalid credentials shows login form")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Sign In with Credentials")
     public void testSignInWithInvalidCredentials() {
-        // Click sign in button to open side panel
         navbarPage.clickSignInButton();
         assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
         
-        // Enter invalid credentials from test data
         navbarPage.enterUsername(TestData.getInvalidUsername());
         navbarPage.enterPassword(TestData.getInvalidPassword());
         captureScreenshotWithTitle("Invalid Credentials Entered");
 
-        // Click sign in submit button
         navbarPage.clickSignInSubmitButton();
         
-        // Assert login form is displayed (login failed)
         assertTrue(navbarPage.isLoginFormDisplayed(), "Login form should be displayed after failed login attempt");
         captureScreenshotWithTitle("Login Form Displayed After Failed Attempt");
     }
 
     @Test
     @Order(38)
-    @DisplayName("Test 38: Navigate to Forgot Password Page")
+    @DisplayName("NB_T-038: Navigate to Forgot Password Page")
     @Description("verify clicking forgot password link navigates to lost password page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Forgot Password")
     public void testNavigateToForgotPassword() {
-        // Click sign in button to open side panel
         navbarPage.clickSignInButton();
         assertTrue(navbarPage.isSignInSidePanelDisplayed(), "Sign in side panel should be displayed");
         
-        // Click forgot password link
         navbarPage.clickForgotPasswordLink();
         
-        // Assert navigates to lost password page
         assertTrue(navbarPage.getCurrentUrl().contains("/account/lost_password"), 
                    "Should navigate to lost password page");
         captureScreenshotWithTitle("Lost Password Page Displayed");

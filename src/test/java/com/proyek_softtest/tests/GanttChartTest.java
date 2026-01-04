@@ -31,7 +31,7 @@ public class GanttChartTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("1. Filter by 'Demo Project'")
+    @DisplayName("GC_T-001: Filter by 'Demo Project'")
     @Severity(SeverityLevel.CRITICAL)
     public void testFilterByDemoProject() {
         ganttChartPage.clickGanttChartsSidebar();
@@ -45,7 +45,7 @@ public class GanttChartTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("2. Filter by Baseline")
+    @DisplayName("GC_T-002: Filter by Baseline")
     @Severity(SeverityLevel.CRITICAL)
     public void testFilterByBaseline() {
         ganttChartPage.clickGanttChartsSidebar();
@@ -60,7 +60,7 @@ public class GanttChartTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("3. Advanced Filters")
+    @DisplayName("GC_T-003: Advanced Filters")
     @Severity(SeverityLevel.CRITICAL)
     public void testFilterSearchStatusAndAdd() {
         ganttChartPage.clickGanttChartsSidebar();
@@ -74,7 +74,7 @@ public class GanttChartTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("4. Toolbar Actions")
+    @DisplayName("GC_T-004: Toolbar Actions")
     @Severity(SeverityLevel.NORMAL)
     public void testToolbarZoomAndZenMode() {
         ganttChartPage.clickGanttChartsSidebar();
@@ -88,14 +88,14 @@ public class GanttChartTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("5. Configure View: Remove ID & Add Author")
+    @DisplayName("GC_T-005: Configure View: Remove ID & Add Author")
     @Severity(SeverityLevel.CRITICAL)
     public void testConfigureView() {
         ganttChartPage.clickGanttChartsSidebar();
         Delay.waitFor(1000);
 
         ganttChartPage.clickMoreActionsButton();
-        ganttChartPage.clickConfigureView(); // Should work with new locator
+        ganttChartPage.clickConfigureView();
         ganttChartPage.removeIdColumn();
         ganttChartPage.addColumn("Author");
         ganttChartPage.clickModalApply();

@@ -83,7 +83,7 @@ public class BasicSidebarTest extends BaseTest {
     
     @Test
     @Order(1)
-    @DisplayName("Test 1: Collapse dan uncollapse sidebar")
+    @DisplayName("SB_T-001: Collapse dan uncollapse sidebar")
     @Description("Verify that sidebar can be collapsed and uncollapsed")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Sidebar Functionality")
@@ -99,7 +99,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Buka dan Tutup Projects Selection di sidebar")
+    @DisplayName("SB_T-002: Buka dan Tutup Projects Selection di sidebar")
     @Description("Verify that projects selection in sidebar can be opened and closed")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Projects Selection Functionality")
@@ -115,7 +115,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Search projects di projects selection")
+    @DisplayName("SB_T-003: Search projects di projects selection")
     @Description("Verify search functionality in projects selection with valid and invalid queries")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Projects Selection Search")
@@ -158,7 +158,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Navigasi Other Projects di projects selection")
+    @DisplayName("SB_T-004: Navigasi Other Projects di projects selection")
     @Description("Verify navigation to Other Projects through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -172,7 +172,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Navigasi Demo Project di projects selection")
+    @DisplayName("SB_T-005: Navigasi Demo Project di projects selection")
     @Description("Verify navigation to Demo Project through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -186,7 +186,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Navigasi Scrum Project di projects selection")
+    @DisplayName("SB_T-006: Navigasi Scrum Project di projects selection")
     @Description("Verify navigation to Scrum Project through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -200,7 +200,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: Navigasi SAFe Solution Train 1 di projects selection")
+    @DisplayName("SB_T-007: Navigasi SAFe Solution Train 1 di projects selection")
     @Description("Verify navigation to SAFe Solution Train 1 through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -214,7 +214,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: Navigasi ART 1 Engineering di projects selection")
+    @DisplayName("SB_T-008: Navigasi ART 1 Engineering di projects selection")
     @Description("Verify navigation to ART 1 Engineering through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -228,7 +228,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: Navigasi Blue Team di projects selection")
+    @DisplayName("SB_T-009: Navigasi Blue Team di projects selection")
     @Description("Verify navigation to Blue Team through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -242,7 +242,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: Navigasi Red Team di projects selection")
+    @DisplayName("SB_T-010: Navigasi Red Team di projects selection")
     @Description("Verify navigation to Red Team through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -256,7 +256,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: Navigasi ART 2 Design di projects selection")
+    @DisplayName("SB_T-011: Navigasi ART 2 Design di projects selection")
     @Description("Verify navigation to ART 2 Design through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -270,7 +270,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(12)
-    @DisplayName("Test 12: Navigasi Project Lists di projects selection")
+    @DisplayName("SB_T-012: Navigasi Project Lists di projects selection")
     @Description("Verify navigation to Project Lists through projects selection")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Selection Navigation")
@@ -283,7 +283,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(13)
-    @DisplayName("Test 13: Navigasi Home di sidebar")
+    @DisplayName("SB_T-013: Navigasi Home di sidebar")
     @Description("Verify navigation to Home through sidebar (refresh)")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -295,7 +295,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(14)
-    @DisplayName("Test 14: Navigasi My Page di sidebar")
+    @DisplayName("SB_T-014: Navigasi My Page di sidebar")
     @Description("Verify navigation to My Page through sidebar (redirects to login if not authenticated)")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -309,7 +309,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(15)
-    @DisplayName("Test 15: Navigasi Projects di sidebar")
+    @DisplayName("SB_T-015: Navigasi Projects di sidebar")
     @Description("Verify navigation to Projects through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -323,7 +323,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(16)
-    @DisplayName("Test 16: Navigasi Work Packages di sidebar")
+    @DisplayName("SB_T-016: Navigasi Work Packages di sidebar")
     @Description("Verify navigation to Work Packages through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -337,7 +337,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(17)
-    @DisplayName("Test 17: Navigasi Gantt Charts di sidebar")
+    @DisplayName("SB_T-017: Navigasi Gantt Charts di sidebar")
     @Description("Verify navigation to Gantt Charts through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -351,7 +351,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(18)
-    @DisplayName("Test 18: Navigasi Team Planners di sidebar")
+    @DisplayName("SB_T-018: Navigasi Team Planners di sidebar")
     @Description("Verify navigation to Team Planners through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -365,7 +365,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(19)
-    @DisplayName("Test 19: Navigasi Boards di sidebar")
+    @DisplayName("SB_T-019: Navigasi Boards di sidebar")
     @Description("Verify navigation to Boards through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -379,7 +379,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(20)
-    @DisplayName("Test 20: Navigasi Meetings di sidebar")
+    @DisplayName("SB_T-020: Navigasi Meetings di sidebar")
     @Description("Verify navigation to Meetings through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -393,7 +393,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(21)
-    @DisplayName("Test 21: Navigasi News di sidebar")
+    @DisplayName("SB_T-021: Navigasi News di sidebar")
     @Description("Verify navigation to News through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -407,7 +407,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(22)
-    @DisplayName("Test 22: Navigasi Time and Costs di sidebar")
+    @DisplayName("SB_T-022: Navigasi Time and Costs di sidebar")
     @Description("Verify navigation to Time and Costs through sidebar")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation")
@@ -421,7 +421,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(23)
-    @DisplayName("Test 23: Toggle Projects Sidebar")
+    @DisplayName("SB_T-023: Toggle Projects Sidebar")
     @Description("Verify Projects sidebar can be opened and closed using toggler")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation Toggler")
@@ -439,7 +439,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(24)
-    @DisplayName("Test 24: Toggle Work Packages Sidebar")
+    @DisplayName("SB_T-024: Toggle Work Packages Sidebar")
     @Description("Verify Work Packages sidebar can be opened and closed using toggler")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation Toggler")
@@ -457,7 +457,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(25)
-    @DisplayName("Test 25: Toggle Gantt Charts Sidebar")
+    @DisplayName("SB_T-025: Toggle Gantt Charts Sidebar")
     @Description("Verify Gantt Charts sidebar can be opened and closed using toggler")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation Toggler")
@@ -475,7 +475,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(26)
-    @DisplayName("Test 26: Toggle Meetings Sidebar")
+    @DisplayName("SB_T-026: Toggle Meetings Sidebar")
     @Description("Verify Meetings sidebar can be opened and closed using toggler")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation Toggler")
@@ -493,7 +493,7 @@ public class BasicSidebarTest extends BaseTest {
 
     @Test
     @Order(27)
-    @DisplayName("Test 27: Toggle Time and Costs Sidebar")
+    @DisplayName("SB_T-027: Toggle Time and Costs Sidebar")
     @Description("Verify Time and Costs sidebar can be opened and closed using toggler")
     @Severity(SeverityLevel.NORMAL)
     @Story("Sidebar Navigation Toggler")

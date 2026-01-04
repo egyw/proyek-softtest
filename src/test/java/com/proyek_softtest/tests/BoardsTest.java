@@ -35,7 +35,7 @@ public class BoardsTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Click Home Breadcrumb Link and Navigate Back")
+    @DisplayName("BRD_T-001: Click Home Breadcrumb Link and Navigate Back")
     @Description("Verify clicking home breadcrumb link navigates to home page and can navigate back")
     @Severity(SeverityLevel.NORMAL)
     @Story("Boards Navigation")
@@ -58,7 +58,7 @@ public class BoardsTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Sort Table Columns")
+    @DisplayName("BRD_T-002: Sort Table Columns")
     @Description("Verify sorting by Name, Project, and Created on columns (ascending and descending)")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Boards Sorting")
@@ -118,7 +118,7 @@ public class BoardsTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Click Name and Project Row Links")
+    @DisplayName("BRD_T-003: Click Name and Project Row Links")
     @Description("Verify clicking first row name and project links navigate correctly")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Boards Row Links")
@@ -144,7 +144,7 @@ public class BoardsTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Change Items Per Page")
+    @DisplayName("BRD_T-004: Change Items Per Page")
     @Description("Verify changing items per page to 100, 200, and 50")
     @Severity(SeverityLevel.NORMAL)
     @Story("Boards Pagination")

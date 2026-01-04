@@ -36,7 +36,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Click Time and Cost Button in Sidebar")
+    @DisplayName("TAC_T-001: Click Time and Cost Button in Sidebar")
     @Description("Verify clicking Time and Cost button in sidebar navigates to cost reports page")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Sidebar Navigation")
@@ -58,7 +58,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("Test 2: Click OpenProject Breadcrumb Link")
+    @DisplayName("TAC_T-002: Click OpenProject Breadcrumb Link")
     @Description("Verify clicking OpenProject breadcrumb link navigates to home and back")
     @Severity(SeverityLevel.NORMAL)
     @Story("Breadcrumb Navigation")
@@ -79,7 +79,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Click Time and Cost Breadcrumb Link")
+    @DisplayName("TAC_T-003: Click Time and Cost Breadcrumb Link")
     @Description("Verify clicking Time and Cost breadcrumb link stays on cost reports page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Breadcrumb Navigation")
@@ -101,7 +101,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Toggle Filter Collapseable")
+    @DisplayName("TAC_T-004: Toggle Filter Collapseable")
     @Description("Verify clicking Filter collapseable twice (close then open) and check add filter dropdown visibility")
     @Severity(SeverityLevel.NORMAL)
     @Story("Collapseable Sections")
@@ -122,7 +122,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Toggle Group By Collapseable")
+    @DisplayName("TAC_T-005: Toggle Group By Collapseable")
     @Description("Verify clicking Group By collapseable twice (close then open) and check group by columns visibility")
     @Severity(SeverityLevel.NORMAL)
     @Story("Collapseable Sections")
@@ -143,7 +143,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Toggle Units Collapseable")
+    @DisplayName("TAC_T-006: Toggle Units Collapseable")
     @Description("Verify clicking Units collapseable twice (close then open) and check labor radio button visibility")
     @Severity(SeverityLevel.NORMAL)
     @Story("Collapseable Sections")
@@ -168,7 +168,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: Select All Available Filters")
+    @DisplayName("TAC_T-007: Select All Available Filters")
     @Description("Verify selecting all available filter options from add filter dropdown")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Filter Actions")
@@ -190,7 +190,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: Add User Filter, Set Date to Today, Select User, Remove Date, Apply")
+    @DisplayName("TAC_T-008: Add User Filter, Set Date to Today, Select User, Remove Date, Apply")
     @Description("Verify adding User filter, selecting Demo admin, removing Date filter, and applying shows no results")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Filter Actions")
@@ -230,7 +230,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: Group By Columns and Rows - Add, Drag, Remove")
+    @DisplayName("TAC_T-009: Group By Columns and Rows - Add, Drag, Remove")
     @Description("Verify adding group by columns/rows, drag to reorder, remove item, and apply")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Group By Actions")
@@ -280,7 +280,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: Units Filter - Toggle Radio Buttons and Apply")
+    @DisplayName("TAC_T-010: Units Filter - Toggle Radio Buttons and Apply")
     @Description("Verify clicking Cash Value, then Labor, then Cash Value radio buttons, and apply")
     @Severity(SeverityLevel.NORMAL)
     @Story("Units Actions")
@@ -308,7 +308,7 @@ public class TimeAndCostTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: Clear Filter Button")
+    @DisplayName("TAC_T-011: Clear Filter Button")
     @Description("Verify clicking clear button resets filters")
     @Severity(SeverityLevel.NORMAL)
     @Story("Filter Actions")

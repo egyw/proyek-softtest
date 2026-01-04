@@ -31,7 +31,7 @@ public class GanttChartsMilestonesTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("1. Filter Milestones by 'Blue team'")
+    @DisplayName("GCM_T-001: Filter Milestones by 'Blue team'")
     @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesFilterBlueTeam() {
         milestonesPage.clickGanttChartsSidebar();
@@ -46,7 +46,7 @@ public class GanttChartsMilestonesTest extends BaseTest {
 
     @Test
     @Order(2)
-    @DisplayName("2. Filter Milestones by Baseline")
+    @DisplayName("GCM_T-002: Filter Milestones by Baseline")
     @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesBaselineFilter() {
         milestonesPage.clickGanttChartsSidebar();
@@ -61,7 +61,7 @@ public class GanttChartsMilestonesTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("3. Advanced Filter: Text, Type Operator, Add Value")
+    @DisplayName("GCM_T-003: Advanced Filter: Text, Type Operator, Add Value")
     @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesAdvancedFilter() {
         milestonesPage.clickGanttChartsSidebar();
@@ -76,7 +76,7 @@ public class GanttChartsMilestonesTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("4. Toolbar Actions: Zoom & Zen Mode")
+    @DisplayName("GCM_T-004: Toolbar Actions: Zoom & Zen Mode")
     @Severity(SeverityLevel.NORMAL)
     public void testMilestonesToolbarActions() {
         milestonesPage.clickGanttChartsSidebar();
@@ -90,44 +90,34 @@ public class GanttChartsMilestonesTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("5. Configure View: Group By Author & Sums")
+    @DisplayName("GCM_T-005: Configure View: Group By Author & Sums")
     @Description("Flow: More Actions -> Group by -> Select 'Group by' -> Select 'Author' -> Check 'Display Sums' -> Apply")
     @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesGroupBy() {
-        // Navigasi ke Milestones
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
         captureScreenshotWithTitle("5_0_Milestones_Opened");
 
-        // 1. Klik More Actions
         milestonesPage.clickMoreActionsButton();
         captureScreenshotWithTitle("5_1_MoreActions_Opened");
 
-        // 2. Klik Group by
         milestonesPage.clickGroupByMenuItem();
         captureScreenshotWithTitle("5_2_GroupBy_Modal_Opened");
 
-        // 3. Pilih Radio Button Group By
         milestonesPage.selectGroupByRadioButton();
         captureScreenshotWithTitle("5_3_RadioButton_Selected");
 
-        // 4. Ganti dropdown menjadi 'Author'
         milestonesPage.selectGroupByCriteria("Author");
         captureScreenshotWithTitle("5_4_Author_Selected");
 
-        // 5. Centang Display Sums
         milestonesPage.checkDisplaySums();
         captureScreenshotWithTitle("5_5_DisplaySums_Checked");
 
-        // 6. Apply
         milestonesPage.clickModalApply();
         
-        // Validasi
         String currentUrl = driver.getCurrentUrl();
         System.out.println("URL after Group By: " + currentUrl);
         
-        // OpenProject biasanya menambahkan parameter 'group_by' di URL
-        // Contoh: group_by=author
         assertTrue(currentUrl.contains("author"), 
                    "URL should contain 'author' indicating grouping is active. Actual: " + currentUrl);
         

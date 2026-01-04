@@ -73,7 +73,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(1)
-    @DisplayName("Test 1: Safe OpenProject Link")
+    @DisplayName("HM_T-001: Safe OpenProject Link")
     @Description("Verify clicking safe OpenProject link navigates to home page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Welcome Panel Navigation")
@@ -84,10 +84,9 @@ public class HomeTest extends BaseTest {
         captureScreenshotWithTitle("Safe OpenProject Link Navigation");
     }
 
-    // Dynamic approach - tests all links regardless of count
     @Test
     @Order(2)
-    @DisplayName("Test 2: All Welcome Panel Links Are Clickable")
+    @DisplayName("HM_T-002: All Welcome Panel Links Are Clickable")
     @Description("Verify all welcome panel links open correct pages in new tabs")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Welcome Panel Navigation")
@@ -97,7 +96,7 @@ public class HomeTest extends BaseTest {
         
         for (int i = 0; i < linksCount; i++) {
             String linkText = homePage.getWelcomePanelLinkText(i);
-            int currentIndex = i; // For lambda
+            int currentIndex = i; 
             
             verifyLinkNavigationInNewTab(
                 () -> homePage.clickWelcomePanelLinkByIndex(currentIndex),
@@ -208,7 +207,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(3)
-    @DisplayName("Test 3: Change Welcome Text for Admin Link")
+    @DisplayName("HM_T-003: Change Welcome Text for Admin Link")
     @Description("Verify clicking Change Welcome Text for Admin link opens admin settings page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Welcome Panel Navigation")
@@ -223,7 +222,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(4)
-    @DisplayName("Test 4: Blue Team Project Link")
+    @DisplayName("HM_T-004: Blue Team Project Link")
     @Description("Verify clicking Blue Team link navigates to Blue Team project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Panel Navigation")
@@ -237,7 +236,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(5)
-    @DisplayName("Test 5: Red Team Project Link")
+    @DisplayName("HM_T-005: Red Team Project Link")
     @Description("Verify clicking Red Team link navigates to Red Team project page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Panel Navigation")
@@ -251,7 +250,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(6)
-    @DisplayName("Test 6: Other Projects Link")
+    @DisplayName("HM_T-006: Other Projects Link")
     @Description("Verify clicking Other Projects link navigates to Other Projects page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Panel Navigation")
@@ -265,7 +264,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(7)
-    @DisplayName("Test 7: View All Projects Button")
+    @DisplayName("HM_T-007: View All Projects Button")
     @Description("Verify clicking View All Projects button navigates to all projects page")
     @Severity(SeverityLevel.NORMAL)
     @Story("Projects Panel Navigation")
@@ -279,7 +278,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(8)
-    @DisplayName("Test 8: New Features Panel Link")
+    @DisplayName("HM_T-008: New Features Panel Link")
     @Description("Verify clicking Learn more about all new features link opens release notes page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("New Features Panel Navigation")
@@ -293,7 +292,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(9)
-    @DisplayName("Test 9: News Title 1 - Test Syntax Highlighting")
+    @DisplayName("HM_T-009: News Title 1 - Test Syntax Highlighting")
     @Description("Verify clicking 'Test syntax highlighting' news title navigates to news detail page")
     @Severity(SeverityLevel.NORMAL)
     @Story("News Panel Navigation")
@@ -306,7 +305,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(10)
-    @DisplayName("Test 10: News Title 2 - Actualités Réforme Fonction Publique")
+    @DisplayName("HM_T-010: News Title 2 - Actualités Réforme Fonction Publique")
     @Description("Verify clicking 'Actualités - Réforme de la haute fonction publique' news title navigates to news detail page")
     @Severity(SeverityLevel.NORMAL)
     @Story("News Panel Navigation")
@@ -319,7 +318,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(11)
-    @DisplayName("Test 11: News Title 3 - Welcome to Scrum Demo Project")
+    @DisplayName("HM_T-011: News Title 3 - Welcome to Scrum Demo Project")
     @Description("Verify clicking 'Welcome to your Scrum demo project' news title navigates to news detail page")
     @Severity(SeverityLevel.NORMAL)
     @Story("News Panel Navigation")
@@ -332,7 +331,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(12)
-    @DisplayName("Test 12: Demo Admin Profile Link in News Panel")
+    @DisplayName("HM_T-012: Demo Admin Profile Link in News Panel")
     @Description("Verify clicking Demo admin profile link navigates to user profile page")
     @Severity(SeverityLevel.NORMAL)
     @Story("News Panel Navigation")
@@ -345,7 +344,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(13)
-    @DisplayName("Test 13: User Guides Link")
+    @DisplayName("HM_T-013: User Guides Link")
     @Description("Verify clicking User guides link opens documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -359,7 +358,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(14)
-    @DisplayName("Test 14: Shortcuts Link")
+    @DisplayName("HM_T-014: Shortcuts Link")
     @Description("Verify clicking Shortcuts link opens keyboard shortcuts documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -373,7 +372,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(15)
-    @DisplayName("Test 15: Community Forum Link")
+    @DisplayName("HM_T-015: Community Forum Link")
     @Description("Verify clicking Community forum link opens forum in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -387,7 +386,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(16)
-    @DisplayName("Test 16: Enterprise Support Link")
+    @DisplayName("HM_T-016: Enterprise Support Link")
     @Description("Verify clicking Enterprise support link opens support documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -401,7 +400,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(17)
-    @DisplayName("Test 17: OpenProject Website Link")
+    @DisplayName("HM_T-017: OpenProject Website Link")
     @Description("Verify clicking OpenProject website link opens main website in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -415,7 +414,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(18)
-    @DisplayName("Test 18: Security Alerts Link")
+    @DisplayName("HM_T-018: Security Alerts Link")
     @Description("Verify clicking Security alerts link opens security page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -429,7 +428,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(19)
-    @DisplayName("Test 19: Newsletter Link")
+    @DisplayName("HM_T-019: Newsletter Link")
     @Description("Verify clicking Newsletter link opens newsletter subscription page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -443,7 +442,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(20)
-    @DisplayName("Test 20: OpenProject Blog Link")
+    @DisplayName("HM_T-020: OpenProject Blog Link")
     @Description("Verify clicking OpenProject blog link opens blog in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -457,7 +456,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(21)
-    @DisplayName("Test 21: Release Notes Link")
+    @DisplayName("HM_T-021: Release Notes Link")
     @Description("Verify clicking Release notes link opens release notes documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -471,7 +470,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(22)
-    @DisplayName("Test 22: Report a Bug Link")
+    @DisplayName("HM_T-022: Report a Bug Link")
     @Description("Verify clicking Report a bug link opens bug reporting documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -485,7 +484,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(23)
-    @DisplayName("Test 23: Development Roadmap Link")
+    @DisplayName("HM_T-023: Development Roadmap Link")
     @Description("Verify clicking Development roadmap link opens roadmap page in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -499,7 +498,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(24)
-    @DisplayName("Test 24: Add and Edit Translations Link")
+    @DisplayName("HM_T-024: Add and Edit Translations Link")
     @Description("Verify clicking Add and edit translations link opens translation guide in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -513,7 +512,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(25)
-    @DisplayName("Test 25: API Documentation Link")
+    @DisplayName("HM_T-025: API Documentation Link")
     @Description("Verify clicking API documentation link opens API docs in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("OpenProject Community Panel Navigation")
@@ -527,7 +526,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(26)
-    @DisplayName("Test 26: User Guides Shortcut Link")
+    @DisplayName("HM_T-026: User Guides Shortcut Link")
     @Description("Verify clicking User guides shortcut link opens documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Quick Links / Shortcuts Navigation")
@@ -541,7 +540,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(27)
-    @DisplayName("Test 27: Glossary Shortcut Link")
+    @DisplayName("HM_T-027: Glossary Shortcut Link")
     @Description("Verify clicking Glossary shortcut link opens glossary documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Quick Links / Shortcuts Navigation")
@@ -555,7 +554,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(28)
-    @DisplayName("Test 28: Shortcuts Shortcut Link")
+    @DisplayName("HM_T-028: Shortcuts Shortcut Link")
     @Description("Verify clicking Shortcuts shortcut link opens keyboard shortcuts documentation in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Quick Links / Shortcuts Navigation")
@@ -569,7 +568,7 @@ public class HomeTest extends BaseTest {
 
     @Test
     @Order(29)
-    @DisplayName("Test 29: Community Forum Shortcut Link")
+    @DisplayName("HM_T-029: Community Forum Shortcut Link")
     @Description("Verify clicking Community forum shortcut link opens forum in new tab")
     @Severity(SeverityLevel.NORMAL)
     @Story("Quick Links / Shortcuts Navigation")
