@@ -9,6 +9,8 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 @Epic("Gantt Charts Module")
 @Feature("Full Gantt Chart Features")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -47,8 +49,80 @@ public class WorkPackagesTest extends BaseTest {
     @Test
     @Order(2)
     @DisplayName("WP_T_002: Click All Projects Tab")
-    public void clickAllProjectsTab() {
+    public void verifyAllProjectsTabOpen() {
+        workPackagesPage.clickWorkPackagesSideBar();
         workPackagesPage.clickAllProjectsTab();
-        workPackagesPage.closeAllProjectsTab();
+
+        Delay.waitFor(500);
+
+        Assertions.assertTrue(workPackagesPage.isAllProjectsTabOpen(),
+                "Gagal: Tab All Projects seharusnya terbuka (aria-expanded='true'), tapi ternyata tertutup.");
+
+        workPackagesPage.clickAllProjectsTab();
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("WP_T_003: Searching all projects in All Projects Search Bar")
+    public void testSearchProject() {
+        String[] projects = {
+                "Other projects",
+                "Demo project",
+                "Scrum project",
+                "SAFe - Solution Train 1",
+                "ART-1 Engineering",
+                "Blue team",
+                "Red team",
+                "ART-2 Design"
+        };
+
+        workPackagesPage.clickWorkPackagesSideBar();
+        workPackagesPage.clickAllProjectsTab();
+
+        Assertions.assertTrue(workPackagesPage.isAllProjectsTabOpen(), "Gagal membuka tab All Projects");
+
+        for (String project : projects) {
+            System.out.println("Sedang mencari project: " + project);
+
+            boolean isFound = workPackagesPage.searchAndVerifyProject(project);
+
+            Assertions.assertTrue(isFound, "Gagal: Project '" + project + "' tidak ditemukan dalam hasil pencarian.");
+        }
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("WP_T_004: Searching non existent project in All Projects Search Bar")
+    public void testNonExistentProject() {
+        workPackagesPage.clickWorkPackagesSideBar();
+        workPackagesPage.clickAllProjectsTab();
+
+        Assertions.assertTrue(workPackagesPage.isAllProjectsTabOpen(), "Gagal membuka tab All Projects");
+
+        String randomProjectName = "abc";
+        workPackagesPage.typeSearchProject(randomProjectName);
+
+        boolean isEmpty = workPackagesPage.isProjectListEmpty();
+
+        Assertions.assertTrue(isEmpty,
+                "Error: Seharusnya tidak ada project yang muncul untuk keyword '" + randomProjectName
+                        + "', tapi ternyata ada hasil.");
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("WP_T_005: Click projects in All Projects Search Bar")
+    public void testClickProject() {
+        String[] projects = {
+                "Other projects",
+                "Demo project",
+                "Scrum project",
+                "SAFe - Solution Train 1",
+                "ART-1 Engineering",
+                "Blue team",
+                "Red team",
+                "ART-2 Design"
+        };
+
     }
 }
