@@ -29,6 +29,8 @@ public class GanttChartTest extends BaseTest {
         Delay.waitFor(2000); 
     }
 
+    // ... (Test Case 1 s.d 11 sudah ada) ...
+
     @Test
     @Order(1)
     @DisplayName("GC_T-001: Filter by 'Demo Project'")
@@ -102,5 +104,145 @@ public class GanttChartTest extends BaseTest {
         
         String currentUrl = driver.getCurrentUrl();
         assertTrue(currentUrl.contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("GC_T-006: Open Info Pane & Copy Link")
+    @Severity(SeverityLevel.NORMAL)
+    public void testOpenInfoAndCopyLink() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+        
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickDetailsPaneMoreActions();
+        ganttChartPage.clickCopyLinkToClipboard();
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("GC_T-007: Activity Tab - Filter & Sort")
+    @Severity(SeverityLevel.NORMAL)
+    public void testActivityTabFeatures() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickActivityTab();
+        ganttChartPage.filterActivityToShowChangesOnly();
+        ganttChartPage.sortActivityNewestOnTop();
+
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("GC_T-008: Files Tab & Subject Click")
+    @Severity(SeverityLevel.NORMAL)
+    public void testFilesTabAndSubjectClick() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickFilesTab();
+        ganttChartPage.clickSubjectHeader();
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("GC_T-009: Relations Tab, Child View & Zen Mode")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testRelationsTabAndChildNavigation() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickRelationsTab();
+        ganttChartPage.clickRelationItem(); 
+
+        ganttChartPage.toggleZenModeInChildView();
+        ganttChartPage.clickMoreActionsInChildView();
+        ganttChartPage.clickCopyLinkToClipboard();
+        ganttChartPage.hoverDescriptionReadOnly();
+
+        ganttChartPage.clickBackButton();
+
+        assertTrue(driver.getCurrentUrl().contains("gantt"));
+    }
+
+    @Test
+    @Order(10)
+    @DisplayName("GC_T-010: Meetings Tab (Past & Upcoming)")
+    @Severity(SeverityLevel.NORMAL)
+    public void testMeetingsTab() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickMeetingsTab();
+        ganttChartPage.clickMeetingsPastTab();
+        ganttChartPage.clickMeetingsUpcomingTab();
+
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("GC_T-011: Details View - Zen Mode & Close Button")
+    @Severity(SeverityLevel.NORMAL)
+    public void testDetailsZenModeAndClose() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        ganttChartPage.selectFirstWorkPackage();
+        ganttChartPage.openInfoPane();
+        ganttChartPage.clickDetailsFullScreen();
+        ganttChartPage.clickBackButton();
+        ganttChartPage.clickCloseDetails();
+
+        assertTrue(driver.getCurrentUrl().contains("gantt"));
+    }
+
+    // --- [BARU] Test Cases Pagination ---
+
+    @Test
+    @Order(12)
+    @DisplayName("GC_T-012: Pagination - Next & Previous")
+    @Severity(SeverityLevel.NORMAL)
+    public void testPagination() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        // Scroll ke bawah agar pagination terlihat (optional tapi recommended)
+        // 1. Klik Next
+        ganttChartPage.clickNextPage();
+
+        // 2. Klik Previous
+        ganttChartPage.clickPreviousPage();
+
+        assertTrue(driver.getCurrentUrl().contains("gantt"));
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("GC_T-013: Items Per Page - 100 & 200")
+    @Severity(SeverityLevel.NORMAL)
+    public void testItemsPerPage() {
+        ganttChartPage.clickGanttChartsSidebar();
+        Delay.waitFor(1000);
+
+        // 1. Klik '100'
+        ganttChartPage.clickPerPage100();
+
+        // 2. Klik '200'
+        ganttChartPage.clickPerPage200();
+
+        assertTrue(driver.getCurrentUrl().contains("gantt"));
     }
 }
