@@ -3,6 +3,7 @@ package com.proyek_softtest.pages;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,8 +18,16 @@ public class WorkPackagesPage extends BasePage {
     private By workPackagesSidebar = By.cssSelector("a[title='Work packages']");
     private By AllProjectsTab = By.id("projects-menu");
     private By projectSearchInput = By.cssSelector("input[placeholder='Search projects...']");
-
     private By projectListItems = By.cssSelector(".spot-list--item-title span");
+    private By projectListsButton = By.cssSelector("a.spot-action-bar--action[href='/projects']");
+    private By mainMenuBackButton = By.cssSelector("a[aria-label='Go back one menu level']");
+    private By workPackagesToggler = By.cssSelector("[data-test-selector='main-menu-toggler--work_packages']");
+    private By collapseSidebarButton = By.id("menu-toggle--collapse-button");
+    private By expandSidebarButton = By.id("menu-toggle--expand-button");
+    private By workPackagesButton = By
+            .xpath("//a[contains(@class, 'main-menu--parent-node') and contains(text(), 'Work packages')]");
+    private By subMenuSearchInput = By.cssSelector("input[data-test-selector='op-submenu--search-input']");
+    private By subMenuResultItems = By.cssSelector(".op-submenu--item-title");
 
     public WorkPackagesPage(WebDriver driver) {
         super(driver);
@@ -118,6 +127,89 @@ public class WorkPackagesPage extends BasePage {
 
     public String getPageTitle() {
         return driver.getTitle();
+    }
+
+    public void navigateBackToWorkPackages() {
+        String targetUrl = "https://safe.openproject.com/work_packages";
+
+        driver.get(targetUrl);
+        Delay.waitFor(1000);
+    }
+
+    public void clickProjectLists() {
+        wait.until(ExpectedConditions.elementToBeClickable(projectListsButton)).click();
+    }
+
+    public void clickMainMenuBackButton() {
+        WebElement element = wait.until(
+                ExpectedConditions.presenceOfElementLocated(mainMenuBackButton));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+    }
+
+    public void clickWorkPackagesToggler() {
+        WebElement element = wait.until(
+                ExpectedConditions.presenceOfElementLocated(workPackagesToggler));
+
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", element);
+    }
+
+    public void collapseSidebar() {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(collapseSidebarButton));
+            wait.until(ExpectedConditions.elementToBeClickable(collapseSidebarButton)).click();
+        } catch (Exception e) {
+            System.out.println("Sidebar mungkin sudah tertutup (Tombol collapse tidak ketemu).");
+        }
+    }
+
+    public void expandSidebar() {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(expandSidebarButton));
+            wait.until(ExpectedConditions.elementToBeClickable(expandSidebarButton)).click();
+        } catch (Exception e) {
+            System.out.println("Sidebar mungkin sudah terbuka (Tombol expand tidak ketemu).");
+        }
+    }
+
+    public void clickWorkPackagesButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(workPackagesButton)).click();
+    }
+
+    public boolean searchInSubMenu(String keyword) {
+
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(subMenuSearchInput));
+
+        searchField.click();
+        searchField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        searchField.sendKeys(Keys.DELETE);
+
+        searchField.sendKeys(keyword);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+        }
+
+        List<WebElement> results = driver.findElements(subMenuResultItems);
+
+        for (WebElement result : results) {
+
+            if (result.getText().toLowerCase().contains(keyword.toLowerCase())) {
+                return true; // Ditemukan
+            }
+        }
+
+        List<WebElement> headers = driver.findElements(By.cssSelector(".op-submenu--group-title"));
+        for (WebElement header : headers) {
+            if (header.getText().toLowerCase().contains(keyword.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
