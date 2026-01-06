@@ -31,11 +31,6 @@ public class WorkPackagesPage extends BasePage {
     private By subMenuResultItems = By.cssSelector(".op-submenu--item-title");
     private By toolbarContainer = By.cssSelector("ul.toolbar-items");
     private By toolbarButtons = By.cssSelector("ul.toolbar-items button");
-    private By includeProjectsButton = By.cssSelector("[data-test-selector='project-include-button']");
-    private By modalContent = By.cssSelector(".op-project-list-modal");
-    private By projectItemTitles = By.cssSelector(".spot-list--item-title");
-    private By applyButton = By.cssSelector("button.spot-action-bar--action.-primary");
-    private By clearSelectionButton = By.cssSelector("button.spot-action-bar--action:not(.-primary)");
 
     public WorkPackagesPage(WebDriver driver) {
         super(driver);
