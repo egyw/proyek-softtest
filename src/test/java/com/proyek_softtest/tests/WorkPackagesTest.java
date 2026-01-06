@@ -362,11 +362,4 @@ public class WorkPackagesTest extends BaseTest {
         System.out.println("Selesai mengecek semua tombol toolbar.");
     }
 
-    @Test
-    @Order(15)
-    @DisplayName("WP_T_015:Test Include Projects Filter (Select -> Apply -> Clear)")
-    @Severity(SeverityLevel.CRITICAL)
-    public void testIncludeProjectsButtonFunctionality() {
-
-    }
 }
