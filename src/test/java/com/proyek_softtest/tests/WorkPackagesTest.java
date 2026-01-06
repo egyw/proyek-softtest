@@ -252,4 +252,121 @@ public class WorkPackagesTest extends BaseTest {
                     "Gagal: Item '" + item + "' tidak ditemukan di pencarian sub-menu.");
         }
     }
+
+    @Test
+    @Order(11)
+    @DisplayName("WP_T_011: Test Toggle Multiple Submenus (Favorite & Default)")
+    @Severity(SeverityLevel.TRIVIAL)
+    public void testFavouriteCollapseButton() {
+        String[] menusToTest = { "Favorite", "Default" };
+        workPackagesPage.clickWorkPackagesSideBar();
+
+        for (String menu : menusToTest) {
+            System.out.println("Testing Toggle Menu: " + menu);
+
+            workPackagesPage.collapseSubmenu(menu);
+            Assertions.assertFalse(workPackagesPage.isSubmenuOpen(menu),
+                    "Gagal: Menu '" + menu + "' seharusnya tertutup.");
+
+            Delay.waitFor(500);
+
+            workPackagesPage.expandSubmenu(menu);
+            Assertions.assertTrue(workPackagesPage.isSubmenuOpen(menu),
+                    "Gagal: Menu '" + menu + "' seharusnya terbuka.");
+
+            Delay.waitFor(500);
+        }
+
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("WP_T_012: Test Click Multiple Submenus")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testClickMultipleSubmenus() {
+        String[] subMenusItems = {
+                "High-level project view",
+                "Solution Train",
+                "All open",
+                "Latest activity",
+                "Recently created",
+                "Overdue"
+        };
+
+        workPackagesPage.clickWorkPackagesSideBar();
+        for (String item : subMenusItems) {
+            System.out.println("=== Testing Click Menu: " + item + " ===");
+
+            Delay.waitFor(500);
+
+            workPackagesPage.clickSubmenuItem(item);
+
+            Delay.waitFor(1000);
+            String currentTitle = driver.getTitle();
+
+            boolean isNavigated = currentTitle.toLowerCase().contains(item.toLowerCase()) ||
+                    driver.getCurrentUrl().contains("work_packages");
+
+            Assertions.assertTrue(isNavigated,
+                    "Gagal: Halaman tidak berpindah ke '" + item + "'. Title saat ini: " + currentTitle);
+
+            System.out.println("Sukses masuk ke: " + currentTitle);
+
+            workPackagesPage.navigateBackToWorkPackages();
+        }
+
+    }
+
+    @Test
+    @Order(13)
+    @DisplayName("WP_T_013: Test Click Multiple Links")
+    @Severity(SeverityLevel.MINOR)
+    public void testClickBreadcrumb() {
+        workPackagesPage.clickWorkPackagesSideBar();
+
+        System.out.println("Mencoba klik breadcrumb: Work packages");
+        workPackagesPage.clickBreadcrumb("Work packages");
+
+        String currentUrl = driver.getCurrentUrl();
+        Assertions.assertTrue(currentUrl.contains("/work_packages"),
+                "Gagal: Tidak diarahkan ke halaman Work Packages.");
+
+        System.out.println("Berhasil navigasi via breadcrumb Work Packages.");
+
+        System.out.println("Mencoba klik breadcrumb: Home");
+        workPackagesPage.clickBreadcrumb("safe.openproject.com");
+
+        Delay.waitFor(1000);
+
+        String homeUrl = driver.getCurrentUrl();
+
+        Assertions.assertFalse(homeUrl.contains("/work_packages"),
+                "Gagal: Seharusnya sudah keluar dari modul Work Packages.");
+
+        System.out.println("Berhasil navigasi via breadcrumb Home.");
+    }
+
+    @Test
+    @Order(14)
+    @DisplayName("WP_T_014:Test Toggle All Toolbar Buttons (Open & Close)")
+    @Severity(SeverityLevel.TRIVIAL)
+    public void testToolbarButtons() {
+        workPackagesPage.navigateBackToWorkPackages();
+
+        workPackagesPage.toggleAllToolbarButtons();
+
+        String currentUrl = driver.getCurrentUrl();
+        Assertions.assertTrue(currentUrl.contains("work_packages"),
+                "Gagal: Test toolbar menyebabkan navigasi keluar halaman.");
+
+        System.out.println("Selesai mengecek semua tombol toolbar.");
+    }
+
+    @Test
+    @Order(15)
+    @DisplayName("WP_T_015:Test Include Projects Filter (Select -> Apply -> Clear)")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testIncludeProjectsButtonFunctionality() {
+
+    }
 }

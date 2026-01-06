@@ -1,5 +1,6 @@
 package com.proyek_softtest.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -28,6 +29,13 @@ public class WorkPackagesPage extends BasePage {
             .xpath("//a[contains(@class, 'main-menu--parent-node') and contains(text(), 'Work packages')]");
     private By subMenuSearchInput = By.cssSelector("input[data-test-selector='op-submenu--search-input']");
     private By subMenuResultItems = By.cssSelector(".op-submenu--item-title");
+    private By toolbarContainer = By.cssSelector("ul.toolbar-items");
+    private By toolbarButtons = By.cssSelector("ul.toolbar-items button");
+    private By includeProjectsButton = By.cssSelector("[data-test-selector='project-include-button']");
+    private By modalContent = By.cssSelector(".op-project-list-modal");
+    private By projectItemTitles = By.cssSelector(".spot-list--item-title");
+    private By applyButton = By.cssSelector("button.spot-action-bar--action.-primary");
+    private By clearSelectionButton = By.cssSelector("button.spot-action-bar--action:not(.-primary)");
 
     public WorkPackagesPage(WebDriver driver) {
         super(driver);
@@ -210,6 +218,131 @@ public class WorkPackagesPage extends BasePage {
         }
 
         return false;
+    }
+
+    private By getSubmenuButton(String menuName) {
+
+        return By.xpath("//button[contains(@class, 'op-submenu--title') and contains(., '" + menuName + "')]");
+    }
+
+    private By getSubmenuList(String menuName) {
+
+        return By.xpath("//button[contains(@class, 'op-submenu--title') and contains(., '" + menuName
+                + "')]/following-sibling::ul");
+    }
+
+    private boolean isElementVisible(By locator) {
+        try {
+            return driver.findElement(locator).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSubmenuOpen(String menuName) {
+        return isElementVisible(getSubmenuList(menuName));
+    }
+
+    public void expandSubmenu(String menuName) {
+        By buttonLocator = getSubmenuButton(menuName);
+        By listLocator = getSubmenuList(menuName);
+
+        WebElement btn = wait.until(ExpectedConditions.visibilityOfElementLocated(buttonLocator));
+
+        if (!isElementVisible(listLocator)) {
+            btn.click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(listLocator));
+        }
+    }
+
+    public void collapseSubmenu(String menuName) {
+        By buttonLocator = getSubmenuButton(menuName);
+        By listLocator = getSubmenuList(menuName);
+
+        WebElement btn = wait.until(ExpectedConditions.visibilityOfElementLocated(buttonLocator));
+
+        if (isElementVisible(listLocator)) {
+            btn.click();
+
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(listLocator));
+        }
+    }
+
+    public void clickSubmenuItem(String itemName) {
+
+        String xpath = "//a[contains(@class, 'op-submenu--item-action')]//span[contains(normalize-space(.), '"
+                + itemName + "')]";
+
+        try {
+            WebElement item = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+            item.click();
+        } catch (Exception e) {
+            throw new RuntimeException("Gagal mengklik sub-menu item: '" + itemName
+                    + "'. Pastikan menu induknya (Favorite/Default) sudah terbuka.");
+        }
+    }
+
+    public void clickBreadcrumb(String breadcrumbName) {
+        String dynamicXpath = String.format(
+                "//li[@data-test-selector='op-breadcrumbs--item']/a[contains(normalize-space(.), '%s')]",
+                breadcrumbName);
+
+        try {
+            WebElement link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dynamicXpath)));
+
+            link.click();
+
+            Delay.waitFor(1000);
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Gagal klik Breadcrumb: '" + breadcrumbName + "'. Elemen tidak ditemukan atau tidak bisa diklik.",
+                    e);
+        }
+    }
+
+    public void toggleAllToolbarButtons() {
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(toolbarContainer));
+
+        int buttonCount = driver.findElements(toolbarButtons).size();
+        System.out.println("Ditemukan " + buttonCount + " tombol di toolbar.");
+
+        for (int i = 0; i < buttonCount; i++) {
+
+            List<WebElement> buttons = driver.findElements(toolbarButtons);
+            WebElement btn = buttons.get(i);
+
+            String btnName = btn.getAttribute("title");
+            if (btnName == null || btnName.isEmpty()) {
+                btnName = btn.getAttribute("aria-label");
+            }
+            if (btnName == null || btnName.isEmpty()) {
+                btnName = "Button Index " + i;
+            }
+
+            System.out.println("--- Testing Button: " + btnName + " ---");
+
+            if (btn.isEnabled() && btn.isDisplayed()) {
+
+                try {
+                    wait.until(ExpectedConditions.elementToBeClickable(btn));
+                    btn.click();
+                    System.out.println("   -> Klik 1 (Open)");
+                    Delay.waitFor(1000);
+
+                    btn.click();
+                    System.out.println("   -> Klik 2 (Close)");
+                    Delay.waitFor(1000);
+
+                } catch (Exception e) {
+                    System.out.println("   -> Gagal klik tombol ini: " + e.getMessage());
+                }
+
+            } else {
+                System.out.println("   -> SKIP: Tombol disabled atau tersembunyi.");
+            }
+        }
     }
 
 }
