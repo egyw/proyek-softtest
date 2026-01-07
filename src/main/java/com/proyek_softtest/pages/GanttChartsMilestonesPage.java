@@ -1,7 +1,7 @@
 package com.proyek_softtest.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys; // Import ini yang tadi kurang
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -56,15 +56,52 @@ public class GanttChartsMilestonesPage extends BasePage {
     private By groupBySelectElement = By.id("selected_grouping");
     private By displaySumsLabel = By.xpath("//label[contains(., 'Display Sums')]");
 
+    // --- Info Pane & Details Toolbar ---
+    private By firstTableItem = By.cssSelector(".wp-table--row:first-of-type");
+    private By infoButton = By.id("work-packages-details-view-button");
+    private By detailsPaneContainer = By.cssSelector(".work-packages--details-content");
+    private By detailsMoreActionsButton = By.cssSelector(".work-packages--details-toolbar-container button[title='More']");
+    private By copyLinkToClipboardItem = By.xpath("//span[contains(text(), 'Copy link to clipboard')]");
+    private By successToast = By.cssSelector(".op-toast--content");
+
+    // --- Activity Tab ---
+    private By activityTab = By.cssSelector("li[data-qa-tab-id='activity']");
+    private By activityTabLink = By.cssSelector("li[data-qa-tab-id='activity'] a");
+    private By activityFilterDropdown = By.cssSelector("[data-test-selector='op-wp-journals-filter-menu']");
+    private By showCommentsOnlyOption = By.xpath("//span[contains(text(), 'Show comments only')]");
+    private By activitySortDropdown = By.cssSelector("[data-test-selector='op-wp-journals-sorting-menu']");
+    private By newestOnTopOption = By.xpath("//span[contains(text(), 'Newest on top')]");
+
+    // --- Files, Relations, Meetings Tabs ---
+    private By filesTab = By.cssSelector("li[data-qa-tab-id='files']");
+    private By filesTabLink = By.cssSelector("li[data-qa-tab-id='files'] a");
+    private By relationsTab = By.cssSelector("li[data-qa-tab-id='relations']");
+    private By relationsTabLink = By.cssSelector("li[data-qa-tab-id='relations'] a");
+    private By meetingsTab = By.cssSelector("li[data-qa-tab-id='meetings']");
+    private By meetingsTabLink = By.cssSelector("li[data-qa-tab-id='meetings'] a");
+    private By meetingsPastTab = By.xpath("//a[contains(@class, 'tabnav-tab') and contains(., 'Past')]");
+    private By meetingsUpcomingTab = By.xpath("//a[contains(@class, 'tabnav-tab') and contains(., 'Upcoming')]");
+
+    // --- [UPDATED] Details View Actions (Zen Mode, Back, Close) ---
+    
+    // Zen Mode / Full Screen di Panel Detail (Sesuai Screenshot 1)
+    private By detailsFullScreenButton = By.cssSelector("button.spot-link.work-packages--details-fullscreen-icon");
+    
+    // Tombol Close (X) di Panel Detail (Sesuai Screenshot 2)
+    private By detailsCloseButton = By.cssSelector("button.spot-link.work-packages--details-close-icon");
+    
+    // Tombol Back di Single View (Sesuai Screenshot 3)
+    private By backButton = By.cssSelector("button.op-back-button");
+
 
     public GanttChartsMilestonesPage(WebDriver driver) {
         super(driver);
     }
 
     // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: NAVIGATION                      ║
+    // ║               METHODS                                  ║
     // ╚════════════════════════════════════════════════════════╝
-
+    
     public GanttChartsMilestonesPage clickGanttChartsSidebar() {
         wait.until(ExpectedConditions.elementToBeClickable(ganttChartsSidebarLink)).click();
         wait.until(ExpectedConditions.urlContains("gantt"));
@@ -79,10 +116,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         return this;
     }
 
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: INCLUDE PROJECTS                ║
-    // ╚════════════════════════════════════════════════════════╝
-
+    // --- Filter Methods ---
     public GanttChartsMilestonesPage clickIncludeProjectsButton() {
         wait.until(ExpectedConditions.elementToBeClickable(includeProjectsButton)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(projectListContainer));
@@ -113,10 +147,6 @@ public class GanttChartsMilestonesPage extends BasePage {
         Delay.waitFor(2000); 
         return this;
     }
-
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: BASELINE                        ║
-    // ╚════════════════════════════════════════════════════════╝
 
     public GanttChartsMilestonesPage clickBaselineButton() {
         wait.until(ExpectedConditions.elementToBeClickable(baselineToolbarButton)).click();
@@ -150,10 +180,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         return this;
     }
 
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: ADVANCED FILTER                 ║
-    // ╚════════════════════════════════════════════════════════╝
-
+    // --- Advanced Filter ---
     public GanttChartsMilestonesPage clickFilterToolbarButton() {
         wait.until(ExpectedConditions.elementToBeClickable(filterToolbarButton)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(filterByTextInput));
@@ -166,7 +193,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         WebElement input = wait.until(ExpectedConditions.elementToBeClickable(filterByTextInput));
         input.clear();
         input.sendKeys(text);
-        input.sendKeys(Keys.ENTER); // Memerlukan import org.openqa.selenium.Keys
+        input.sendKeys(Keys.ENTER); 
         System.out.println("Entered Filter Text: " + text);
         Delay.waitFor(1000); 
         return this;
@@ -195,10 +222,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         return this;
     }
 
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: TOOLBAR BUTTONS                 ║
-    // ╚════════════════════════════════════════════════════════╝
-
+    // --- Toolbar ---
     public GanttChartsMilestonesPage clickZoomIn() {
         wait.until(ExpectedConditions.elementToBeClickable(zoomInButton)).click();
         System.out.println("Clicked Zoom In");
@@ -220,10 +244,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         return this;
     }
 
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: CONFIGURE VIEW                  ║
-    // ╚════════════════════════════════════════════════════════╝
-
+    // --- Configure View ---
     public GanttChartsMilestonesPage clickMoreActionsButton() {
         WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(moreActionsButton));
         btn.click();
@@ -273,10 +294,7 @@ public class GanttChartsMilestonesPage extends BasePage {
         return this;
     }
 
-    // ╔════════════════════════════════════════════════════════╗
-    // ║               ACTIONS: GROUP BY CONFIG                 ║
-    // ╚════════════════════════════════════════════════════════╝
-
+    // --- Group By ---
     public GanttChartsMilestonesPage clickGroupByMenuItem() {
         wait.until(ExpectedConditions.elementToBeClickable(groupByMenuItem)).click();
         System.out.println("Clicked 'Group by' Menu Item");
@@ -307,6 +325,151 @@ public class GanttChartsMilestonesPage extends BasePage {
         label.click();
         System.out.println("Checked 'Display Sums'");
         Delay.waitFor(500);
+        return this;
+    }
+
+    // --- Info Pane & Details ---
+    public GanttChartsMilestonesPage selectFirstMilestoneItem() {
+        wait.until(ExpectedConditions.elementToBeClickable(firstTableItem)).click();
+        System.out.println("Selected First Milestone Item");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickInfoButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(infoButton)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(detailsPaneContainer));
+        System.out.println("Clicked Info (i) Button");
+        Delay.waitFor(1000); 
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickDetailsPaneMoreActions() {
+        wait.until(ExpectedConditions.elementToBeClickable(detailsMoreActionsButton)).click();
+        System.out.println("Clicked 'More Actions' in Details Pane");
+        Delay.waitFor(500); 
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickCopyLinkToClipboard() {
+        wait.until(ExpectedConditions.elementToBeClickable(copyLinkToClipboardItem)).click();
+        System.out.println("Clicked 'Copy link to clipboard'");
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(successToast));
+            System.out.println("Success toast appeared!");
+        } catch (Exception e) {}
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    // --- Activity Tab ---
+    public GanttChartsMilestonesPage clickActivityTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(activityTab));
+        wait.until(ExpectedConditions.elementToBeClickable(activityTabLink)).click();
+        System.out.println("Clicked Activity Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage filterActivityCommentsOnly() {
+        WebElement filterBtn = wait.until(ExpectedConditions.elementToBeClickable(activityFilterDropdown));
+        filterBtn.click();
+        System.out.println("Clicked Activity Filter Dropdown");
+        Delay.waitFor(500);
+        wait.until(ExpectedConditions.elementToBeClickable(showCommentsOnlyOption)).click();
+        System.out.println("Selected 'Show comments only'");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage sortActivityNewestOnTop() {
+        WebElement sortBtn = wait.until(ExpectedConditions.elementToBeClickable(activitySortDropdown));
+        sortBtn.click();
+        System.out.println("Clicked Activity Sort Dropdown");
+        Delay.waitFor(500);
+        wait.until(ExpectedConditions.elementToBeClickable(newestOnTopOption)).click();
+        System.out.println("Selected 'Newest on top'");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    // --- Files, Relations, Meetings Tabs ---
+    public GanttChartsMilestonesPage clickFilesTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(filesTab));
+        wait.until(ExpectedConditions.elementToBeClickable(filesTabLink)).click();
+        System.out.println("Clicked Files Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickRelationsTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(relationsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(relationsTabLink)).click();
+        System.out.println("Clicked Relations Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickMeetingsTab() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(meetingsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsTabLink)).click();
+        System.out.println("Clicked Meetings Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickMeetingsPastTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsPastTab)).click();
+        System.out.println("Clicked Meetings 'Past' Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    public GanttChartsMilestonesPage clickMeetingsUpcomingTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(meetingsUpcomingTab)).click();
+        System.out.println("Clicked Meetings 'Upcoming' Tab");
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    // ╔════════════════════════════════════════════════════════╗
+    // ║          [UPDATED] ZEN MODE, BACK, CLOSE               ║
+    // ╚════════════════════════════════════════════════════════╝
+
+    /**
+     * Klik tombol Full Screen/Zen Mode di Panel Detail (Navigasi ke Single View)
+     */
+    public GanttChartsMilestonesPage clickDetailsFullScreen() {
+        WebElement fsBtn = wait.until(ExpectedConditions.elementToBeClickable(detailsFullScreenButton));
+        fsBtn.click();
+        System.out.println("Clicked Details Full Screen (Navigated to Single View)");
+        Delay.waitFor(1500); // Tunggu navigasi halaman
+        return this;
+    }
+
+    /**
+     * Klik tombol Back di halaman Single View
+     */
+    public GanttChartsMilestonesPage clickBackButton() {
+        WebElement backBtn = wait.until(ExpectedConditions.elementToBeClickable(backButton));
+        backBtn.click();
+        System.out.println("Clicked Back Button (Return to Gantt)");
+        // Tunggu sampai halaman Gantt (tombol Include Projects) muncul kembali
+        wait.until(ExpectedConditions.visibilityOfElementLocated(includeProjectsButton));
+        Delay.waitFor(1000);
+        return this;
+    }
+
+    /**
+     * Klik tombol Close (X) di Panel Detail
+     */
+    public GanttChartsMilestonesPage clickCloseDetails() {
+        wait.until(ExpectedConditions.elementToBeClickable(detailsCloseButton)).click();
+        System.out.println("Clicked Close Details View (X)");
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(detailsPaneContainer));
+        } catch (Exception e) {}
+        Delay.waitFor(1000);
         return this;
     }
 }

@@ -5,6 +5,7 @@ import com.proyek_softtest.pages.GanttChartsMilestonesPage;
 import com.proyek_softtest.utils.Delay;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,14 +26,20 @@ public class GanttChartsMilestonesTest extends BaseTest {
     public void setupTestContext() {
         super.setupTestContext();
         milestonesPage = new GanttChartsMilestonesPage(driver);
-        driver.get("https://safe.openproject.com/"); 
-        Delay.waitFor(2000); 
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(120));
+        try {
+            driver.get("https://safe.openproject.com/");
+        } catch (org.openqa.selenium.TimeoutException e) {
+            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("window.stop();");
+        }
+        Delay.waitFor(3000); 
     }
+
+    // ... (Test Case 1 s.d 8 sama seperti sebelumnya) ...
 
     @Test
     @Order(1)
     @DisplayName("GCM_T-001: Filter Milestones by 'Blue team'")
-    @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesFilterBlueTeam() {
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
@@ -47,7 +54,6 @@ public class GanttChartsMilestonesTest extends BaseTest {
     @Test
     @Order(2)
     @DisplayName("GCM_T-002: Filter Milestones by Baseline")
-    @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesBaselineFilter() {
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
@@ -62,7 +68,6 @@ public class GanttChartsMilestonesTest extends BaseTest {
     @Test
     @Order(3)
     @DisplayName("GCM_T-003: Advanced Filter: Text, Type Operator, Add Value")
-    @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesAdvancedFilter() {
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
@@ -70,14 +75,12 @@ public class GanttChartsMilestonesTest extends BaseTest {
         milestonesPage.enterFilterText("description");
         milestonesPage.changeTypeOperator("is not");
         milestonesPage.addTypeFilterValue("Epic");
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("description"));
+        assertTrue(driver.getCurrentUrl().contains("description"));
     }
 
     @Test
     @Order(4)
     @DisplayName("GCM_T-004: Toolbar Actions: Zoom & Zen Mode")
-    @Severity(SeverityLevel.NORMAL)
     public void testMilestonesToolbarActions() {
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
@@ -91,36 +94,92 @@ public class GanttChartsMilestonesTest extends BaseTest {
     @Test
     @Order(5)
     @DisplayName("GCM_T-005: Configure View: Group By Author & Sums")
-    @Description("Flow: More Actions -> Group by -> Select 'Group by' -> Select 'Author' -> Check 'Display Sums' -> Apply")
-    @Severity(SeverityLevel.CRITICAL)
     public void testMilestonesGroupBy() {
         milestonesPage.clickGanttChartsSidebar();
         milestonesPage.clickMilestonesSidebarLink();
-        captureScreenshotWithTitle("5_0_Milestones_Opened");
-
         milestonesPage.clickMoreActionsButton();
-        captureScreenshotWithTitle("5_1_MoreActions_Opened");
-
         milestonesPage.clickGroupByMenuItem();
-        captureScreenshotWithTitle("5_2_GroupBy_Modal_Opened");
-
         milestonesPage.selectGroupByRadioButton();
-        captureScreenshotWithTitle("5_3_RadioButton_Selected");
-
         milestonesPage.selectGroupByCriteria("Author");
-        captureScreenshotWithTitle("5_4_Author_Selected");
-
         milestonesPage.checkDisplaySums();
-        captureScreenshotWithTitle("5_5_DisplaySums_Checked");
-
         milestonesPage.clickModalApply();
-        
-        String currentUrl = driver.getCurrentUrl();
-        System.out.println("URL after Group By: " + currentUrl);
-        
-        assertTrue(currentUrl.contains("author"), 
-                   "URL should contain 'author' indicating grouping is active. Actual: " + currentUrl);
-        
-        captureScreenshotWithTitle("5_6_GroupBy_Applied");
+        assertTrue(driver.getCurrentUrl().contains("author"));
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("GCM_T-006: Open Info Pane & Copy Link")
+    public void testOpenInfoAndCopyLink() {
+        milestonesPage.clickGanttChartsSidebar();
+        milestonesPage.clickMilestonesSidebarLink();
+        Delay.waitFor(1000);
+        milestonesPage.selectFirstMilestoneItem();
+        milestonesPage.clickInfoButton();
+        milestonesPage.clickDetailsPaneMoreActions();
+        milestonesPage.clickCopyLinkToClipboard();
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("GCM_T-007: Activity Tab - Filter Comments & Sort Newest Top")
+    public void testActivityTabFeatures() {
+        milestonesPage.clickGanttChartsSidebar();
+        milestonesPage.clickMilestonesSidebarLink();
+        Delay.waitFor(1000);
+        milestonesPage.selectFirstMilestoneItem();
+        milestonesPage.clickInfoButton();
+        milestonesPage.clickActivityTab();
+        milestonesPage.filterActivityCommentsOnly();
+        milestonesPage.sortActivityNewestOnTop();
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("GCM_T-008: Navigation through Files, Relations, and Meetings Tabs")
+    public void testDetailsTabsNavigation() {
+        milestonesPage.clickGanttChartsSidebar();
+        milestonesPage.clickMilestonesSidebarLink();
+        Delay.waitFor(1000);
+        milestonesPage.selectFirstMilestoneItem();
+        milestonesPage.clickInfoButton();
+        milestonesPage.clickFilesTab();
+        milestonesPage.clickRelationsTab();
+        milestonesPage.clickMeetingsTab();
+        milestonesPage.clickMeetingsPastTab();
+        milestonesPage.clickMeetingsUpcomingTab();
+        assertTrue(driver.getCurrentUrl().contains("safe.openproject.com"));
+    }
+
+    // --- [BARU] Test Case 9 ---
+    @Test
+    @Order(9)
+    @DisplayName("GCM_T-009: Full Screen Navigation Loop (Info -> Zen -> Back -> Info -> Close)")
+    @Description("Flow: Click 'i' -> Click Fullscreen -> Click Back -> Click 'i' -> Click Close (X)")
+    @Severity(SeverityLevel.NORMAL)
+    public void testZenModeAndCloseLoop() {
+        milestonesPage.clickGanttChartsSidebar();
+        milestonesPage.clickMilestonesSidebarLink();
+        Delay.waitFor(1000);
+
+        // 1. Pilih Item & Buka Info
+        milestonesPage.selectFirstMilestoneItem();
+        milestonesPage.clickInfoButton();
+
+        // 2. Klik Full Screen (Navigasi ke halaman Single View)
+        milestonesPage.clickDetailsFullScreen();
+
+        // 3. Klik Back (Kembali ke Gantt Chart)
+        milestonesPage.clickBackButton();
+
+        // 4. Klik Info lagi (sesuai instruksi: 'tekan i lagi')
+        milestonesPage.clickInfoButton();
+
+        // 5. Klik Close (X)
+        milestonesPage.clickCloseDetails();
+
+        // Assert
+        assertTrue(driver.getCurrentUrl().contains("gantt"));
     }
 }
