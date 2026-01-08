@@ -18,7 +18,8 @@ public class RecurringMeetingsPage extends BasePage {
     private By pastTab = By.cssSelector("a[title='Past meetings']");
 
     // agenda opened box
-    private By columnDateAndTimeLink = By.xpath("//a[normalize-space()='01/03/2026 10:00 AM']");
+    // Uses href pattern to match meeting links dynamically (not hardcoded date)
+    private By columnDateAndTimeLink = By.cssSelector("a[href*='/meetings/'][href*='/projects/']");
     
     // Row-level more menu button (different from header more menu)
     private By rowMoreMenuButton = By.cssSelector("button[data-test-selector='more-button']");
