@@ -729,8 +729,9 @@ public class ProjectsTest extends BaseTest {
     public void test28_SearchProjectNotFound() {
         String searchKeyword = TestData.getProjectsNoResultsSearch();
         
-        Delay.waitDefault();
+        Delay.waitFor(2000);
 
+        projectsPage.typeInSearchbar(searchKeyword);
         projectsPage.typeInSearchbar(searchKeyword);
         
         assertTrue(projectsPage.isNoResultsDisplayed(), 
