@@ -3,6 +3,8 @@ package com.proyek_softtest.tests;
 import com.proyek_softtest.base.BaseTest;
 import com.proyek_softtest.config.TestData;
 import com.proyek_softtest.pages.NavbarPage;
+import com.proyek_softtest.utils.Delay;
+
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 
@@ -305,7 +307,10 @@ public class NavbarTest extends BaseTest {
         captureScreenshotWithTitle("Search Results Page with Query '" + categorySearch + "'");
 
         navbarPage.navigateBack();
-        navbarPage.clickSearchBar();
+        Delay.waitFor(1000);
+        
+        navbarPage.typeInSearchBar(categorySearch);
+        Delay.waitDefault();
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed after navigate back");
         
         navbarPage.clickSearchResultByProject(expectedProject);
@@ -323,7 +328,10 @@ public class NavbarTest extends BaseTest {
         String titleSearch = TestData.getNavbarTitleSearch();
         String expectedSubject = TestData.getNavbarTitleSubject();
         
+        Delay.waitFor(1000);
+
         navbarPage.typeInSearchBar(titleSearch);
+        Delay.waitFor(1000);
         assertTrue(navbarPage.isSearchDropdownDisplayed(), "Search dropdown should be displayed");
         captureScreenshotWithTitle("Search Dropdown with Query '" + titleSearch + "'");
 
